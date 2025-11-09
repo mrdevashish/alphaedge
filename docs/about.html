@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About — Infinity Invest</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+<div class="navbar"><?php include '_navbar.html'; ?></div>
+
+<section class="section">
+  <div class="container">
+    <h1 class="h2">About Brajesh Maniyar & Infinity Invest</h1>
+    <div class="card" style="display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:start">
+      <img src="assets/img/infinity-logo.svg" alt="Infinity Invest" style="width:100%;max-width:120px">
+      <div>
+        <p><b>Brajesh Maniyar</b> leads <b>Infinity Invest</b>, a Pune-based initiative focused on practical, principle-driven stock-market education. Over the years, our team has helped hundreds of retail participants build discipline, understand risk, and approach markets with clarity.</p>
+        <p>We are <b>not SEBI-registered advisors</b>. We do not provide tips or guaranteed returns. We teach frameworks—so you can make informed decisions, protect capital, and grow steadily.</p>
+        <p>Community: <b>Infinity Invest (WhatsApp)</b> — 270+ members, market sessions, and weekly debriefs. For demos or collaborations, reach us at <a href="mailto:mr_devashish@yahoo.com">mr_devashish@yahoo.com</a>.</p>
+      </div>
+    </div>
+
+    <h2 class="h2" style="margin-top:36px">Community Reviews</h2>
+    <div class="grid grid-3">
+      <div class="card"><p>“Brajesh sir’s process made me consistent. I finally track risk the way I track profits.”</p><div class="lead">— Meera K., Pune</div></div>
+      <div class="card"><p>“No hype, only clarity. The checklists and journaling habit changed my approach.”</p><div class="lead">— Arjun R., Thane</div></div>
+      <div class="card"><p>“Transparent, ethical, and patient. Exactly what beginners need.”</p><div class="lead">— Nikhil S., Nagpur</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
+</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

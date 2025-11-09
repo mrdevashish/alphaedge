@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Learn — Infinity Invest</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+<div class="navbar"><?php include '_navbar.html'; ?></div>
+
+<section class="section">
+  <div class="container">
+    <h1 class="h2">Learning Path</h1>
+    <p class="lead">A simple, structured route from beginner to confident market participant.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Level 1 — Foundations</h3>
+        <ul>
+          <li><b>How markets work</b>: exchanges, brokers, orders</li>
+          <li><b>Risk basics</b>: position sizing, drawdowns</li>
+          <li><b>Journaling</b>: what to record and why</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Level 2 — Strategies</h3>
+        <ul>
+          <li>Breakouts & pullbacks (cash & F&O)</li>
+          <li>Trend vs mean-reversion — when to use</li>
+          <li>System rules + checklists</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Level 3 — Psychology</h3>
+        <ul>
+          <li>Biases: FOMO, loss aversion, overtrading</li>
+          <li>Routines: pre-market, execution, review</li>
+          <li>Building a durable process</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">Starter resources (replace links later)</h3>
+    <ul class="lead">
+      <li><a href="#" target="_blank">NSE Investor Education PDF</a></li>
+      <li><a href="#" target="_blank">Risk Management Checklist</a></li>
+      <li><a href="#" target="_blank">Candlestick Reference (PDF)</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
+</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

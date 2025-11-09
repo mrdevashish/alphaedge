@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin — Infinity Invest</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+<div class="navbar"><?php include '_navbar.html'; ?></div>
+
+<section class="section">
+  <div class="container">
+    <h1 class="h2">Admin (Preview)</h1>
+    <p class="lead">This page will call the backend to list users & plans. Wire later to <code>/api/admin/users</code> (JWT required).</p>
+    <div class="card">
+      <table class="table" id="usersTbl">
+        <thead><tr><th>Email</th><th>Plan</th><th>Status</th><th>Expires</th></tr></thead>
+        <tbody><tr><td>demo@client.in</td><td>Monthly</td><td>Active</td><td>2026-01-31</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
+</footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

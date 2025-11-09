@@ -1,41 +1,102 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AlphaEdge – Home</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Infinity Invest — Smart Trading Insights (Education only)</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">AlphaEdge</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="suggestions.html">Suggestions</a></li>
-        <li class="nav-item"><a class="nav-link" href="plans.html">Plans</a></li>
-      </ul>
-      <a class="btn btn-outline-secondary me-2" href="login.html">Login</a>
-      <a class="btn btn-primary" href="register.html">Sign up</a>
+<!--#include file="_navbar.html" -->
+<div class="navbar"><?php include '_navbar.html'; ?></div>
+
+<section class="hero section">
+  <div class="container hero-inner">
+    <div>
+      <span class="badge">Education • Insights • Tools</span>
+      <h1>Smarter way to explore markets — the ethical, India-first way.</h1>
+      <p>We craft structured market education, model watchlists and disciplined strategies. <b>Not SEBI-registered; this is educational content only.</b></p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <a class="btn btn-primary" href="plans.html">View Plans</a>
+        <a class="btn btn-ghost" href="learn.html">Start Learning</a>
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;margin-bottom:10px">Live Market Snapshot</div>
+      <div id="tv-widget" style="height:280px;">
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+          "symbols": [
+            {"proName": "NSE:NIFTY","title":"NIFTY 50"},
+            {"proName": "BSE:SENSEX","title":"SENSEX"},
+            {"proName": "NSE:BANKNIFTY","title":"BANK NIFTY"},
+            {"proName": "BSE:RELIANCE","title":"RELIANCE"},
+            {"proName": "NSE:TCS","title":"TCS"}
+          ],
+          "colorTheme": "dark",
+          "isTransparent": true,
+          "displayMode": "adaptive",
+          "locale": "en"
+        }
+        </script>
+      </div>
     </div>
   </div>
-</nav>
+</section>
 
-<header class="py-5 bg-gradient">
+<section class="section">
   <div class="container">
-    <h1 class="display-5 fw-bold">Make smarter moves in the markets.</h1>
-    <p class="lead text-muted">Educational purpose only — we are <b>not SEBI-registered</b>.</p>
-    <a class="btn btn-primary btn-lg" href="plans.html">View Plans</a>
-    <a class="btn btn-outline-secondary btn-lg" href="suggestions.html">See Suggestions</a>
+    <h2 class="h2">Why investors choose us</h2>
+    <p class="lead">Clear process, transparent expectations, and steady discipline. No hype, no false promises.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="badge">Process First</div>
+        <h3>Rule-based frameworks</h3>
+        <p>We teach setups, risk limits, and journaling that work across cycles—so you stay consistent.</p>
+      </div>
+      <div class="card">
+        <div class="badge">Clarity</div>
+        <h3>Transparent rationale</h3>
+        <p>Every idea comes with entry/exit zones, risk, and logic. Learn the “why”, not just the “what”.</p>
+      </div>
+      <div class="card">
+        <div class="badge">Community</div>
+        <h3>Learn together</h3>
+        <p>Respectful, spam-free WhatsApp community with case studies, debriefs, and Q&A sessions.</p>
+      </div>
+    </div>
   </div>
-</header>
+</section>
 
-<footer class="border-top">
-  <div class="container small py-3">
-    © AlphaEdge · Not SEBI-registered · Educational only
+<section class="section" style="background:var(--bg);color:#e2e8b0">
+  <div class="container">
+    <h2 class="h2">What members say</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <p>“Joined with zero clarity—now I build plans and stick to them. Best part: no over-promises.”</p>
+        <div class="lead">— A. Patil, Pune</div>
+      </div>
+      <div class="card">
+        <p>“Daily structure + risk control changed my results. Calm mindset, better decisions.”</p>
+        <div class="lead">— R. Deshmukh, Nashik</div>
+      </div>
+      <div class="card">
+        <p>“Loved the weekly debriefs and checklists. Real education, no noise.”</p>
+        <div class="lead">— S. Shaikh, Mumbai</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div>© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
+    <div><a href="about.html">About</a> · <a href="plans.html">Plans</a> · <a href="learn.html">Learn</a> · <a href="products.html">Books & Merch</a></div>
   </div>
 </footer>
-<script src="assets/js/main.js"></script>
+
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

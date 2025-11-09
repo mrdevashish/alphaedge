@@ -1,6 +1,38 @@
-<!doctype html><meta charset="utf-8"><title>Register</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<div class="container py-5" style="max-width:560px">
-  <h1>Register</h1>
-  <form><input class="form-control mb-2" placeholder="Full name"><input class="form-control mb-2" placeholder="Email"><input class="form-control mb-2" placeholder="Password" type="password"><button class="btn btn-primary">Create account</button></form>
-</div>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Register — Infinity Invest</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+<div class="navbar"><?php include '_navbar.html'; ?></div>
+
+<section class="section">
+  <div class="container" style="max-width:560px">
+    <h1 class="h2">Create account</h1>
+    <form class="card" id="regForm">
+      <label>Name<input name="name" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e57e7eb;border-radius:10px"/></label>
+      <label>Email<input name="email" type="email" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e5e7eb;border-radius:10px"/></label>
+      <label>Password<input name="password" type="password" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e5e7eb;border-radius:10px"/></label>
+      <button class="btn btn-primary" type="submit">Create account</button>
+    </form>
+  </div>
+</section>
+
+<script src="assets/js/config.js"></script>
+<script>
+document.getElementById('regForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const payload = {name:fd.get('name'), email:fd.get('email'), password:fd.get('password')};
+  const res = await fetch(`${window.AE_CONFIG.API_BASE}/api/auth/register`,{
+    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+  });
+  const data = await res.json();
+  if(res.ok){ alert('Registered! Please login.'); location.href='login.html'; }
+  else alert(data.message || 'Registration failed');
+});
+</script>
+</body>
+</html>
