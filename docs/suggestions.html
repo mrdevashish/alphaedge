@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Suggestions – AlphaEdge</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<div class="container py-4">
+  <h1>Stock Suggestions</h1>
+  <div class="alert alert-info small">Educational only. Not SEBI-registered.</div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead><tr><th>Ticker</th><th>Type</th><th>Entry</th><th>SL</th><th>Target</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>NIFTYBANK</td><td>Intraday</td><td>47650</td><td>47410</td><td>48020</td><td>Breakout</td></tr>
+        <tr><td>TCS</td><td>Positional</td><td>4025</td><td>3960</td><td>4180</td><td>Pullback</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="tv-widget" style="height:420px"></div>
+</div>
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+new TradingView.widget({container_id:'tv-widget',symbol:'NSE:NIFTY',interval:'60',timezone:'Asia/Kolkata',theme:'light',autosize:true});
+</script>
+</body></html>
