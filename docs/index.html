@@ -1,102 +1,50 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Infinity Invest — Smart Trading Insights (Education only)</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
-</head>
-<body>
-<!--#include file="_navbar.html" -->
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Infinity Invest — Smart Trading Education</title>
+<link rel="stylesheet" href="assets/css/styles.css"/></head><body>
+<!-- PHP include fallback: if GH Pages ignores it, navbar still loads via JS styling -->
 <div class="navbar"><?php include '_navbar.html'; ?></div>
-
-<section class="hero section">
-  <div class="container hero-inner">
-    <div>
-      <span class="badge">Education • Insights • Tools</span>
-      <h1>Smarter way to explore markets — the ethical, India-first way.</h1>
-      <p>We craft structured market education, model watchlists and disciplined strategies. <b>Not SEBI-registered; this is educational content only.</b></p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap">
-        <a class="btn btn-primary" href="plans.html">View Plans</a>
-        <a class="btn btn-ghost" href="learn.html">Start Learning</a>
-      </div>
-    </div>
-    <div class="card">
-      <div style="font-weight:700;margin-bottom:10px">Live Market Snapshot</div>
-      <div id="tv-widget" style="height:280px;">
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-        {
-          "symbols": [
-            {"proName": "NSE:NIFTY","title":"NIFTY 50"},
-            {"proName": "BSE:SENSEX","title":"SENSEX"},
-            {"proName": "NSE:BANKNIFTY","title":"BANK NIFTY"},
-            {"proName": "BSE:RELIANCE","title":"RELIANCE"},
-            {"proName": "NSE:TCS","title":"TCS"}
-          ],
-          "colorTheme": "dark",
-          "isTransparent": true,
-          "displayMode": "adaptive",
-          "locale": "en"
-        }
-        </script>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <h2 class="h2">Why investors choose us</h2>
-    <p class="lead">Clear process, transparent expectations, and steady discipline. No hype, no false promises.</p>
-    <div class="grid grid-3">
-      <div class="card">
-        <div class="badge">Process First</div>
-        <h3>Rule-based frameworks</h3>
-        <p>We teach setups, risk limits, and journaling that work across cycles—so you stay consistent.</p>
-      </div>
-      <div class="card">
-        <div class="badge">Clarity</div>
-        <h3>Transparent rationale</h3>
-        <p>Every idea comes with entry/exit zones, risk, and logic. Learn the “why”, not just the “what”.</p>
-      </div>
-      <div class="card">
-        <div class="badge">Community</div>
-        <h3>Learn together</h3>
-        <p>Respectful, spam-free WhatsApp community with case studies, debriefs, and Q&A sessions.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="background:var(--bg);color:#e2e8b0">
-  <div class="container">
-    <h2 class="h2">What members say</h2>
-    <div class="grid grid-3">
-      <div class="card">
-        <p>“Joined with zero clarity—now I build plans and stick to them. Best part: no over-promises.”</p>
-        <div class="lead">— A. Patil, Pune</div>
-      </div>
-      <div class="card">
-        <p>“Daily structure + risk control changed my results. Calm mindset, better decisions.”</p>
-        <div class="lead">— R. Deshmukh, Nashik</div>
-      </div>
-      <div class="card">
-        <p>“Loved the weekly debriefs and checklists. Real education, no noise.”</p>
-        <div class="lead">— S. Shaikh, Mumbai</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-    <div>© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
-    <div><a href="about.html">About</a> · <a href="plans.html">Plans</a> · <a href="learn.html">Learn</a> · <a href="products.html">Books & Merch</a></div>
-  </div>
-</footer>
-
+<section class="hero section"><div class="container hero-inner">
+<div>
+<span class="badge">Education • Insights • Tools</span>
+<h1>Smarter way to explore markets — ethical, India-first.</h1>
+<p>Structured market education, model watchlists and disciplined strategies.
+<b>Not SEBI-registered; educational content only.</b></p>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a class="btn btn-primary" href="plans.html">View Plans</a>
+<a class="btn btn-ghost" href="learn.html">Start Learning</a>
+</div></div>
+<div class="card"><div style="font-weight:700;margin-bottom:10px">Live Market Snapshot</div>
+<div id="tv-widget" style="height:280px;">
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+{
+"symbols":[{"proName":"NSE:NIFTY","title":"NIFTY 50"},{"proName":"BSE:SENSEX","title":"SENSEX"},
+{"proName":"NSE:BANKNIFTY","title":"BANK NIFTY"},{"proName":"BSE:RELIANCE","title":"RELIANCE"},
+{"proName":"NSE:TCS","title":"TCS"}],
+"colorTheme":"dark","isTransparent":true,"displayMode":"adaptive","locale":"en"}
+</script></div></div></div></section>
+<section class="section"><div class="container">
+<h2 class="h2">Why investors choose us</h2>
+<p class="lead">Clear process, transparent expectations, and steady discipline. No hype, no false promises.</p>
+<div class="grid grid-3">
+<div class="card"><div class="badge">Process First</div><h3>Rule-based frameworks</h3>
+<p>We teach setups, risk limits, and journaling that work across cycles—so you stay consistent.</p></div>
+<div class="card"><div class="badge">Clarity</div><h3>Transparent rationale</h3>
+<p>Every idea comes with entry/exit zones, risk, and logic. Learn the “why”, not just the “what”.</p></div>
+<div class="card"><div class="badge">Community</div><h3>Learn together</h3>
+<p>Respectful, spam-free WhatsApp community with case studies, debriefs, and Q&A sessions.</p></div>
+</div></div></section>
+<section class="section" style="background:var(--bg);color:#e2e8b0"><div class="container">
+<h2 class="h2">What members say</h2>
+<div class="grid grid-3">
+<div class="card"><p>“Joined with zero clarity—now I build plans and stick to them.”</p><div class="lead">— A. Patil, Pune</div></div>
+<div class="card"><p>“Daily structure + risk control changed my results.”</p><div class="lead">— R. Deshmukh, Nashik</div></div>
+<div class="card"><p>“Weekly debriefs and checklists are gold. Real education.”</p><div class="lead">— S. Shaikh, Mumbai</div></div>
+</div></div></section>
+<footer class="footer"><div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+<div>© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
+<div><a href="about.html">About</a> · <a href="plans.html">Plans</a> · <a href="learn.html">Learn</a> · <a href="products.html">Books & Merch</a></div>
+</div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/app.js"></script>
-</body>
-</html>
+<script src="assets/js/config.js"></script><script src="assets/js/app.js"></script>
+</body></html>

@@ -1,37 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Login — Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
-</head>
-<body>
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Login — Infinity Invest</title><link rel="stylesheet" href="assets/css/styles.css"/></head><body>
 <div class="navbar"><?php include '_navbar.html'; ?></div>
-
-<section class="section">
-  <div class="container" style="max-width:520px">
-    <h1 class="h2">Login</h1>
-    <form class="card" id="loginForm">
-      <label>Email<input name="email" type="email" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e5e7eb;border-radius:10px"/></label>
-      <label>Password<input name="password" type="password" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e5e7eb;border-radius:10px"/></label>
-      <button class="btn btn-primary" type="submit">Sign in</button>
-    </form>
-  </div>
-</section>
-
+<section class="section"><div class="container" style="max-width:520px"><h1 class="h2">Login</h1>
+<form class="card" id="loginForm">
+<label>Email<input name="email" type="email" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e5e7eb;border-radius:10px"/></label>
+<label>Password<input name="password" type="password" required style="width:100%;padding:.7rem;margin-top:.4rem;margin-bottom:1rem;border:1px solid #e5e7eb;border-radius:10px"/></label>
+<button class="btn btn-primary" type="submit">Sign in</button></form></div></section>
 <script src="assets/js/config.js"></script>
 <script>
-document.getElementById('loginForm').addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  const fd = new FormData(e.target);
-  const res = await fetch(`${window.AE_CONFIG.API_BASE}/api/auth/login`,{
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({email:fd.get('email'), password:fd.get('password')})
-  });
-  const data = await res.json();
-  if(res.ok){ localStorage.setItem('ae_token', data.token); location.href='plans.html'; }
-  else alert(data.message || 'Login failed');
-});
-</script>
-</body>
-</html>
+document.getElementById('loginForm').addEventListener('submit',async(e)=>{
+e.preventDefault();const fd=new FormData(e.target);
+const r=await fetch(`${window.AE_CONFIG.API_BASE}/api/auth/login`,{method:'POST',headers:{'Content-Type':'application/json'},
+body:JSON.stringify({email:fd.get('email'),password:fd.get('password')})});
+const d=await r.json(); if(r.ok){localStorage.setItem('ae_token',d.token);location.href='plans.html';} else alert(d.message||'Login failed');});
+</script></body></html>
