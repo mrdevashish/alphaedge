@@ -1,59 +1,72 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!doctype html><html lang="en"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Learn — Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
-</head>
-<body>
+<link rel="stylesheet" href="assets/css/styles.css"/></head><body>
 <div class="navbar"><?php include '_navbar.html'; ?></div>
 
-<section class="section">
-  <div class="container">
-    <h1 class="h2">Learning Path</h1>
-    <p class="lead">A simple, structured route from beginner to confident market participant.</p>
+<section class="section"><div class="container">
+<h1 class="h2">Learning Hub</h1>
+<p class="lead">Foundations → Setups → Risk → Journaling. Start here and move step by step.</p>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Level 1 — Foundations</h3>
-        <ul>
-          <li><b>How markets work</b>: exchanges, brokers, orders</li>
-          <li><b>Risk basics</b>: position sizing, drawdowns</li>
-          <li><b>Journaling</b>: what to record and why</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Level 2 — Strategies</h3>
-        <ul>
-          <li>Breakouts & pullbacks (cash & F&O)</li>
-          <li>Trend vs mean-reversion — when to use</li>
-          <li>System rules + checklists</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Level 3 — Psychology</h3>
-        <ul>
-          <li>Biases: FOMO, loss aversion, overtrading</li>
-          <li>Routines: pre-market, execution, review</li>
-          <li>Building a durable process</li>
-        </ul>
+<div class="grid grid-3">
+  <div class="card">
+    <div class="badge">Foundations</div>
+    <h3>Market structure</h3>
+    <ul>
+      <li>Trends, swings, context</li>
+      <li>Support / Resistance</li>
+      <li>Multi-timeframe view</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="badge">Setups</div>
+    <h3>Playbook</h3>
+    <ul>
+      <li>Breakout + Retests</li>
+      <li>Pullback to MA/Zone</li>
+      <li>Range break and fail</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="badge">Risk</div>
+    <h3>Position sizing</h3>
+    <ul>
+      <li>Define R per trade</li>
+      <li>Hard stop always</li>
+      <li>Journal every exit</li>
+    </ul>
+  </div>
+</div>
+</div></section>
+<section class="section" style="background:var(--bg);color:#e2e8f0">
+  <div class="container">
+    <h2 class="h2">Practice with charts</h2>
+    <div class="card">
+      <div id="tv-mini" style="height:380px">
+        <script src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {"autosize":true,"symbol":"NSE:NIFTY","interval":"60","timezone":"Asia/Kolkata",
+        "theme":"dark","style":"1","locale":"en","hide_top_toolbar":false,"allow_symbol_change":true}
+        </script>
       </div>
     </div>
-
-    <h3 style="margin-top:28px">Starter resources (replace links later)</h3>
-    <ul class="lead">
-      <li><a href="#" target="_blank">NSE Investor Education PDF</a></li>
-      <li><a href="#" target="_blank">Risk Management Checklist</a></li>
-      <li><a href="#" target="_blank">Candlestick Reference (PDF)</a></li>
-    </ul>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="container">© <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered</div>
-</footer>
+<section class="section"><div class="container">
+  <h2 class="h2">Free resources</h2>
+  <table class="table">
+    <thead><tr><th>Title</th><th>Type</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td>Risk Management Primer</td><td>Article</td><td><a target="_blank" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2874199">Open</a></td></tr>
+      <tr><td>Technical Analysis Notes</td><td>PDF</td><td><a target="_blank" href="https://www.cs.cmu.edu/~cosal/comp-learning-book/ta-notes.pdf">Download</a></td></tr>
+      <tr><td>Position Sizing Sheet</td><td>CSV</td><td><a href="assets/sample/position-sizing.csv">Download</a></td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<footer class="footer"><div class="container">
+  © <span id="year"></span> Infinity Invest • Educational purpose only • Not SEBI-registered
+</div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/app.js"></script>
-</body>
-</html>
+<script src="assets/js/config.js"></script><script src="assets/js/app.js"></script>
+</body></html>

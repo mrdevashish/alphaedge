@@ -1,0 +1,4 @@
+RiskPerTrade(R),Capital,StopDistance(%),PositionSize
+0.5%,100000,2,25000
+1.0%,100000,2,50000
+1.0%,100000,5,20000

@@ -47,3 +47,4 @@ align-items:center;justify-content:center;color:#fff;font-size:12px}
 .table th,.table td{padding:12px 10px;border-bottom:1px solid #e5e7eb;text-align:left}
 .table th{color:#334155;font-weight:700}
 .hidden{display:none}
+.card:hover{transform:translateY(-2px);transition:all .15s ease;box-shadow:0 16px 40px rgba(2,6,23,.10)}
