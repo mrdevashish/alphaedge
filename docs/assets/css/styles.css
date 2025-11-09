@@ -57,3 +57,10 @@ footer{margin-top:40px;padding:24px 20px;color:var(--muted);border-top:1px solid
 .r-mini{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px}
 .r-mini .quote{font-style:italic}
 @media (max-width:900px){.reviews-grid{grid-template-columns:1fr}.reviews-row{grid-template-columns:1fr}}
+/* --- Forms & helpers --- */
+.form label{display:block;margin:8px 0}
+.form input,.form select,.form textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:inherit}
+.form .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hidden{display:none!important}
+.muted{color:var(--muted)}
+@media(max-width:720px){.form .grid2{grid-template-columns:1fr}}
