@@ -2,16 +2,14 @@ services:
   - type: web
     name: alphaedge-backend
     env: node
-    region: singapore
     plan: free
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: node server.js
-    autoDeploy: true
+    rootDir: .
+    buildCommand: "npm install"
+    startCommand: "node server.js"
     envVars:
       - key: PORT
         value: 8080
       - key: JWT_SECRET
         value: mysecretkey
       - key: FRONTEND_ORIGIN
-        value: https://mrdevashish.github.io
+        value: https://mrdevashish.github.io/alphaedge
