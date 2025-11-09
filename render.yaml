@@ -2,9 +2,10 @@ services:
   - type: web
     name: alphaedge-backend
     env: node
-    plan: free
     region: singapore
-    buildCommand: npm install --omit=dev
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
     startCommand: node server.js
     autoDeploy: true
     envVars:
