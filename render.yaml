@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: alphaedge-backend
+    env: node
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: FRONTEND_ORIGIN
+        value: https://mrdevashish.github.io,https://mrdevashish.github.io/alphaedge,https://*.netlify.app
+      - key: JWT_SECRET
+        value: supersecret_change_me
+      - key: ORG_NAME
+        value: AlphaEdge
+      - key: ORG_ADDR
+        value: Mumbai, India
+      - key: GSTIN
+        value: XXABCDE1234F1Z5
+      - key: ORG_PLACE_SUPPLY
+        value: MH
