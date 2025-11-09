@@ -1,26 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Login — AlphaEdge</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
-</head>
-<body>
-  <div id="nav"></div>
-  <div class="container">
-    <h2>Login</h2>
-    <form id="login-form" class="form card">
-      <label>Email</label>
-      <input type="email" name="email" required />
-      <label>Password</label>
-      <input type="password" name="password" required />
-      <br/>
-      <button class="btn" type="submit">Login</button>
-      <p class="small">New here? <a href="register.html">Create account</a></p>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Login • AlphaEdge</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<nav class="nav"><div class="nav-inner container">
+  <div class="brand"><div class="logo"><span>AE</span></div>AlphaEdge</div>
+  <div class="menu">
+    <a href="index.html">Home</a><a href="plans.html">Plans</a><a href="register.html">Register</a>
+  </div>
+</div></nav>
+<section class="container" style="max-width:520px">
+  <div class="card">
+    <h2 style="margin:0 0 8px">Welcome back</h2>
+    <form id="loginForm" class="form">
+      <input class="input" type="email" name="email" placeholder="Email" required />
+      <input class="input" type="password" name="password" placeholder="Password" required />
+      <button class="btn" type="submit">Log in</button>
+      <div id="logMsg" class="alert" style="display:block"></div>
     </form>
   </div>
-  <script>fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });</script>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+</section>
+<footer><div class="container"><div class="disclaimer">Not SEBI registered. Educational only.</div></div></footer>
+<script src="assets/js/main.js"></script>
+</body></html>

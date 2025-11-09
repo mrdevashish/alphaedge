@@ -1,44 +1,38 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Plans — AlphaEdge</title>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
-</head>
-<body>
-  <div id="nav"></div>
-  <div class="container">
-    <h2>Choose a plan</h2>
-    <p class="kicker">Simple pricing. Cancel anytime. (Razorpay coming—buttons activate directly for now.)</p>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Plans • AlphaEdge</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<nav class="nav"><div class="nav-inner container">
+  <div class="brand"><div class="logo"><span>AE</span></div>AlphaEdge</div>
+  <div class="menu"><a href="index.html">Home</a><a href="suggestions.html">Suggestions</a><a href="login.html" id="loginBtn">Login</a><a href="#" id="logoutBtn" class="ghost" style="display:none">Logout</a></div>
+</div></nav>
 
-    <div class="grid cols-3">
-      <div class="card plan">
-        <h3>Weekly</h3>
-        <div class="price">₹299</div>
-        <p class="kicker">7 days access</p>
-        <button class="btn buy-btn" data-plan="weekly">Activate Weekly</button>
-      </div>
-      <div class="card plan">
-        <h3>Monthly <span class="badge">Popular</span></h3>
-        <div class="price">₹999</div>
-        <p class="kicker">30 days access</p>
-        <button class="btn buy-btn" data-plan="monthly">Activate Monthly</button>
-      </div>
-      <div class="card plan">
-        <h3>Yearly</h3>
-        <div class="price">₹9,999</div>
-        <p class="kicker">365 days access</p>
-        <button class="btn buy-btn" data-plan="yearly">Activate Yearly</button>
-      </div>
+<section class="container">
+  <h2>Choose a plan</h2>
+  <div class="pricing">
+    <div class="card price-card">
+      <h3>Weekly</h3><p class="mono" style="color:var(--muted)">Try & decide</p>
+      <h1>₹99</h1><p>7 days access</p>
+      <button class="btn choose-plan" data-plan="weekly">Activate</button>
     </div>
-
-    <br/>
-    <div class="card notice">
-      Pay via UPI / Razorpay (live switch later). For bank transfer, email: support@alphaedge.example
+    <div class="card price-card">
+      <span class="badge">Popular</span>
+      <h3>Monthly</h3><p class="mono" style="color:var(--muted)">Balanced</p>
+      <h1>₹299</h1><p>30 days access</p>
+      <button class="btn choose-plan" data-plan="monthly">Activate</button>
+    </div>
+    <div class="card price-card">
+      <h3>Yearly</h3><p class="mono" style="color:var(--muted)">Best value</p>
+      <h1>₹2999</h1><p>365 days access</p>
+      <button class="btn choose-plan" data-plan="yearly">Activate</button>
     </div>
   </div>
-  <script>fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });</script>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+  <div class="alert" style="margin-top:14px">
+    Payment gateway placeholder: activation is simulated until Razorpay is connected.
+  </div>
+</section>
+
+<footer><div class="container"><div class="disclaimer">Not SEBI registered. Educational only.</div></div></footer>
+<script src="assets/js/main.js"></script>
+</body></html>

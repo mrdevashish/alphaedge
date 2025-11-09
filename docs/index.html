@@ -1,50 +1,65 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AlphaEdge — Share Trading Insights</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body>
-  <div id="nav"></div>
-  <div class="container">
-    <div class="hero">
-      <h1>AlphaEdge</h1>
-      <p class="kicker">Educational stock ideas & signals — simple, clean and India-first.</p>
-      <p><span class="badge">NOT SEBI Registered • Educational Purpose Only</span></p>
-      <p><a class="btn" href="plans.html">View Plans</a> <a class="btn secondary" href="suggestions.html">See Suggestions</a></p>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AlphaEdge • Share Trading Suggestions</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<nav class="nav">
+  <div class="nav-inner container">
+    <div class="brand"><div class="logo"><span>AE</span></div>AlphaEdge</div>
+    <div class="menu">
+      <a href="index.html" class="active">Home</a>
+      <a href="suggestions.html">Suggestions</a>
+      <a href="plans.html">Plans</a>
+      <a href="login.html" id="loginBtn">Login</a>
+      <a href="#" class="ghost" id="logoutBtn" style="display:none">Logout</a>
     </div>
-
-    <div class="grid cols-3">
-      <div class="card">
-        <h3>Intraday & Swing</h3>
-        <p>Fresh, time-boxed entries with risk controls. Placeholder data you can edit later.</p>
-      </div>
-      <div class="card">
-        <h3>Risk Playbook</h3>
-        <p>Position sizing, SL trails, and psychology nudges tailored for Indian markets.</p>
-      </div>
-      <div class="card">
-        <h3>Alerts</h3>
-        <p>Email placeholders ready. Hook to SendGrid/Mailchimp later without UI change.</p>
-      </div>
-    </div>
-
-    <br/>
-    <div class="card notice">
-      <b>Disclaimer</b>: We are <b>not SEBI registered</b>. Content is for <b>education</b> only.
-      Markets are risky; you are responsible for your decisions.
-    </div>
-
-    <div class="footer">© <span id="yr"></span> AlphaEdge • Mumbai, India</div>
   </div>
+</nav>
 
-  <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
-    // Load shared nav
-    fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });
-  </script>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+<section class="container hero">
+  <div>
+    <h1 style="font-size:38px;line-height:1.2;margin:.2em 0">Make calmer decisions with clean, actionable suggestions.</h1>
+    <p style="color:var(--muted);max-width:52ch">AlphaEdge gives you concise, back-tested style suggestions with clear entry, stop-loss and targets. Built to be fast, readable and mobile-first.</p>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <a class="btn" href="plans.html">See Pricing</a>
+      <a class="btn secondary" href="suggestions.html">Preview Suggestions</a>
+    </div>
+    <div class="kpis" style="margin-top:18px">
+      <div class="kpi"><div class="mono" style="color:var(--muted)">Latency</div><div style="font-weight:800">~120ms</div></div>
+      <div class="kpi"><div class="mono" style="color:var(--muted)">Uptime</div><div style="font-weight:800">99.9%</div></div>
+      <div class="kpi"><div class="mono" style="color:var(--muted)">UI</div><div style="font-weight:800">Clean & Focused</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="mono" style="color:var(--muted)">Sample signal</div>
+    <div class="card" style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between">
+        <div class="mono">TCS</div>
+        <span class="tag">BUY</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px">
+        <div>Entry<br><b>₹3890</b></div>
+        <div>Stop-loss<br><b>₹3825</b></div>
+        <div>Target<br><b>₹3990</b></div>
+      </div>
+      <div class="alert ok" style="margin-top:12px">Confidence 92%</div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="grid">
+    <div class="card"><h3>Readable</h3><p style="color:var(--muted)">No clutter. Just levels, confidence and risk.</p></div>
+    <div class="card"><h3>Fast</h3><p style="color:var(--muted)">Static hosting + API = snappy experience.</p></div>
+    <div class="card"><h3>Simple pricing</h3><p style="color:var(--muted)">Weekly, monthly, yearly — cancel anytime.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="disclaimer">Disclaimer: We are <b>not SEBI registered</b>. All content is for <b>educational purposes only</b> and is <b>not investment advice</b>. Markets are risky—do your own research.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body></html>

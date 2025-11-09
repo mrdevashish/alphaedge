@@ -1,95 +1,119 @@
-/* AlphaEdge frontend glue */
-const API_BASE = "https://alphaedge-backend.onrender.com"; // change if your URL differs
-const TOKEN_KEY = "ae_token";
-const EMAIL_KEY = "ae_email";
+/* AlphaEdge Frontend Controller */
+const API_BASE = "https://alphaedge-backend.onrender.com"; // your live backend
+const $ = (q,root=document)=>root.querySelector(q);
+const $$ = (q,root=document)=>Array.from(root.querySelectorAll(q));
 
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
+const auth = {
+  token: () => localStorage.getItem("ae_token"),
+  save: (t) => localStorage.setItem("ae_token", t),
+  clear: () => localStorage.removeItem("ae_token"),
+  headers() {
+    const h = {"Content-Type":"application/json"};
+    if (this.token()) h["Authorization"] = "Bearer " + this.token();
+    return h;
+  }
+};
 
-function setToken(t){ localStorage.setItem(TOKEN_KEY, t); }
-function getToken(){ return localStorage.getItem(TOKEN_KEY); }
-function setEmail(e){ localStorage.setItem(EMAIL_KEY, e||""); }
-function getEmail(){ return localStorage.getItem(EMAIL_KEY)||""; }
-function logout(){ localStorage.removeItem(TOKEN_KEY); location.href="login.html"; }
-
-async function api(method, path, body, needAuth=false, rawHeaders={}) {
-  const headers = { "Content-Type":"application/json", ...rawHeaders };
-  if(needAuth && getToken()) headers.Authorization = "Bearer " + getToken();
-  const r = await fetch(API_BASE + path, { method, headers, body: body?JSON.stringify(body):undefined });
-  if(!r.ok) throw new Error((await r.text())||("HTTP "+r.status));
-  return r.headers.get("content-type")?.includes("application/json") ? r.json() : r.text();
+async function getJSON(url, opts={}) {
+  const r = await fetch(url, opts);
+  if (!r.ok) throw new Error((await r.text()) || r.statusText);
+  return r.headers.get("content-type")?.includes("application/json") ? r.json() : {};
 }
 
-async function checkActiveSubscription() {
+function setActiveNav(){
+  const path = location.pathname.split("/").pop() || "index.html";
+  $$(".menu a").forEach(a => a.classList.toggle("active", a.getAttribute("href").endsWith(path)));
+  const loginBtn = $("#loginBtn"); const logoutBtn = $("#logoutBtn");
+  if (loginBtn && logoutBtn){ const logged = !!auth.token(); loginBtn.style.display = logged?"none":""; logoutBtn.style.display = logged?"":"none"; }
+}
+
+async function checkSubscriptionAndGate(){
+  const guard = $("[data-guard='subscription']");
+  if (!guard) return;
+  if (!auth.token()){
+    guard.innerHTML = `<div class="alert err">Please <a href="login.html">log in</a> to view suggestions.</div>`;
+    return;
+  }
   try{
-    const res = await api("GET","/api/subscriptions/me",null,true);
-    return !!res.subscription;
-  }catch(e){ return false; }
+    const data = await getJSON(`${API_BASE}/api/subscriptions/me`, { headers: auth.headers() });
+    if (!data.subscription){
+      guard.innerHTML = `<div class="alert">No active plan. <a class="btn" href="plans.html">Choose a plan</a></div>`;
+    } else {
+      guard.querySelector?.(".locked")?.remove();
+      guard.classList.remove("locked");
+    }
+  }catch(e){
+    guard.innerHTML = `<div class="alert err">Error fetching subscription: ${e.message}</div>`;
+  }
 }
 
-async function guardSuggestions(){
-  if(!getToken()){ location.href="login.html"; return; }
-  const ok = await checkActiveSubscription();
-  if(!ok){ location.href="plans.html"; }
+function injectSampleSuggestions(){
+  const tb = $("#suggestionBody"); if (!tb) return;
+  const rows = [
+    {sym:"TCS", type:"BUY", entry:3890, sl:3825, tgt:3990, conf:92},
+    {sym:"INFY", type:"BUY", entry:1555, sl:1520, tgt:1610, conf:88},
+    {sym:"HDFCBANK", type:"SELL", entry:1495, sl:1518, tgt:1450, conf:84},
+    {sym:"RELIANCE", type:"BUY", entry:2475, sl:2430, tgt:2550, conf:81},
+  ];
+  tb.innerHTML = rows.map(r => `
+    <tr>
+      <td class="mono">${r.sym}</td>
+      <td>${r.type==="BUY" ? `<span class="tag">BUY</span>` : `<span class="tag" style="background:rgba(239,68,68,.15);color:#ef9ca9">SELL</span>`}</td>
+      <td>₹${r.entry}</td><td>₹${r.sl}</td><td>₹${r.tgt}</td>
+      <td>${r.conf}%</td>
+    </tr>
+  `).join("");
 }
 
-async function handleRegister(){
-  const f = $("#register-form"); if(!f) return;
-  f.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    const name=f.name.value.trim(), email=f.email.value.trim(), password=f.password.value;
-    try{
-      await api("POST","/api/auth/register",{name,email,password});
-      const j = await api("POST","/api/auth/login",{email,password});
-      setToken(j.token); setEmail(email);
-      location.href="suggestions.html";
-    }catch(err){ alert("Register failed: "+err.message); }
-  });
+async function handleAuthForms(){
+  const reg = $("#registerForm");
+  if (reg){
+    reg.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const body = { name: reg.name.value.trim(), email: reg.email.value.trim(), password: reg.password.value };
+      try{
+        const data = await getJSON(`${API_BASE}/api/auth/register`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+        auth.save(data.token); location.href = "plans.html";
+      }catch(err){ $("#regMsg").textContent = err.message; $("#regMsg").className="alert err"; }
+    });
+  }
+  const log = $("#loginForm");
+  if (log){
+    log.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const body = { email: log.email.value.trim(), password: log.password.value };
+      try{
+        const data = await getJSON(`${API_BASE}/api/auth/login`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+        auth.save(data.token); location.href = "suggestions.html";
+      }catch(err){ $("#logMsg").textContent = err.message; $("#logMsg").className="alert err"; }
+    });
+  }
+  const logout = $("#logoutBtn");
+  if (logout){ logout.addEventListener("click", ()=>{ auth.clear(); location.href="index.html"; }); }
 }
 
-async function handleLogin(){
-  const f = $("#login-form"); if(!f) return;
-  f.addEventListener("submit", async (e)=>{
-    e.preventDefault();
-    const email=f.email.value.trim(), password=f.password.value;
-    try{
-      const j = await api("POST","/api/auth/login",{email,password});
-      setToken(j.token); setEmail(email);
-      location.href="suggestions.html";
-    }catch(err){ alert("Login failed: "+err.message); }
-  });
-}
-
-function renderUserBadge(){
-  const el=$("#user-badge"); if(!el) return;
-  const em=getEmail();
-  el.textContent = getToken()? (em||"Logged in") : "Guest";
-}
-
-async function wirePlans(){
-  const btns = $$(".buy-btn");
-  if(!btns.length) return;
-  btns.forEach(btn=>{
+function wirePricingButtons(){
+  $$(".choose-plan").forEach(btn=>{
     btn.addEventListener("click", async ()=>{
-      if(!getToken()){ alert("Please login first"); location.href="login.html"; return; }
-      // For now: simulate success by directly activating (works without Razorpay)
+      if (!auth.token()){ location.href="login.html"; return; }
       const plan = btn.dataset.plan;
       try{
-        await api("POST","/api/subscriptions/activate",{ plan, days: plan==="yearly"?365:(plan==="weekly"?7:30) }, true);
-        alert("Plan activated! Redirecting to suggestions.");
-        location.href="suggestions.html";
-      }catch(e){ alert("Activation failed: "+e.message); }
+        const res = await getJSON(`${API_BASE}/api/subscriptions/activate`, {
+          method:"POST",
+          headers: auth.headers(),
+          body: JSON.stringify({ plan, days: plan==="weekly"?7: plan==="yearly"?365:30 })
+        });
+        alert(`Activated ${plan} plan until ${new Date(res.active_until).toDateString()}`);
+        location.href = "suggestions.html";
+      }catch(e){ alert("Activation error: " + e.message); }
     });
   });
 }
 
-function wireLogout(){
-  $$("#logout, .logout").forEach(el=> el.addEventListener("click", e=>{ e.preventDefault(); logout(); }));
-}
-
-document.addEventListener("DOMContentLoaded", ()=>{
-  renderUserBadge();
-  handleRegister();
-  handleLogin();
-  wirePlans();
+document.addEventListener("DOMContentLoaded", () => {
+  setActiveNav();
+  handleAuthForms();
+  checkSubscriptionAndGate();
+  injectSampleSuggestions();
+  wirePricingButtons();
 });
