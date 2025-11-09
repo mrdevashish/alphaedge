@@ -44,3 +44,16 @@ footer{margin-top:40px;padding:24px 20px;color:var(--muted);border-top:1px solid
   .hero{grid-template-columns:1fr;gap:14px}
   .grid,.kpis,.pricing{grid-template-columns:1fr}
 }
+
+/* --- Reviews --- */
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.review{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+.review-head{display:flex;align-items:center;gap:12px}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+.name{font-weight:700}
+.meta{color:var(--muted);font-size:13px}
+.stars{letter-spacing:2px}
+.reviews-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.r-mini{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.r-mini .quote{font-style:italic}
+@media (max-width:900px){.reviews-grid{grid-template-columns:1fr}.reviews-row{grid-template-columns:1fr}}
