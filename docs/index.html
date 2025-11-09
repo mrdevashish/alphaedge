@@ -10,9 +10,9 @@
       <a href="index.html" class="active">Home</a>
       <a href="suggestions.html">Suggestions</a>
       <a href="plans.html">Plans</a>
+      <a href="explore.html">Explore</a>
       <a href="about.html">About</a>
       <a href="reviews.html">Reviews</a>
-      <a href="explore.html">Explore</a>
       <a href="login.html" id="loginBtn">Login</a>
       <a href="#" class="ghost" id="logoutBtn" style="display:none">Logout</a>
     </div>
@@ -30,30 +30,20 @@
     </div>
 
     <div class="kpis" style="margin-top:18px">
-      <div class="kpi"><div style="color:#9fb2ff">Latency</div><div style="font-weight:800">~120ms</div></div>
-      <div class="kpi"><div style="color:#9fb2ff">Uptime</div><div style="font-weight:800">99.9%</div></div>
-      <div class="kpi"><div style="color:#9fb2ff">Focus</div><div style="font-weight:800">Level-driven</div></div>
+      <div class="kpi"><div style="color:#334155">Latency</div><div style="font-weight:800">~120ms</div></div>
+      <div class="kpi"><div style="color:#334155">Uptime</div><div style="font-weight:800">99.9%</div></div>
+      <div class="kpi"><div style="color:#334155">Focus</div><div style="font-weight:800">Level-driven</div></div>
     </div>
   </div>
 
-  <div class="hero-illus">
-    <div class="blob"></div>
+  <div>
     <div class="card chart-card">
-      <div class="chart-head">
-        <div class="mono" style="opacity:.8">NIFTY • Trend</div>
-        <span class="pill">sample</span>
-      </div>
-      <div id="chart1" class="chart-canvas"></div>
+      <div class="chart-head"><div>NIFTY • Candles (sample)</div><span class="pill">demo</span></div>
+      <div id="c1" class="chart-canvas"></div>
     </div>
     <div class="grid cols-2" style="margin-top:12px">
-      <div class="card chart-card">
-        <div class="chart-head"><div class="mono" style="opacity:.8">RELIANCE</div><span class="pill">sample</span></div>
-        <div id="chart2" class="chart-canvas"></div>
-      </div>
-      <div class="card chart-card">
-        <div class="chart-head"><div class="mono" style="opacity:.8">HDFCBANK</div><span class="pill">sample</span></div>
-        <div id="chart3" class="chart-canvas"></div>
-      </div>
+      <div class="card chart-card"><div class="chart-head"><div>RELIANCE</div><span class="pill">demo</span></div><div id="c2" class="chart-canvas"></div></div>
+      <div class="card chart-card"><div class="chart-head"><div>HDFCBANK</div><span class="pill">demo</span></div><div id="c3" class="chart-canvas"></div></div>
     </div>
   </div>
 </section>
@@ -61,18 +51,9 @@
 <section class="container">
   <h2 class="section-title">Ambition, made practical</h2>
   <div class="grid cols-3">
-    <div class="card">
-      <h3>Process over impulse</h3>
-      <p class="muted">Rule-based entries, defined exits, and realistic expectations. No hype.</p>
-    </div>
-    <div class="card">
-      <h3>Designed for focus</h3>
-      <p class="muted">Glass cards and high-contrast typography so your eyes land on levels.</p>
-    </div>
-    <div class="card">
-      <h3>Built for India</h3>
-      <p class="muted">Fast static hosting + API. Hindi variant and UPI/Razorpay coming.</p>
-    </div>
+    <div class="card"><h3>Process over impulse</h3><p class="muted">Rule-based entries, defined exits, and realistic expectations.</p></div>
+    <div class="card"><h3>Designed for focus</h3><p class="muted">Light UI, readable type, and clean layout for decision making.</p></div>
+    <div class="card"><h3>Built for India</h3><p class="muted">Fast static hosting + API. UPI/Razorpay coming.</p></div>
   </div>
 </section>
 
@@ -95,15 +76,16 @@
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
-  // Minimal sample spark charts (static demo data)
-  function makeChart(el, data){
-    const chart = LightweightCharts.createChart(el,{height:260, layout:{background:{type:'solid',color:'transparent'}, textColor:'#c9d3ff'}, grid:{vertLines:{color:'rgba(255,255,255,.06)'}, horzLines:{color:'rgba(255,255,255,.06)'}}, rightPriceScale:{borderColor:'rgba(255,255,255,.12)'}, timeScale:{borderColor:'rgba(255,255,255,.12)'}});
-    const area = chart.addAreaSeries({lineWidth:2, lineType:0, topColor:'rgba(124,58,237,.35)', bottomColor:'rgba(6,182,212,.05)'});
-    area.setData(data);
+  function candle(el, data){
+    const chart = LightweightCharts.createChart(el,{height:300, layout:{background:{type:'solid',color:'transparent'}, textColor:'#0f172a'}, grid:{vertLines:{color:'#e6e9f2'}, horzLines:{color:'#e6e9f2'}}, rightPriceScale:{borderColor:'#e6e9f2'}, timeScale:{borderColor:'#e6e9f2'}});
+    const series = chart.addCandlestickSeries({upColor:'#16a34a',downColor:'#ef4444',borderDownColor:'#ef4444',borderUpColor:'#16a34a',wickDownColor:'#ef4444',wickUpColor:'#16a34a'});
+    series.setData(data);
   }
-  const base = [{time:1,value:100},{time:2,value:101.4},{time:3,value:99.8},{time:4,value:103.2},{time:5,value:104.1},{time:6,value:106.5},{time:7,value:105.3},{time:8,value:109.6}];
-  makeChart(document.getElementById('chart1'), base);
-  makeChart(document.getElementById('chart2'), base.map((d,i)=>({time:d.time,value:d.value+(i%2?2:-1)})));
-  makeChart(document.getElementById('chart3'), base.map((d,i)=>({time:d.time,value:d.value+(i%3?3:-2)})));
+  // sample OHLC
+  const d = (o,h,l,c,i)=>({time:i+1, open:o, high:h, low:l, close:c});
+  const base = [d(100,105,98,104,1), d(104,106,99,101,2), d(101,108,100,107,3), d(107,109,103,104,4), d(104,110,102,109,5), d(109,113,108,112,6), d(112,116,111,115,7), d(115,118,113,116,8)];
+  candle(document.getElementById('c1'), base);
+  candle(document.getElementById('c2'), base.map((x,i)=>({...x, open:x.open+2, high:x.high+2, low:x.low+2, close:x.close+2})));
+  candle(document.getElementById('c3'), base.map((x,i)=>({...x, open:x.open-1.5, high:x.high-1.5, low:x.low-1.5, close:x.close-1.5})));
 </script>
 </body></html>
