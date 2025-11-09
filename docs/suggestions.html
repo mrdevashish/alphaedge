@@ -5,18 +5,47 @@
 </head><body>
 <nav class="nav"><div class="nav-inner container">
   <div class="brand"><div class="logo"><span>AE</span></div>AlphaEdge</div>
-  <div class="menu"><a href="index.html">Home</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="reviews.html">Reviews</a><a href="about.html">About</a><a href="login.html" id="loginBtn">Login</a><a href="#" class="ghost" id="logoutBtn" style="display:none">Logout</a></div>
+  <div class="menu"><a href="index.html">Home</a><a href="plans.html">Plans</a><a href="about.html">About</a><a href="reviews.html">Reviews</a><a href="login.html" id="loginBtn">Login</a><a href="#" class="ghost" id="logoutBtn" style="display:none">Logout</a></div>
 </div></nav>
 
 <section class="container card" data-guard="subscription">
   <div class="locked alert">Checking your subscription...</div>
   <h2 style="margin:0 0 6px">Today’s Suggestions</h2>
-  <table class="table">
-    <thead><tr><th>Symbol</th><th>Type</th><th>Entry</th><th>SL</th><th>Target</th><th>Conf.</th></tr></thead>
-    <tbody id="suggestionBody"></tbody>
-  </table>
+
+  <div class="grid cols-2">
+    <div class="card" style="overflow:auto">
+      <table class="table">
+        <thead><tr><th>Symbol</th><th>Type</th><th>Entry</th><th>SL</th><th>Target</th><th>Conf.</th></tr></thead>
+        <tbody id="suggestionBody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="section-title">Live preview (widget)</div>
+      <div id="tv-container" style="height:420px"></div>
+      <div class="muted" style="font-size:12px;margin-top:8px">Widget loads from TradingView CDN (for demo look & feel).</div>
+    </div>
+  </div>
+
+  <div class="alert" style="margin-top:12px">Educational only. Not investment advice. We are not SEBI registered.</div>
 </section>
 
 <footer><div class="container"><div class="disclaimer">Not SEBI registered. Educational only.</div></div></footer>
+
 <script src="assets/js/main.js"></script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script>
+  new TradingView.widget({
+    "container_id": "tv-container",
+    "symbol": "NSE:RELIANCE",
+    "interval": "60",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "toolbar_bg": "#070b14",
+    "hide_top_toolbar": false,
+    "hide_legend": false,
+    "allow_symbol_change": true,
+    "autosize": true
+  });
+</script>
 </body></html>
