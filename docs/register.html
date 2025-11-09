@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Register — AlphaEdge</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <div id="nav"></div>
+  <div class="container">
+    <h2>Create your account</h2>
+    <form id="register-form" class="form card">
+      <label>Name</label>
+      <input type="text" name="name" />
+      <label>Email</label>
+      <input type="email" name="email" required />
+      <label>Password</label>
+      <input type="password" name="password" required />
+      <br/>
+      <button class="btn" type="submit">Register</button>
+      <p class="small">Already registered? <a href="login.html">Login</a></p>
+    </form>
+  </div>
+  <script>fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });</script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Stock Suggestions — AlphaEdge</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <div id="nav"></div>
+  <div class="container">
+    <h2>Stock Suggestions</h2>
+    <p class="kicker">Placeholders. You can edit or import from admin later.</p>
+
+    <div class="card">
+      <table>
+        <thead><tr><th>Symbol</th><th>Type</th><th>Entry</th><th>SL</th><th>Target</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>INFY</td><td>Intraday Buy</td><td>₹1,470</td><td>₹1,452</td><td>₹1,498</td><td>Momentum above VWAP</td></tr>
+          <tr><td>RELIANCE</td><td>Swing Buy</td><td>₹2,410</td><td>₹2,348</td><td>₹2,520</td><td>Weekly breakout retest</td></tr>
+          <tr><td>HDFCBANK</td><td>Intraday Sell</td><td>₹1,520</td><td>₹1,535</td><td>₹1,495</td><td>Below day’s first 15m low</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="6">Educational only. Not investment advice.</td></tr></tfoot>
+      </table>
+    </div>
+
+    <div class="card notice">
+      Access is gated by your subscription. If you got redirected here from the plans page, your plan is active.
+    </div>
+  </div>
+
+  <script>
+    fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });
+    // Guard this page (requires active subscription)
+    (async()=>{ 
+      const s = document.createElement('script'); s.src='assets/js/main.js'; document.body.appendChild(s);
+      s.onload = ()=> guardSuggestions();
+    })();
+  </script>
+</body>
+</html>

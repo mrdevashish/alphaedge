@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AlphaEdge — Share Trading Insights</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div id="nav"></div>
+  <div class="container">
+    <div class="hero">
+      <h1>AlphaEdge</h1>
+      <p class="kicker">Educational stock ideas & signals — simple, clean and India-first.</p>
+      <p><span class="badge">NOT SEBI Registered • Educational Purpose Only</span></p>
+      <p><a class="btn" href="plans.html">View Plans</a> <a class="btn secondary" href="suggestions.html">See Suggestions</a></p>
+    </div>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>Intraday & Swing</h3>
+        <p>Fresh, time-boxed entries with risk controls. Placeholder data you can edit later.</p>
+      </div>
+      <div class="card">
+        <h3>Risk Playbook</h3>
+        <p>Position sizing, SL trails, and psychology nudges tailored for Indian markets.</p>
+      </div>
+      <div class="card">
+        <h3>Alerts</h3>
+        <p>Email placeholders ready. Hook to SendGrid/Mailchimp later without UI change.</p>
+      </div>
+    </div>
+
+    <br/>
+    <div class="card notice">
+      <b>Disclaimer</b>: We are <b>not SEBI registered</b>. Content is for <b>education</b> only.
+      Markets are risky; you are responsible for your decisions.
+    </div>
+
+    <div class="footer">© <span id="yr"></span> AlphaEdge • Mumbai, India</div>
+  </div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    // Load shared nav
+    fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });
+  </script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

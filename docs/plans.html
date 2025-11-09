@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Plans — AlphaEdge</title>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <div id="nav"></div>
+  <div class="container">
+    <h2>Choose a plan</h2>
+    <p class="kicker">Simple pricing. Cancel anytime. (Razorpay coming—buttons activate directly for now.)</p>
+
+    <div class="grid cols-3">
+      <div class="card plan">
+        <h3>Weekly</h3>
+        <div class="price">₹299</div>
+        <p class="kicker">7 days access</p>
+        <button class="btn buy-btn" data-plan="weekly">Activate Weekly</button>
+      </div>
+      <div class="card plan">
+        <h3>Monthly <span class="badge">Popular</span></h3>
+        <div class="price">₹999</div>
+        <p class="kicker">30 days access</p>
+        <button class="btn buy-btn" data-plan="monthly">Activate Monthly</button>
+      </div>
+      <div class="card plan">
+        <h3>Yearly</h3>
+        <div class="price">₹9,999</div>
+        <p class="kicker">365 days access</p>
+        <button class="btn buy-btn" data-plan="yearly">Activate Yearly</button>
+      </div>
+    </div>
+
+    <br/>
+    <div class="card notice">
+      Pay via UPI / Razorpay (live switch later). For bank transfer, email: support@alphaedge.example
+    </div>
+  </div>
+  <script>fetch('nav.html').then(r=>r.text()).then(h=>{ document.getElementById('nav').innerHTML=h; });</script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
