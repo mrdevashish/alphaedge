@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/css/styles.css"><script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
+<div class="container" style="padding-top:24px"><div class="card">
+  <h1>Email Verification</h1>
+  <div class="row"><input id="email" placeholder="Email"><button class="btn" id="send">Send Code</button></div>
+  <div class="row" style="margin-top:10px"><input id="code" placeholder="Enter 6-digit code"><button class="btn primary" id="verify">Verify</button></div>
+  <div id="msg" class="alert" style="margin-top:10px;display:none"></div>
+</div></div>
+<script>
+send.onclick=async()=>{const r=await fetch(API_BASE+'/api/verify/send-verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email.value.trim()})}); msg.style.display='block'; msg.textContent=r.ok?'Sent. Check your inbox.':'Failed';}
+verify.onclick=async()=>{const r=await fetch(API_BASE+'/api/verify/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email.value.trim(),code:code.value.trim()})}); msg.style.display='block'; msg.textContent=r.ok?'Verified!':'Invalid code'; if(r.ok) setTimeout(()=>location.href='login.html',900);}
+const email=document.getElementById('email'), code=document.getElementById('code'), send=document.getElementById('send'), verify=document.getElementById('verify'), msg=document.getElementById('msg');
+</script>
