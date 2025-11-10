@@ -234,4 +234,21 @@ bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
   <script src="assets/js/auth.js"></script>
 </body>
 </html>
+
+cat >> docs/index.html <<'EOF'
+<!-- Mini chart card -->
+<div class="card">
+  <div class="card-title">Sample watchlist</div>
+  <canvas id="mini-reliance" style="width:100%;height:120px"></canvas>
+</div>
+
+<script src="assets/js/api.js"></script>
+<script src="assets/js/charts.js"></script>
+<script>
+  // If deploying, set your Render URL:
+  // window.API_BASE_OVERRIDE = "https://alphaedge-backend.onrender.com";
+  loadSymbolInto('mini-reliance', 'RELIANCE')
+    .catch(err => console.error('chart error', err));
+</script>
+EOF
 >>>>>>> origin/main
