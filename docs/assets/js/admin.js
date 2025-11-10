@@ -34,3 +34,15 @@ $('#loginBtn').onclick=login;
 $('#refreshBtn').onclick=refresh;
 $('#actBtn').onclick=activate;
 refresh();
+
+async function events(){
+  const r = await api('/api/admin/events').then(r=>r.json()).catch(()=>[]);
+  document.getElementById('events').innerHTML = Array.isArray(r)&&r.length?('<ul>'+r.slice(-20).reverse().map(e=>`<li>${e.ts} • ${e.type}</li>`).join('')+'</ul>'):'—';
+}
+async function pause(){ const email=document.getElementById('pcEmail').value.trim(); const r=await api('/api/admin/pause',{method:'POST',body:JSON.stringify({email})}); alert(r.ok?'Paused':'Failed'); refresh();}
+async function cancel(){ const email=document.getElementById('pcEmail').value.trim(); const r=await api('/api/admin/cancel',{method:'POST',body:JSON.stringify({email})}); alert(r.ok?'Cancelled':'Failed'); refresh();}
+async function extend(){ const email=document.getElementById('exEmail').value.trim(); const days=+document.getElementById('exDays').value||7; const r=await api('/api/admin/extend',{method:'POST',body:JSON.stringify({email,days})}); alert(r.ok?'Extended':'Failed'); refresh();}
+document.getElementById('pauseBtn').onclick=pause;
+document.getElementById('cancelBtn').onclick=cancel;
+document.getElementById('extendBtn').onclick=extend;
+events();

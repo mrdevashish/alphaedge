@@ -28,8 +28,9 @@
       <div id="users" class="lead">—</div>
     </div>
     <div class="card" style="grid-column:1/-1">
-      <h3>Subscriptions</h3>
+      <h3>Subscriptions</h3><p class="lead">Pause, cancel or extend plans.</p>
       <div id="subs" class="lead">—</div>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><input id="pcEmail" class="btn" placeholder="user email"><button id="pauseBtn" class="btn">Pause</button><button id="cancelBtn" class="btn danger">Cancel</button><input id="exEmail" class="btn" placeholder="user email"><input id="exDays" class="btn" type="number" value="7" style="width:90px"><button id="extendBtn" class="btn">Extend</button></div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <input id="actEmail" class="btn" placeholder="user email">
         <select id="actPlan" class="btn"><option value="monthly">monthly</option><option value="quarterly">quarterly</option><option value="yearly">yearly</option></select>
