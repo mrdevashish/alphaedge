@@ -1,0 +1,105 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Submit a Review • AlphaEdge</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<nav class="nav"><div class="nav-inner container">
+  <div class="brand"><div class="logo"><span>AE</span></div>AlphaEdge</div>
+  <div class="menu">
+    <a href="index.html">Home</a>
+    <a href="suggestions.html">Suggestions</a>
+    <a href="plans.html">Plans</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="review-submit.html" class="active">Submit Review</a>
+  </div>
+</div></nav>
+
+<section class="container" style="max-width:760px">
+  <div class="card">
+    <h1 style="margin:0 0 6px">Share your experience</h1>
+    <p class="muted">Your review helps others understand the value and the limits of our research. Be specific and fair. We may publish edits for clarity and length. <b>Not investment advice.</b></p>
+
+    <!-- Option A: Formspree (recommended) -->
+    <form id="fsForm" class="form" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
+      <div class="grid2">
+        <label>Full name
+          <input name="name" required minlength="2" placeholder="e.g., Rohan Patil"/>
+        </label>
+        <label>City
+          <input name="city" required placeholder="e.g., Pune"/>
+        </label>
+      </div>
+
+      <div class="grid2">
+        <label>Email (kept private)
+          <input type="email" name="email" required placeholder="you@example.com"/>
+        </label>
+        <label>Profile (optional)
+          <select name="profile">
+            <option value="">Select</option>
+            <option>Beginner</option><option>Swing trader</option>
+            <option>Options</option><option>Positional</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Rating
+        <select name="rating" required>
+          <option value="">Select</option>
+          <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+        </select>
+      </label>
+
+      <label>Your review
+        <textarea name="review" required minlength="30" rows="5" placeholder="What helped? What could be better?"></textarea>
+      </label>
+
+      <!-- honeypot -->
+      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off"/>
+
+      <!-- redirects -->
+      <input type="hidden" name="_subject" value="New AlphaEdge Review"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_next" value="https://mrdevashish.github.io/alphaedge/review-thanks.html"/>
+
+      <button class="btn" type="submit">Send review</button>
+      <span id="fsMsg" class="muted" style="margin-left:8px"></span>
+    </form>
+
+    <div class="muted" style="margin-top:14px">
+      <b>Prefer Google Forms?</b> Embed code can go here. Replace the iframe below with your own form embed.
+    </div>
+    <div class="card" style="background:rgba(255,255,255,.03);margin-top:8px">
+      <iframe title="Google Form (placeholder)" style="width:100%;height:0;border:0;display:none"></iframe>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3>How reviews are used</h3>
+    <ul>
+      <li>We may quote first name + city (e.g., “Rohan • Pune”).</li>
+      <li>We do not publish your email.</li>
+      <li>We may edit for clarity/length and verify authenticity.</li>
+    </ul>
+  </div>
+</section>
+
+<footer><div class="container">
+  <div class="disclaimer">Not SEBI registered. Educational content only. No investment advice.</div>
+</div></footer>
+
+<script>
+/* Basic client-side validation + friendly message */
+const form = document.getElementById('fsForm');
+const msg  = document.getElementById('fsMsg');
+form.addEventListener('submit', function(ev){
+  // If Formspree action not replaced, stop submit
+  if(form.action.includes('YOUR_FORM_ID')){
+    ev.preventDefault();
+    msg.textContent = 'Add your Formspree endpoint in review-submit.html (action="...").';
+    msg.style.color = 'var(--warn, #ffcc66)';
+  }
+});
+</script>
+</body></html>
