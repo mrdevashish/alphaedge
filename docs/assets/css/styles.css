@@ -67,3 +67,15 @@ form .row{gap:10px;flex-wrap:wrap}
 .table{width:100%;border-collapse:collapse}
 .table td,.table th{border-bottom:1px solid var(--border);padding:8px 6px}
 .alert{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:#0f1533;color:#cdd9ff}
+
+/* --- Mobile drawer --- */
+.nav .brand{gap:8px}
+#navToggle{display:none}
+@media (max-width:920px){
+  #navToggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:38px;
+    border:1px solid var(--border);border-radius:10px;background:#101633;color:var(--text)}
+  .menu{display:none;position:absolute;left:0;right:0;top:66px;margin:0;padding:12px;
+    background:#0d1330;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .menu.open{display:grid;grid-template-columns:1fr;gap:6px}
+  .menu a,.menu .btn{width:100%;text-align:left}
+}
