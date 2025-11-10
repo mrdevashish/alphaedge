@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
+<nav class="nav"><div class="container row"><div class="brand"><img src="assets/img/logo.svg">Infinity Invest</div><div class="menu"><a href="index.html">Home</a><a href="plans.html">Plans</a></div></div></nav>
+<section class="container" style="padding-top:24px">
+  <div class="card"><h1>My Account</h1>
+    <div id="acc" class="lead">Loading…</div>
+    <div style="margin-top:10px">
+      <a class="btn" href="suggestions.html">Open Suggestions</a>
+      <a class="btn primary" href="#" onclick="startCheckout('monthly')">Renew Monthly</a>
+    </div>
+  </div>
+</section>
+<footer class="footer"><div class="container row" style="padding:22px 24px"><div class="muted">© Infinity Invest</div><div class="menu"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div></div></footer>
+<script src="assets/js/checkout.js"></script>
+<script>
+(async()=>{
+  const t=localStorage.getItem('ae_token'); if(!t){location.href='login.html';return;}
+  const r=await fetch(API_BASE+'/api/me/subscription',{headers:{Authorization:'Bearer '+t}}).catch(()=>null);
+  const j=r && await r.json();
+  if(!j || j.status==='none'){ acc.innerHTML='No active subscription'; return; }
+  const d = new Date(j.expiresAt);
+  acc.innerHTML = 'Plan: <b>'+j.plan+'</b> • Status: <b>'+j.status+'</b> • Expires: <b>'+d.toDateString()+'</b>';
+})();
+</script>
+<script src="assets/js/auth.js"></script>Open PR → merge.
+
+---
+
+## Batch S3 — Payment success/cancel UX (client) and polling verify
+
+```bash
+git checkout -b ui-checkout-success
+
+# Success & Cancel pages
+cat > docs/pay-success.html <<'EOF'
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="assets/css/styles.css">
+<div class="container" style="padding-top:24px"><div class="card">
+  <h1>Payment completed</h1>
+  <p class="lead">We’re verifying your payment. If not active in a minute, it will activate shortly after Razorpay webhook.</p>
+  <div id="st">Checking status…</div>
+  <div style="margin-top:10px"><a class="btn" href="account.html">Go to Account</a> <a class="btn" href="suggestions.html">Open Suggestions</a></div>
+</div></div>
+<script>
+(async function poll(){
+  const t=localStorage.getItem('ae_token'); if(!t){st.textContent='Login required'; return;}
+  for(let i=0;i<12;i++){
+    const r=await fetch('https://alphaedge-backend.onrender.com/api/me/subscription',{headers:{Authorization:'Bearer '+t}}).catch(()=>null);
+    const j=r && await r.json();
+    if(j && j.status==='active' && new Date(j.expiresAt)>new Date()){ st.innerHTML='Active: '+j.plan+' till '+new Date(j.expiresAt).toDateString(); return; }
+    await new Promise(d=>setTimeout(d,5000));
+  }
+  st.textContent='Still verifying. It can take a few minutes.';
+})();
+</script>

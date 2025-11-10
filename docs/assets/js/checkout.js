@@ -8,7 +8,7 @@ async function startCheckout(plan="monthly"){
       const rz=new window.Razorpay({
         key, order_id, name:'Infinity Invest', description:`${plan} plan`,
         prefill:{email}, notes:{email},
-        handler: function(){ alert('Payment captured! You will receive email once active.'); }
+        handler: function(){ window.location.href = "pay-success.html"; }
       }); rz.open();
     }; document.body.appendChild(s);
   }catch(e){ alert(e.message); }
