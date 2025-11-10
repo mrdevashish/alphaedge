@@ -1,0 +1,9 @@
+{
+  "name": "Infinity Invest",
+  "short_name": "Infinity",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#4f8cff",
+  "icons": [{ "src": "assets/img/logo.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
