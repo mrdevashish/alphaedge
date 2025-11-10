@@ -1,48 +1,23 @@
-<!doctype html><meta name="robots" content="noindex"><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Admin – Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css">
-<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
+<link rel="stylesheet" href="assets/css/styles.css"/>
 </head><body>
-<nav class="nav"><div class="container row">
-  <div class="brand"><img src="assets/img/logo.svg" alt="">Infinity Invest</div>
-  <button id="navToggle" aria-label="Menu">☰</button>
-  <div class="menu"><a class="btn ghost" href="index.html">Home</a></div>
-</div></nav>
-
-<section class="container">
-  <div class="card">
-    <h1>Admin</h1>
-    <p class="lead">Login with admin email to view users & subscriptions. (Demo)</p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <input id="email" placeholder="email" class="btn" style="min-width:220px">
-      <input id="password" placeholder="password" type="password" class="btn" style="min-width:220px">
-      <button id="loginBtn" class="btn primary">Login</button>
-      <button id="refreshBtn" class="btn">Refresh Data</button>
-    </div>
+<header id="site-nav"></header>
+<main class="section">
+  <h1>Admin (demo)</h1>
+  <p>This is a front-end placeholder. Once the backend endpoints are ready, wire these buttons to:</p>
+  <ul>
+    <li>GET /api/users</li>
+    <li>GET /api/subscriptions</li>
+    <li>POST /api/subscriptions/activate</li>
+  </ul>
+  <div class="mini-charts">
+    <button class="btn primary" onclick="alert('Wire to /api/users later')">List Users</button>
+    <button class="btn primary" onclick="alert('Wire to /api/subscriptions later')">List Subscriptions</button>
+    <button class="btn ghost" onclick="alert('Wire to /api/subscriptions/activate')">Activate Plan</button>
   </div>
-
-  <div class="grid-4" style="margin-top:16px">
-    <div class="card" style="grid-column:1/-1">
-      <h3>Users</h3>
-      <div id="users" class="lead">—</div>
-    </div>
-    <div class="card" style="grid-column:1/-1">
-      <h3>Subscriptions</h3><p class="lead">Pause, cancel or extend plans.</p>
-      <div id="subs" class="lead">—</div>
-<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><input id="pcEmail" class="btn" placeholder="user email"><button id="pauseBtn" class="btn">Pause</button><button id="cancelBtn" class="btn danger">Cancel</button><input id="exEmail" class="btn" placeholder="user email"><input id="exDays" class="btn" type="number" value="7" style="width:90px"><button id="extendBtn" class="btn">Extend</button></div>
-      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <input id="actEmail" class="btn" placeholder="user email">
-        <select id="actPlan" class="btn"><option value="monthly">monthly</option><option value="quarterly">quarterly</option><option value="yearly">yearly</option></select>
-        <input id="actDays" class="btn" type="number" min="1" value="30" style="width:120px">
-        <button id="actBtn" class="btn primary">Activate</button>
-      </div>
-      <div id="msg" class="lead" style="margin-top:8px;color:#2563eb"></div>
-    </div>
-  </div>
-</section>
-
-<footer><div class="container">Admin demo.</div></footer>
-<script src="assets/js/admin.js"></script>
+</main>
 <script src="assets/js/nav.js"></script>
+<script src="assets/js/auth.js"></script>
 </body></html>

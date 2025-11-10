@@ -102,6 +102,25 @@ header, .site-header{
   backdrop-filter: saturate(160%) blur(4px);
 }
 
+<<<<<<< HEAD
+/* --- UI polish: layout & pricing (2025-11-10) --- */
+:root{
+  --container-w: min(1200px, 92vw);
+  --gap-1: 12px;
+  --gap-2: 16px;
+  --gap-3: 24px;
+}
+
+/* keep header on top and avoid content overlap */
+header, .site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(160%) blur(4px);
+}
+
+=======
+>>>>>>> origin/main
 /* ensure main never hides under header */
 main{
   padding-top: clamp(56px, 9vh, 84px);
@@ -157,6 +176,32 @@ main{
   .pricing, .hero, .section{ padding-inline: 8px; }
 }
 
+<<<<<<< HEAD
+/* --- shared top nav (2025-11-10) --- */
+#site-nav{
+  position: sticky; top:0; z-index:60;
+  background: rgba(255,255,255,.65);
+  backdrop-filter: blur(6px) saturate(160%);
+  border-bottom: 1px solid rgba(15,23,42,.06);
+}
+@media (prefers-color-scheme: dark){
+  #site-nav{ background: rgba(2,6,23,.55); border-bottom: 1px solid rgba(255,255,255,.06); }
+}
+#site-nav .nav-inner{
+  width: min(1200px,92vw); margin-inline:auto;
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 16px; padding: 10px 0;
+}
+#site-nav .links{ display:flex; gap:18px; flex-wrap:wrap; }
+#site-nav .links a{ text-decoration:none; opacity:.9 }
+#site-nav .auth{ display:flex; gap:10px; }
+.btn{ padding:8px 14px; border-radius:10px; text-decoration:none; font-weight:600; }
+.btn.primary{ background:#0ea5e9; color:white; }
+.btn.ghost{ border:1px solid rgba(15,23,42,.15); }
+@media (prefers-color-scheme: dark){
+  .btn.ghost{ border:1px solid rgba(255,255,255,.15); color:#e5e7eb; }
+}
+=======
 /* ===== UI polish (homepage) ===== */
 .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
 .container.thin { max-width: 920px; }
@@ -249,3 +294,4 @@ main{
 
 /* Avoid tiny text on mobile desktop-mode */
 html{ -webkit-text-size-adjust: 100%; }
+>>>>>>> origin/main
