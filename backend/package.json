@@ -15,3 +15,16 @@
     "sqlite3": "^5.1.6"
   }
 }
+{
+  "name": "alphaedge-backend",
+  "private": true,
+  "type": "commonjs",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
