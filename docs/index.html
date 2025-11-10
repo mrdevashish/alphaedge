@@ -2,7 +2,13 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="favicon.svg">
 <title>Infinity Invest</title>
+<meta name="description" content="Infinity Invest — clean tools, education, and disciplined trading process. Educational only, not SEBI-registered.">
+<meta property="og:title" content="Infinity Invest">
+<meta property="og:description" content="Clean tools </title> education for disciplined trading.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/logo.svg">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="manifest" href="manifest.json">
 <script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
 </head><body>
 <nav class="nav"><div class="container row">
@@ -76,6 +82,7 @@ HEADER='<!doctype html><html lang="en"><head>
 <link rel="icon" href="favicon.svg">
 <title>Infinity Invest</title>
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="manifest" href="manifest.json">
 <script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
 </head><body>
 <nav class="nav"><div class="container row">
@@ -99,6 +106,8 @@ FOOTER='<footer class="footer"><div class="container row" style="padding:22px 24
 </div></footer>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/nav.js"></script>
+<script src="assets/js/analytics.js"></script>
+<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
 </body></html>'
 
 # 1) Rebuild index.html (hero + kpis + mini pricing)
@@ -108,6 +117,7 @@ cat > docs/index.html <<EOF
 <link rel="icon" href="favicon.svg">
 <title>Infinity Invest</title>
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="manifest" href="manifest.json">
 <script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
 </head><body>
 <nav class="nav"><div class="container row">
@@ -185,4 +195,6 @@ cat > docs/index.html <<EOF
 </div></footer>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/nav.js"></script>
+<script src="assets/js/analytics.js"></script>
+<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
 </body></html>
