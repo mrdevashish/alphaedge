@@ -1,3 +1,4 @@
+.brand img{width:28px;height:28px;border-radius:8px}
 :root{
   --bg:#f7f8fb;--card:#ffffff;--ink:#0f172a;--muted:#475569;--brand:#2563eb;
   --brand-2:#22c55e;--accent:#f59e0b;--ring:rgba(37,99,235,.25)
