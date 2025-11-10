@@ -5,4 +5,8 @@ __pycache__/
 dist/
 build/
 .DS_Store
+git checkout -b ui-live-charts
+git add docs/assets/js/api.js docs/assets/js/charts.js docs/index.html
+git commit -m "UI: add mini OHLC chart and wire backend API"
+git push -u origin ui-live-charts
 
