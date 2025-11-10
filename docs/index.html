@@ -1,91 +1,58 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>AlphaEdge • Calm, actionable trading suggestions</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
+<title>Infinity Invest – Smart Trading & Learning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
 </head><body>
-<nav class="nav">
-  <div class="nav-inner container">
-    <div class="brand"><div class="logo"><span>AE</span></div>AlphaEdge</div>
-    <div class="menu">
-      <a href="index.html" class="active">Home</a>
-      <a href="suggestions.html">Suggestions</a>
-      <a href="plans.html">Plans</a>
-      <a href="explore.html">Explore</a>
-      <a href="about.html">About</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="login.html" id="loginBtn">Login</a>
-      <a href="#" class="ghost" id="logoutBtn" style="display:none">Logout</a>
-    </div>
+<nav class="nav"><div class="container row">
+  <div class="brand"><span class="logo"></span>Infinity Invest</div>
+  <div class="menu">
+    <a href="index.html" class="btn ghost">Home</a>
+    <a href="services.html" class="btn ghost">Services</a>
+    <a href="products.html" class="btn ghost">Products</a>
+    <a href="learn.html" class="btn ghost">Learn</a>
+    <a href="reviews.html" class="btn ghost">Reviews</a>
+    <a href="about.html" class="btn ghost">About</a>
+    <a href="contact.html" class="btn ghost">Contact</a>
+    <a href="login.html" class="btn">Login</a>
+    <a href="register.html" class="btn primary">Get Started</a>
   </div>
-</nav>
+</div></nav>
 
 <section class="container hero">
   <div>
-    <span class="pill">India-first • Educational</span>
-    <h1>Trade with clarity, not chaos.</h1>
-    <p class="lead">Clean entry/SL/targets. Consistent format. Psychology-first nudges that keep you disciplined. Built for mobile, designed for focus.</p>
-    <div style="display:flex;gap:12px;margin-top:14px">
-      <a class="btn" href="plans.html">See Plans</a>
-      <a class="btn secondary" href="suggestions.html">Preview Suggestions</a>
+    <div class="badge">⚡ Pro tools for retail investors</div>
+    <h1>Trade with clarity.<br/>Invest with confidence.</h1>
+    <p class="lead">Clean insights, simple plans, and a community that helps you stay disciplined. No hype—just an edge.</p>
+    <div style="display:flex;gap:12px;margin-top:12px">
+      <a class="btn primary" href="plans.html">See Plans</a>
+      <a class="btn" href="learn.html">Start Learning</a>
     </div>
-
-    <div class="kpis" style="margin-top:18px">
-      <div class="kpi"><div style="color:#334155">Latency</div><div style="font-weight:800">~120ms</div></div>
-      <div class="kpi"><div style="color:#334155">Uptime</div><div style="font-weight:800">99.9%</div></div>
-      <div class="kpi"><div style="color:#334155">Focus</div><div style="font-weight:800">Level-driven</div></div>
+    <div class="kpis">
+      <div class="itm"><strong>1,200+</strong><br><span class="muted">Learners</span></div>
+      <div class="itm"><strong>8+ yrs</strong><br><span class="muted">Market experience</span></div>
+      <div class="itm"><strong>Zero</strong><br><span class="muted">Hidden fees</span></div>
     </div>
   </div>
-
-  <div>
-    <div class="card chart-card">
-      <div class="chart-head"><div>NIFTY • Candles (sample)</div><span class="pill">demo</span></div>
-      <div id="c1" class="chart-canvas"></div>
-    </div>
-    <div class="grid cols-2" style="margin-top:12px">
-      <div class="card chart-card"><div class="chart-head"><div>RELIANCE</div><span class="pill">demo</span></div><div id="c2" class="chart-canvas"></div></div>
-      <div class="card chart-card"><div class="chart-head"><div>HDFCBANK</div><span class="pill">demo</span></div><div id="c3" class="chart-canvas"></div></div>
+  <div class="card">
+    <canvas id="miniChart" height="220"></canvas>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <span class="tag">Candles</span><span class="tag">Risk mgmt</span><span class="tag">Position sizing</span>
     </div>
   </div>
 </section>
 
 <section class="container">
-  <h2 class="section-title">Ambition, made practical</h2>
-  <div class="grid cols-3">
-    <div class="card"><h3>Process over impulse</h3><p class="muted">Rule-based entries, defined exits, and realistic expectations.</p></div>
-    <div class="card"><h3>Designed for focus</h3><p class="muted">Light UI, readable type, and clean layout for decision making.</p></div>
-    <div class="card"><h3>Built for India</h3><p class="muted">Fast static hosting + API. UPI/Razorpay coming.</p></div>
+  <div class="grid-4">
+    <div class="card"><h3>Transparent Pricing</h3><p class="lead">Simple monthly plans. Cancel anytime.</p></div>
+    <div class="card"><h3>Actionable Research</h3><p class="lead">Levels, scenarios, and risk notes—no noise.</p></div>
+    <div class="card"><h3>Tools that teach</h3><p class="lead">Each tool includes short lessons to build skill.</p></div>
+    <div class="card"><h3>Human Support</h3><p class="lead">We answer like people, not bots.</p></div>
   </div>
 </section>
 
-<section class="container">
-  <h2 class="section-title">What traders say</h2>
-  <div class="reviews-row">
-    <div class="r-mini"><div class="stars">★★★★★</div><div class="quote">“Calmer decisions, fewer forced trades.”</div><div class="meta">— Rohan • Pune</div></div>
-    <div class="r-mini"><div class="stars">★★★★☆</div><div class="quote">“Everything on one screen, finally.”</div><div class="meta">— Neha • Mumbai</div></div>
-    <div class="r-mini"><div class="stars">★★★★★</div><div class="quote">“Love the ‘when it fails’ notes.”</div><div class="meta">— Sanket • Nashik</div></div>
-  </div>
-  <div style="margin-top:10px"><a class="btn ghost" href="reviews.html">Read all reviews</a></div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="disclaimer">Disclaimer: We are <b>not SEBI registered</b>. All content is for <b>educational purposes only</b> and is <b>not investment advice</b>.</div>
-  </div>
-</footer>
-
-<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+<footer><div class="container">© Infinity Invest. Educational only. Not SEBI registered (yet).</div></footer>
 <script src="assets/js/main.js"></script>
-<script>
-  function candle(el, data){
-    const chart = LightweightCharts.createChart(el,{height:300, layout:{background:{type:'solid',color:'transparent'}, textColor:'#0f172a'}, grid:{vertLines:{color:'#e6e9f2'}, horzLines:{color:'#e6e9f2'}}, rightPriceScale:{borderColor:'#e6e9f2'}, timeScale:{borderColor:'#e6e9f2'}});
-    const series = chart.addCandlestickSeries({upColor:'#16a34a',downColor:'#ef4444',borderDownColor:'#ef4444',borderUpColor:'#16a34a',wickDownColor:'#ef4444',wickUpColor:'#16a34a'});
-    series.setData(data);
-  }
-  // sample OHLC
-  const d = (o,h,l,c,i)=>({time:i+1, open:o, high:h, low:l, close:c});
-  const base = [d(100,105,98,104,1), d(104,106,99,101,2), d(101,108,100,107,3), d(107,109,103,104,4), d(104,110,102,109,5), d(109,113,108,112,6), d(112,116,111,115,7), d(115,118,113,116,8)];
-  candle(document.getElementById('c1'), base);
-  candle(document.getElementById('c2'), base.map((x,i)=>({...x, open:x.open+2, high:x.high+2, low:x.low+2, close:x.close+2})));
-  candle(document.getElementById('c3'), base.map((x,i)=>({...x, open:x.open-1.5, high:x.high-1.5, low:x.low-1.5, close:x.close-1.5})));
-</script>
 </body></html>
