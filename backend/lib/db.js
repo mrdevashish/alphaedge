@@ -1,37 +1,18 @@
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
-sqlite3.verbose();
+import fs from 'fs'; import path from 'path';
+const root = path.resolve('./backend/.data'); if(!fs.existsSync(root)) fs.mkdirSync(root,{recursive:true});
+const f = p=>path.join(root,p);
+const read = p => fs.existsSync(p)?JSON.parse(fs.readFileSync(p,'utf8')):[];
+const write = (p,v)=>fs.writeFileSync(p,JSON.stringify(v,null,2));
+const U = f('users.json'), S=f('subs.json');
 
-export async function getDB() {
-  const db = await open({ filename: "./alphaedge.db", driver: sqlite3.Database });
-  await db.exec(`
-    PRAGMA journal_mode = WAL;
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT,
-      email TEXT UNIQUE,
-      password_hash TEXT,
-      verified INTEGER DEFAULT 0,
-      created_at TEXT DEFAULT (datetime('now'))
-    );
-    CREATE TABLE IF NOT EXISTS subscriptions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      user_id INTEGER,
-      plan TEXT,
-      status TEXT,           -- trial|active|paused|cancelled|expired
-      start_at TEXT,
-      end_at TEXT,
-      razorpay_order_id TEXT,
-      razorpay_payment_id TEXT,
-      created_at TEXT DEFAULT (datetime('now')),
-      FOREIGN KEY(user_id) REFERENCES users(id)
-    );
-    CREATE TABLE IF NOT EXISTS audit (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      type TEXT,             -- payment_webhook|login|admin_action
-      payload TEXT,
-      created_at TEXT DEFAULT (datetime('now'))
-    );
-  `);
-  return db;
+export default {
+  users:{
+    list(){ return read(U); },
+    upsert(u){ const a=read(U); const i=a.findIndex(x=>x.email===u.email); i>=0?a[i]={...a[i],...u}:a.push(u); write(U,a); return u;}
+  },
+  subs:{
+    list(){ return read(S); },
+    upsert(s){ const a=read(S); const i=a.findIndex(x=>x.email===s.email);
+      const v={email:s.email,plan:s.plan,expiresAt:s.expiresAt}; i>=0?a[i]=v:a.push(v); write(S,a); return v;}
+  }
 }
