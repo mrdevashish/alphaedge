@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin – Infinity Invest</title>
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
+</head><body>
+<nav class="nav"><div class="container row">
+  <div class="brand"><img src="assets/img/logo.svg" alt="">Infinity Invest</div>
+  <div class="menu"><a class="btn ghost" href="index.html">Home</a></div>
+</div></nav>
+
+<section class="container">
+  <div class="card">
+    <h1>Admin</h1>
+    <p class="lead">Login with admin email to view users & subscriptions. (Demo)</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <input id="email" placeholder="email" class="btn" style="min-width:220px">
+      <input id="password" placeholder="password" type="password" class="btn" style="min-width:220px">
+      <button id="loginBtn" class="btn primary">Login</button>
+      <button id="refreshBtn" class="btn">Refresh Data</button>
+    </div>
+  </div>
+
+  <div class="grid-4" style="margin-top:16px">
+    <div class="card" style="grid-column:1/-1">
+      <h3>Users</h3>
+      <div id="users" class="lead">—</div>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <h3>Subscriptions</h3>
+      <div id="subs" class="lead">—</div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <input id="actEmail" class="btn" placeholder="user email">
+        <select id="actPlan" class="btn"><option value="monthly">monthly</option><option value="quarterly">quarterly</option><option value="yearly">yearly</option></select>
+        <input id="actDays" class="btn" type="number" min="1" value="30" style="width:120px">
+        <button id="actBtn" class="btn primary">Activate</button>
+      </div>
+      <div id="msg" class="lead" style="margin-top:8px;color:#2563eb"></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container">Admin demo.</div></footer>
+<script src="assets/js/admin.js"></script>
+</body></html>
