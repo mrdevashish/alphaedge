@@ -1,202 +1,53 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="favicon.svg">
-<title>Infinity Invest</title>
-<meta name="description" content="Infinity Invest — clean tools, education, and disciplined trading process. Educational only, not SEBI-registered.">
-<meta property="og:title" content="Infinity Invest">
-<meta property="og:description" content="Clean tools </title> education for disciplined trading.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="assets/img/logo.svg">
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="manifest" href="manifest.json">
-<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
-</head><body>
-<nav class="nav"><div class="container row">
-  <div class="brand"><img src="assets/img/logo.svg" alt="">Infinity Invest</div>
-  <button id="navToggle" aria-label="Menu">☰</button>
-  <div class="menu">
-    <a href="index.html" class="active">Home</a>
-    <a href="services.html">Services</a>
-    <a href="products.html">Products</a>
-    <a href="learn.html">Learn</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a class="btn" href="login.html">Login</a>
-    <a class="btn primary" href="plans.html">Get Pro</a>
-  </div>
-</div></nav>
-<section class="container hero" style="padding:30px 24px 10px">
-  <div>
-    <span class="highlight">Smarter Trading • Calm Risk • Real Process</span>
-    <h1>Clarity-first investing for busy people</h1>
-    <p class="lead">Tools, education and guided plans to help you grow your capital without noise. No hype. No spam. Just process.</p>
-    <div class="actions">
-      <a href="plans.html" class="btn primary">Start Now</a>
-      <a href="learn.html" class="btn ghost">Browse Learning</a>
-      <span class="badge">SEBI non-registered – educational only</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinity Invest – Smarter Investing</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">∞ Infinity Invest</div>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="plans.html">Plans</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" class="btn">Login</a>
     </div>
-    <div style="display:flex;gap:18px;margin-top:16px;flex-wrap:wrap">
-      <div class="kpi"><span class="badge">Avg. response</span> <strong>~2h</strong></div>
-      <div class="kpi"><span class="badge">Active members</span> <strong>270+</strong></div>
-      <div class="kpi"><span class="badge">Books & guides</span> <strong>40+</strong></div>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <img src="assets/img/logo.svg" alt="" style="float:right;opacity:.3;width:60px;height:60px">
+  </nav>
+
+  <section class="hero">
+    <h1>Clarity-first investing for smart people</h1>
+    <p>Grow, learn, and build your financial independence.</p>
+    <a href="learn.html" class="btn">Get Started</a>
+  </section>
+
+  <section class="cards">
     <div class="card">
-      <h3 style="margin:0 0 6px">Sample watchlist</h3>
-      <table class="table">
-        <tr><th>Symbol</th><th>Trend</th><th>Note</th></tr>
-        <tr><td>NIFTY</td><td><span class="badge">Up</span></td><td>Support 22k • buy on dips</td></tr>
-        <tr><td>BANKNIFTY</td><td><span class="badge">Neutral</span></td><td>Range day, scalp only</td></tr>
-        <tr><td>RELIANCE</td><td><span class="badge">Up</span></td><td>RS above 55</td></tr>
-      </table>
+      <h3>Starter Plan</h3>
+      <p>Perfect for new investors wanting simple setups.</p>
+      <div class="price">₹699 / mo</div>
+      <a href="checkout.html" class="btn">Subscribe</a>
     </div>
-  </div>
-  <section class="container" style="margin-top:8px"><div class="card"><img src="assets/img/candles.svg" alt="Price action art" style="width:100%;opacity:.9;border-radius:12px"></div></section>
-</section>
-
-<section class="container grid-3" style="margin-top:10px">
-  <div class="card"><h3>Process over prediction</h3><p class="lead">Entry, risk, adds and exits—documented rules that cut noise.</p></div>
-  <div class="card"><h3>Capital protection</h3><p class="lead">Position sizing & risk budgets keep you in the game.</p></div>
-  <div class="card"><h3>Lifetime learning</h3><p class="lead">Hand-picked resources: books, videos, exercises, templates.</p></div>
-  <section class="container" style="margin-top:8px"><div class="card"><img src="assets/img/candles.svg" alt="Price action art" style="width:100%;opacity:.9;border-radius:12px"></div></section>
-</section>
-
-<section class="container" style="margin-top:10px">
-  <div class="pricing">
-    <div class="plan"><h3>Starter</h3><div class="price">₹0</div>
-      <ul><li>Basics library</li><li>Weekly email</li><li>Sample notes</li></ul>
-      <a class="btn" href="learn.html">Explore</a>
-    </div>
-    <div class="plan pop"><h3>Pro</h3><div class="price">₹699<span style="font-size:14px">/mo</span></div>
-      <ul><li>Full playbooks</li><li>All strategies</li><li>Priority replies</
-
-cd ~/storage/shared/AlphaEdge
-git checkout -b ui-batch-13
-
-# Helper header & footer snippets (we'll inline them by overwriting main pages)
-HEADER='<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="favicon.svg">
-<title>Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="manifest" href="manifest.json">
-<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
-</head><body>
-<nav class="nav"><div class="container row">
-  <div class="brand"><img src="assets/img/logo.svg" alt="">Infinity Invest</div>
-  <div class="menu">
-    <a href="index.html" class="active">Home</a>
-    <a href="services.html">Services</a>
-    <a href="products.html">Products</a>
-    <a href="learn.html">Learn</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a class="btn" href="login.html">Login</a>
-    <a class="btn primary" href="plans.html">Get Pro</a>
-  </div>
-</div></nav>'
-
-FOOTER='<footer class="footer"><div class="container row" style="padding:22px 24px">
-  <div class="muted">© Infinity Invest</div>
-  <div class="menu"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="sitemap.xml">Sitemap</a></div>
-</div></footer>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/nav.js"></script>
-<script src="assets/js/analytics.js"></script>
-<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
-</body></html>'
-
-# 1) Rebuild index.html (hero + kpis + mini pricing)
-cat > docs/index.html <<EOF
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" href="favicon.svg">
-<title>Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="manifest" href="manifest.json">
-<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
-</head><body>
-<nav class="nav"><div class="container row">
-  <div class="brand"><img src="assets/img/logo.svg" alt="">Infinity Invest</div>
-  <div class="menu">
-    <a href="index.html" class="active">Home</a>
-    <a href="services.html">Services</a>
-    <a href="products.html">Products</a>
-    <a href="learn.html">Learn</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a class="btn" href="login.html">Login</a>
-    <a class="btn primary" href="plans.html">Get Pro</a>
-  </div>
-</div></nav>
-<section class="container hero" style="padding:30px 24px 10px">
-  <div>
-    <span class="highlight">Smarter Trading • Calm Risk • Real Process</span>
-    <h1>Clarity-first investing for busy people</h1>
-    <p class="lead">Tools, education and guided plans to help you grow your capital without noise. No hype. No spam. Just process.</p>
-    <div class="actions">
-      <a href="plans.html" class="btn primary">Start Now</a>
-      <a href="learn.html" class="btn ghost">Browse Learning</a>
-      <span class="badge">SEBI non-registered – educational only</span>
-    </div>
-    <div style="display:flex;gap:18px;margin-top:16px;flex-wrap:wrap">
-      <div class="kpi"><span class="badge">Avg. response</span> <strong>~2h</strong></div>
-      <div class="kpi"><span class="badge">Active members</span> <strong>270+</strong></div>
-      <div class="kpi"><span class="badge">Books & guides</span> <strong>40+</strong></div>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <img src="assets/img/logo.svg" alt="" style="float:right;opacity:.3;width:60px;height:60px">
     <div class="card">
-      <h3 style="margin:0 0 6px">Sample watchlist</h3>
-      <table class="table">
-        <tr><th>Symbol</th><th>Trend</th><th>Note</th></tr>
-        <tr><td>NIFTY</td><td><span class="badge">Up</span></td><td>Support 22k • buy on dips</td></tr>
-        <tr><td>BANKNIFTY</td><td><span class="badge">Neutral</span></td><td>Range day, scalp only</td></tr>
-        <tr><td>RELIANCE</td><td><span class="badge">Up</span></td><td>RS above 55</td></tr>
-      </table>
+      <h3>Pro Plan</h3>
+      <p>Includes portfolio analysis & weekly insights.</p>
+      <div class="price">₹1,499 / mo</div>
+      <a href="checkout.html" class="btn">Subscribe</a>
     </div>
-  </div>
-  <section class="container" style="margin-top:8px"><div class="card"><img src="assets/img/candles.svg" alt="Price action art" style="width:100%;opacity:.9;border-radius:12px"></div></section>
-</section>
+    <div class="card">
+      <h3>Elite Plan</h3>
+      <p>For long-term traders who want expert direction.</p>
+      <div class="price">₹2,999 / mo</div>
+      <a href="checkout.html" class="btn">Subscribe</a>
+    </div>
+  </section>
 
-<section class="container grid-3" style="margin-top:10px">
-  <div class="card"><h3>Process over prediction</h3><p class="lead">Entry, risk, adds and exits—documented rules that cut noise.</p></div>
-  <div class="card"><h3>Capital protection</h3><p class="lead">Position sizing & risk budgets keep you in the game.</p></div>
-  <div class="card"><h3>Lifetime learning</h3><p class="lead">Hand-picked resources: books, videos, exercises, templates.</p></div>
-  <section class="container" style="margin-top:8px"><div class="card"><img src="assets/img/candles.svg" alt="Price action art" style="width:100%;opacity:.9;border-radius:12px"></div></section>
-</section>
-
-<section class="container" style="margin-top:10px">
-  <div class="pricing">
-    <div class="plan"><h3>Starter</h3><div class="price">₹0</div>
-      <ul><li>Basics library</li><li>Weekly email</li><li>Sample notes</li></ul>
-      <a class="btn" href="learn.html">Explore</a>
-    </div>
-    <div class="plan pop"><h3>Pro</h3><div class="price">₹699<span style="font-size:14px">/mo</span></div>
-      <ul><li>Full playbooks</li><li>All strategies</li><li>Priority replies</li></ul>
-      <a class="btn primary" href="plans.html">Get Pro</a>
-    </div>
-    <div class="plan"><h3>Advisory</h3><div class="price">Custom</div>
-      <ul><li>Workshops</li><li>Team onboarding</li><li>Private docs</li></ul>
-      <a class="btn" href="contact.html">Talk to us</a>
-    </div>
-  </div>
-  <section class="container" style="margin-top:8px"><div class="card"><img src="assets/img/candles.svg" alt="Price action art" style="width:100%;opacity:.9;border-radius:12px"></div></section>
-</section>
-<footer class="footer"><div class="container row" style="padding:22px 24px">
-  <div class="muted">© Infinity Invest</div>
-  <div class="menu"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a><a href="sitemap.xml">Sitemap</a></div>
-</div></footer>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/nav.js"></script>
-<script src="assets/js/analytics.js"></script>
-<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");</script>
-</body></html>
-
-<script src="assets/js/auth.js"></script>
+  <footer>
+    <p>© 2025 Infinity Invest. For education only, not SEBI registered.</p>
+  </footer>
+</body>
+</html>
