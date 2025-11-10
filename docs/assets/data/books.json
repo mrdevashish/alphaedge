@@ -1,0 +1,7 @@
+[
+  {"title":"Risk Management Primer","type":"Paper","href":"https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3423101","note":"Position sizing & risk"},
+  {"title":"Market Microstructure (Intro)","type":"Article","href":"https://www.investopedia.com/terms/m/marketmicrostructure.asp","note":"How orders flow"},
+  {"title":"BSE Investor Education","type":"Portal","href":"https://www.bseindia.com/static/investors/education.aspx","note":"Official basics"},
+  {"title":"CBOE Education","type":"Portal","href":"https://www.cboe.com/education/","note":"Options basics"},
+  {"title":"Technical Analysis Notes","type":"PDF","href":"https://www.cs.cmu.edu/~cosal/comp-learning-book/ta-notes.pdf","note":"Charts & TA"}
+]
