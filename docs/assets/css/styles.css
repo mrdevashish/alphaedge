@@ -201,3 +201,51 @@ main{
 @media (max-width: 640px){
   .pricing-grid, .feature-grid, .reviews{ grid-template-columns:1fr; }
 }
+
+/* ===== AlphaEdge responsive polish ===== */
+:root{
+  --container-max: 1100px;
+}
+.container{
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 12px 16px;
+}
+
+/* General grids become fluid */
+.grid, .cards, .pricing-grid{
+  display:grid;
+  gap:12px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Ensure cards/sections never have hard widths */
+.card, .tv-card, .kpi, section, .pricing-card{ width:100%; box-sizing:border-box; }
+
+/* Top bar wraps on small widths */
+.site-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 16px; }
+.site-top nav{ display:flex; flex-wrap:wrap; gap:10px; }
+
+/* Hero becomes 1-column on tablets/phones */
+.hero{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap:14px; }
+@media (max-width: 1024px){
+  .hero{ grid-template-columns: 1fr; }
+}
+
+/* Pricing columns: 3 on desktop, 1 on phone */
+.pricing-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+@media (max-width: 1024px){
+  .pricing-grid{ grid-template-columns: 1fr; }
+}
+
+/* Chart height adapts with orientation */
+#chartWrap{ height: 460px; }
+@media (max-width: 1024px){
+  #chartWrap{ height: 360px; }
+}
+@media (max-width: 520px){
+  #chartWrap{ height: 300px; }
+}
+
+/* Avoid tiny text on mobile desktop-mode */
+html{ -webkit-text-size-adjust: 100%; }
