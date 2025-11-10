@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/css/styles.css">
+<div class="container" style="padding-top:24px"><div class="card">
+  <h1>Payment completed</h1>
+  <p class="lead">We’re verifying your payment. If it’s not active yet, it will activate shortly.</p>
+  <div id="st">Checking status…</div>
+  <div style="margin-top:10px"><a class="btn" href="account.html">Go to Account</a> <a class="btn" href="suggestions.html">Open Suggestions</a></div>
+</div></div>
+<script>
+(async function poll(){
+  const t=localStorage.getItem('ae_token'); if(!t){st.textContent='Login required'; return;}
+  for(let i=0;i<12;i++){
+    const r=await fetch('https://alphaedge-backend.onrender.com/api/me/subscription',{headers:{Authorization:'Bearer '+t}}).catch(()=>null);
+    const j=r && await r.json();
+    if(j && j.status==='active'){ st.textContent='Active: '+j.plan+' till '+new Date(j.expiresAt).toDateString(); return; }
+    await new Promise(d=>setTimeout(d,5000));
+  }
+  st.textContent='Still verifying. It can take a few minutes.';
+})();
+</script>
