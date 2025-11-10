@@ -1,4 +1,3 @@
-import { sendMail } from "../lib/mailer.js";
 import express from 'express'; import bcrypt from 'bcryptjs'; import jwt from 'jsonwebtoken';
 import db from '../lib/db.js'; const router=express.Router(); const JWT_SECRET=process.env.JWT_SECRET||'dev';
 router.post('/register', async (req,res)=>{
@@ -13,7 +12,3 @@ router.post('/login', async (req,res)=>{
   const token=jwt.sign({email},JWT_SECRET,{expiresIn:'7d'}); res.json({token,email});
 });
 export default router;
-
-// simple welcome email (best-effort)
-import { sendMail } from '../lib/mailer.js';
-router.post('/register', async (req,res,next)=>{},);
