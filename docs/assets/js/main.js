@@ -19,3 +19,11 @@
   });
   ctx.setTransform(1,0,0,1,0,0);
 })();
+
+// highlight current nav
+(function(){
+  const here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.menu a').forEach(a=>{
+    if(a.getAttribute('href')===here){ a.classList.add('primary'); a.classList.remove('ghost'); }
+  });
+})();
