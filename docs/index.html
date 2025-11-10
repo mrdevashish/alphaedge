@@ -1,157 +1,58 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Infinity Invest — Smarter Trading</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body>
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="wrap">
-      <a class="brand" href="./">
-        <span class="logo">∞</span>
-        <span class="word">Infinity <b>Invest</b></span>
-      </a>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Infinity Invest – Smart Trading & Learning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
+</head><body>
+<nav class="nav"><div class="container row">
+  <div class="brand"><span class="logo"></span>Infinity Invest</div>
+  <div class="menu">
+    <a href="index.html" class="btn ghost">Home</a>
+    <a href="services.html" class="btn ghost">Services</a>
+    <a href="products.html" class="btn ghost">Products</a>
+    <a href="learn.html" class="btn ghost">Learn</a>
+    <a href="reviews.html" class="btn ghost">Reviews</a>
+    <a href="about.html" class="btn ghost">About</a>
+    <a href="contact.html" class="btn ghost">Contact</a>
+    <a href="login.html" class="btn">Login</a>
+    <a href="register.html" class="btn primary">Get Started</a>
+  </div>
+</div></nav>
 
-      <nav class="nav">
-        <a href="./index.html" class="active">Home</a>
-        <a href="./products.html">Products</a>
-        <a href="./learn.html">Learn</a>
-        <a href="./plans.html">Plans</a>
-        <a href="./about.html">About</a>
-        <a href="./contact.html">Contact</a>
-      </nav>
-
-      <div class="actions">
-        <a class="btn ghost" href="./login.html">Login</a>
-        <a class="btn" href="./register.html">Register</a>
-      </div>
+<section class="container hero">
+  <div>
+    <div class="badge">⚡ Pro tools for retail investors</div>
+    <h1>Trade with clarity.<br/>Invest with confidence.</h1>
+    <p class="lead">Clean insights, simple plans, and a community that helps you stay disciplined. No hype—just an edge.</p>
+    <div style="display:flex;gap:12px;margin-top:12px">
+      <a class="btn primary" href="plans.html">See Plans</a>
+      <a class="btn" href="learn.html">Start Learning</a>
     </div>
-  </header>
-
-  <!-- Hero -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <h1>Unique solutions & an innovative approach to <span class="gradient">trading</span></h1>
-        <p class="muted">
-          Stay on top of markets with modern tools, clean insights, and a human-first design.
-          Build discipline, manage risk, and grow steadily.
-        </p>
-
-        <div class="hero-ctas">
-          <a class="btn xl" href="./plans.html">Get Started</a>
-          <a class="btn ghost xl" href="./learn.html">Explore Learning</a>
-        </div>
-
-        <ul class="bullets">
-          <li>Transparent pricing</li>
-          <li>Powerful dashboards</li>
-          <li>Responsive support</li>
-        </ul>
-      </div>
-
-      <div class="hero-card">
-        <div class="card">
-          <div class="card-head">
-            <span>Demo Market Snapshot</span>
-          </div>
-          <canvas id="miniChart" width="520" height="280" aria-label="Market chart"></canvas>
-          <div class="card-foot">
-            <div class="stat">
-              <small>NIFTY50</small>
-              <b id="niftyVal">—</b>
-            </div>
-            <div class="stat up">
-              <small>24h</small>
-              <b id="niftyChg">—</b>
-            </div>
-            <div class="stat">
-              <small>Vol</small>
-              <b id="niftyVol">—</b>
-            </div>
-          </div>
-        </div>
-        <p class="mini-caption">Illustrative data for demo UI only.</p>
-      </div>
+    <div class="kpis">
+      <div class="itm"><strong>1,200+</strong><br><span class="muted">Learners</span></div>
+      <div class="itm"><strong>8+ yrs</strong><br><span class="muted">Market experience</span></div>
+      <div class="itm"><strong>Zero</strong><br><span class="muted">Hidden fees</span></div>
     </div>
-  </section>
-
-  <!-- Features -->
-  <section class="features">
-    <div class="wrap grid-4">
-      <div class="feature">
-        <div class="icon">📊</div>
-        <h3>Wide Product Range</h3>
-        <p>Equities, indices, and strategies — organized and easy to compare.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🧭</div>
-        <h3>Transparent Pricing</h3>
-        <p>No hidden fees. Simple plans that scale with you.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🧠</div>
-        <h3>Smart Tools</h3>
-        <p>Clean charts, signals, and risk controls to keep emotions in check.</p>
-      </div>
-      <div class="feature">
-        <div class="icon">🤝</div>
-        <h3>Dedicated Support</h3>
-        <p>We answer like humans. Guidance when you need it.</p>
-      </div>
+  </div>
+  <div class="card">
+    <canvas id="miniChart" height="220"></canvas>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <span class="tag">Candles</span><span class="tag">Risk mgmt</span><span class="tag">Position sizing</span>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Testimonials -->
-  <section class="testimonials">
-    <div class="wrap">
-      <h2>Loved by our community</h2>
-      <div class="t-grid">
-        <blockquote>
-          “Clear UI and practical guides. Helped me structure my trades.”
-          <footer>— Aditi S., Pune</footer>
-        </blockquote>
-        <blockquote>
-          “Signals didn’t promise magic; they taught discipline. That’s rare.”
-          <footer>— Karthik R., Bengaluru</footer>
-        </blockquote>
-        <blockquote>
-          “Charts are clean, mobile works smooth, and pricing is honest.”
-          <footer>— Meera P., Mumbai</footer>
-        </blockquote>
-      </div>
-    </div>
-  </section>
+<section class="container">
+  <div class="grid-4">
+    <div class="card"><h3>Transparent Pricing</h3><p class="lead">Simple monthly plans. Cancel anytime.</p></div>
+    <div class="card"><h3>Actionable Research</h3><p class="lead">Levels, scenarios, and risk notes—no noise.</p></div>
+    <div class="card"><h3>Tools that teach</h3><p class="lead">Each tool includes short lessons to build skill.</p></div>
+    <div class="card"><h3>Human Support</h3><p class="lead">We answer like people, not bots.</p></div>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="site-foot">
-    <div class="wrap foot-grid">
-      <div>
-        <div class="brand-sm"><span class="logo">∞</span> Infinity <b>Invest</b></div>
-        <p class="muted xs">Not SEBI-registered advisors yet. Educational purpose & tools. Trade at your own risk.</p>
-      </div>
-      <nav>
-        <a href="./index.html">Home</a>
-        <a href="./products.html">Products</a>
-        <a href="./learn.html">Learn</a>
-        <a href="./plans.html">Plans</a>
-        <a href="./about.html">About</a>
-      </nav>
-      <div class="foot-cta">
-        <a class="btn sm" href="./register.html">Create Account</a>
-        <a class="btn ghost sm" href="./login.html">Login</a>
-      </div>
-    </div>
-    <div class="wrap tiny muted">© <span id="yr"></span> Infinity Invest. All rights reserved.</div>
-  </footer>
-
-  <script>window.API_BASE = "https://alphaedge-backend.onrender.com";</script>
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+<footer><div class="container">© Infinity Invest. Educational only. Not SEBI registered (yet).</div></footer>
+<script src="assets/js/main.js"></script>
+</body></html>
