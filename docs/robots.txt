@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mrdevashish.github.io/alphaedge/sitemap.xml
