@@ -79,3 +79,74 @@ form .row{gap:10px;flex-wrap:wrap}
   .menu.open{display:grid;grid-template-columns:1fr;gap:6px}
   .menu a,.menu .btn{width:100%;text-align:left}
 }
+
+/* --- UI polish: layout & pricing (2025-11-10) --- */
+:root{
+  --container-w: min(1200px, 92vw);
+  --gap-1: 12px;
+  --gap-2: 16px;
+  --gap-3: 24px;
+}
+
+/* keep header on top and avoid content overlap */
+header, .site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: saturate(160%) blur(4px);
+}
+
+/* ensure main never hides under header */
+main{
+  padding-top: clamp(56px, 9vh, 84px);
+}
+
+/* consistent section width & rhythm */
+.section, .container, .wrap{
+  width: var(--container-w);
+  margin-inline: auto;
+  padding-block: clamp(16px, 4vw, 32px);
+}
+
+/* hero: split on desktop, stack on mobile */
+.hero{
+  display: grid;
+  gap: var(--gap-2);
+  align-items: center;
+  grid-template-columns: 1.1fr .9fr;
+}
+@media (max-width: 900px){
+  .hero{ grid-template-columns: 1fr; }
+}
+
+/* pricing: true responsive grid with equal height cards */
+.pricing, .pricing-wrap, .pricing-grid{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: var(--gap-2) !important;
+  align-items: stretch !important;
+}
+.pricing .card, .pricing-card{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border-radius: 14px;
+}
+.pricing .card .features{ margin-block: var(--gap-1) var(--gap-2); }
+.pricing .card .price{ font-size: clamp(20px, 3.2vw, 28px); font-weight: 700; }
+.pricing .card .cta, .pricing .card .btn{
+  margin-top: auto;
+}
+
+/* safe spacing for any demo chart strips */
+.mini-charts, .tiles, .stats-row{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--gap-2);
+}
+
+/* guardrails: prevent overly narrow content on very small screens */
+@media (max-width: 360px){
+  .pricing, .hero, .section{ padding-inline: 8px; }
+}
