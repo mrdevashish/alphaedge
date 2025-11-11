@@ -1,12 +1,15 @@
 {
-  "name": "alphaedge",
+  "name": "alphaedge-backend",
   "version": "1.0.0",
   "type": "module",
-  "private": true,
+  "main": "backend/server.mjs",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node backend/server.mjs",
     "dev": "NODE_ENV=development node backend/server.mjs",
-    "health": "curl -fsS http://127.0.0.1:5000/health || echo '{\"status\":\"down\"}'"
+    "health": "curl -s http://127.0.0.1:${PORT:-5000}/health || true"
   },
   "dependencies": {
     "cors": "^2.8.5",
