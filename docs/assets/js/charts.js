@@ -1,26 +1,44 @@
-// charts.js — handles chart rendering and API fetches
-async function loadSymbolInto(id, symbol) {
-  const canvas = document.getElementById(id);
-  if (!canvas) return console.warn("Missing canvas", id);
+import { api } from "./api.js";
 
-  const ctx = canvas.getContext("2d");
-  document.dispatchEvent(new CustomEvent("chart:status", {detail:{id, status:"fetching...", ok:true}}));
+const byId = (id)=>document.getElementById(id);
 
-  try {
-    const r = await fetch(`${window.API_BASE_OVERRIDE || ''}/api/candles/${symbol}`);
-    const j = await r.json();
+async function drawMini(symbol, canvasId){
+  const ctx = byId(canvasId).getContext("2d");
+  const { candles } = await api(`/api/candles/${symbol}`);
+  const w = ctx.canvas.width, h = ctx.canvas.height;
+  ctx.clearRect(0,0,w,h);
+  const closes = candles.map(c=>c.c);
+  const min = Math.min(...closes), max = Math.max(...closes);
+  const xStep = w/(closes.length-1 || 1);
 
-    const closes = j.candles.map(c => c.c);
-    const labels = j.candles.map((_,i) => i);
-    new Chart(ctx, {
-      type: 'line',
-      data: { labels, datasets: [{ label: symbol, data: closes }] },
-      options: { responsive:true, scales:{x:{display:false},y:{display:true}} }
-    });
+  // axis
+  ctx.lineWidth = 1; ctx.globalAlpha = .5;
+  ctx.beginPath(); ctx.moveTo(0,h-0.5); ctx.lineTo(w,h-0.5); ctx.stroke();
+  ctx.globalAlpha = 1;
 
-    document.dispatchEvent(new CustomEvent("chart:status", {detail:{id, status:"ok", ok:true}}));
-  } catch (err) {
-    console.error("Chart load failed", err);
-    document.dispatchEvent(new CustomEvent("chart:status", {detail:{id, status:String(err), ok:false}}));
-  }
+  // line
+  ctx.beginPath();
+  closes.forEach((v,i)=>{
+    const x = i*xStep;
+    const y = h - ((v-min)/(max-min || 1))*h;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
+  ctx.stroke();
+
+  // last price label
+  const last = closes.at(-1).toFixed(2);
+  byId(`${canvasId}-price`).textContent = last;
 }
+
+async function boot(){
+  // add a debug banner so you can see which backend is used
+  const dbg = document.createElement("div");
+  dbg.textContent = `backend: ${window.API_BASE_OVERRIDE||'local'}`;
+  Object.assign(dbg.style,{position:"fixed",left:"8px",bottom:"8px",padding:"4px 8px",fontSize:"12px",background:"#000",color:"#fff",borderRadius:"8px",zIndex:9999,opacity:.7});
+  document.body.appendChild(dbg);
+
+  await drawMini("RELIANCE","mini-reliance");
+  // poll every 10s
+  setInterval(()=>drawMini("RELIANCE","mini-reliance"), 10_000);
+}
+document.addEventListener("DOMContentLoaded", boot);
