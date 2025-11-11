@@ -7,7 +7,7 @@ function boot(){
     if(sym){
       loadSymbolInto(cv, sym).catch(console.error);
       cv.parentElement.style.cursor = 'pointer';
-      cv.parentElement.addEventListener('click', ()=> location.href=`symbol.html?s=${sym}`);
+      cv.parentElement.addEventListener('click', ()=> location.href=`chart.html?s=${sym}`);
     }
   });
 
