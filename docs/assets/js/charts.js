@@ -1,5 +1,20 @@
-import { api } from "./api.js";
+import { fetchCandles } from "./api.js";
 
+async function updateChart() {
+  const data = await fetchCandles("RELIANCE");
+  if (data.length === 0) {
+    document.getElementById("mini-reliance").innerHTML =
+      "<p style='color:white;text-align:center;'>No data</p>";
+    return;
+  }
+
+  // Example: show latest price
+  const latest = data[data.length - 1];
+  document.querySelector(".price").textContent = latest.close.toFixed(2);
+}
+
+updateChart();
+setInterval(updateChart, 10000);
 const byId = (id)=>document.getElementById(id);
 
 async function drawMini(symbol, canvasId){
