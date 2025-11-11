@@ -35,3 +35,40 @@ app.get("/api/candles/:symbol", (req, res) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Listening on http://0.0.0.0:${PORT}`);
 });
+
+// --- LIVE TICKERS (demo data that drifts slightly) ---
+const TICKER_LIST = [
+  "RELIANCE","TCS","HDFCBANK","INFY","ITC",
+  "SBIN","BHARTIARTL","HINDUNILVR","BAJFINANCE","ICICIBANK"
+];
+
+const tickersState = new Map(
+  TICKER_LIST.map(s => [s, { price: 100 + Math.random()*100, change: 0 }])
+);
+
+function n2(x){ return Math.round(x*100)/100; }
+
+function nextTickers(){
+  TICKER_LIST.forEach(sym=>{
+    const st = tickersState.get(sym);
+    // small random walk
+    const delta = (Math.random()-0.5) * 0.6;    // ~ +/-0.3
+    const newPrice = Math.max(1, st.price + delta);
+    st.change = newPrice - st.price;
+    st.price = newPrice;
+  });
+  return TICKER_LIST.map(sym=>{
+    const st = tickersState.get(sym);
+    const changePct = st.change / (st.price - st.change) * 100;
+    return {
+      symbol: sym,
+      price: n2(st.price),
+      change: n2(st.change),
+      changePct: n2(changePct)
+    };
+  });
+}
+
+app.get("/api/tickers", (req, res)=>{
+  res.json({ asOf: Date.now(), data: nextTickers() });
+});

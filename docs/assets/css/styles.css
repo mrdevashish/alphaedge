@@ -115,3 +115,41 @@ body {
 .card, .ae-container, .ae-navbar, .ae-footer {
   background: var(--card-bg);
 }
+
+/* ===== Live Ticker Ribbon ===== */
+.ticker{
+  --up: #17c964;     /* green */
+  --down: #ff4d4f;   /* red  */
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid rgba(128,128,128,.25);
+  border-bottom: 1px solid rgba(128,128,128,.25);
+  background: var(--card-bg);
+  font: 500 14px/42px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto;
+}
+.ticker__track{
+  display: inline-flex;
+  gap: 24px;
+  animation: ticker-move 30s linear infinite;
+}
+.ticker__item{
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 0 2px;
+}
+.ticker__sym{ opacity:.85 }
+.ticker__px{ font-variant-numeric: tabular-nums }
+.ticker__chg.up{ color: var(--up) }
+.ticker__chg.down{ color: var(--down) }
+
+@keyframes ticker-move {
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) }
+}
+
+/* pause on hover (desktop) */
+@media (hover:hover){
+  .ticker:hover .ticker__track{ animation-play-state: paused; }
+}
