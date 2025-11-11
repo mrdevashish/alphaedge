@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <!-- Header / Navbar -->
   <header class="ae-navbar">
     <a class="brand" href="./">AlphaEdge</a>
     <nav class="nav-actions">
@@ -20,45 +19,32 @@
     <button class="nav-toggle" aria-label="menu">☰</button>
   </header>
 
-  <!-- Hero -->
   <section class="ae-hero">
     <h1>Markets at a glance</h1>
     <p class="muted">Quick mini-charts that adapt to mobile & desktop.</p>
   </section>
 
-  <!-- Mini watchlist grid -->
+  <!-- Ticker ribbon -->
+  <div class="ae-container">
+    <div id="ticker" class="ae-ticker" aria-live="polite"></div>
+  </div>
+
   <main class="ae-container">
     <div class="grid grid-cards">
-      <!-- Add/remove cards by changing data-symbol + heading text -->
-      <article class="card">
-        <div class="card-title">RELIANCE</div>
-        <canvas class="chart-mini" data-symbol="RELIANCE" height="140"></canvas>
-      </article>
-
-      <article class="card">
-        <div class="card-title">TCS</div>
-        <canvas class="chart-mini" data-symbol="TCS" height="140"></canvas>
-      </article>
-
-      <article class="card">
-        <div class="card-title">INFY</div>
-        <canvas class="chart-mini" data-symbol="INFY" height="140"></canvas>
-      </article>
-
-      <article class="card">
-        <div class="card-title">NIFTY50</div>
-        <canvas class="chart-mini" data-symbol="NIFTY50" height="140"></canvas>
-      </article>
+      <article class="card"><div class="card-title">RELIANCE</div><canvas class="chart-mini" data-symbol="RELIANCE" height="140"></canvas></article>
+      <article class="card"><div class="card-title">TCS</div><canvas class="chart-mini" data-symbol="TCS" height="140"></canvas></article>
+      <article class="card"><div class="card-title">INFY</div><canvas class="chart-mini" data-symbol="INFY" height="140"></canvas></article>
+      <article class="card"><div class="card-title">NIFTY50</div><canvas class="chart-mini" data-symbol="NIFTY50" height="140"></canvas></article>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="ae-footer">
     <p>© <span id="year"></span> AlphaEdge. All rights reserved.</p>
   </footer>
 
   <script src="assets/js/api.js"></script>
   <script src="assets/js/charts.js"></script>
+  <script src="assets/js/ribbon.js"></script>
   <script src="assets/js/init.js"></script>
 </body>
 </html>
