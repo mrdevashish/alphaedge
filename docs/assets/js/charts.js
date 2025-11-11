@@ -1,29 +1,49 @@
-import { fetchCandles } from "./api.js";
+import { fetchCandles } from './api.js';
 
-export async function loadSymbolInto(canvasId, symbol) {
-  const el = document.getElementById(canvasId);
-  if (!el) return;
-  const { candles } = await fetchCandles(symbol);
-  const ctx = el.getContext("2d");
-  ctx.clearRect(0,0,el.width,el.height);
+/** Simple sparkline/mini-candles on canvas */
+export async function loadSymbolInto(canvas, symbol){
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width  = canvas.clientWidth;
+  const h = canvas.height = canvas.height || 140;
 
-  // scale
-  const w = el.width, h = el.height;
-  const vals = candles.map(c=>c.c);
-  const min = Math.min(...vals), max = Math.max(...vals);
-  const X = i => (i/(candles.length-1))*w;
-  const Y = v => h - ((v-min)/(max-min||1))*h;
+  // background clear
+  ctx.fillStyle = '#111623';
+  ctx.fillRect(0,0,w,h);
 
-  // line
-  ctx.beginPath();
-  candles.forEach((c,i)=>{ const x=X(i), y=Y(c.c); i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
-  ctx.lineWidth = 2;
+  // get data
+  const candles = await fetchCandles(symbol);
+  if(!candles.length){
+    drawText(ctx, w, h, 'No Data'); 
+    return;
+  }
+
+  // compute scale
+  const highs = candles.map(c=>c.h);
+  const lows  = candles.map(c=>c.l);
+  const vmax = Math.max(...highs), vmin = Math.min(...lows);
+  const pad = (vmax - vmin) * 0.08 || 1;
+  const max = vmax + pad, min = vmin - pad;
+
+  // line path of closes
+  const closes = candles.map(c=>c.c);
+  const X = (i)=> (i/(closes.length-1)) * (w-16) + 8;
+  const Y = (v)=> h - ((v - min) / (max - min)) * (h-24) - 8;
+
+  // gradient stroke
+  const g = ctx.createLinearGradient(0,0,w,0);
+  g.addColorStop(0,'#5ac8fa'); g.addColorStop(1,'#7bd88f');
+  ctx.strokeStyle = g; ctx.lineWidth = 2; ctx.beginPath();
+  closes.forEach((v,i)=>{ const x=X(i), y=Y(v); i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
   ctx.stroke();
 
-  // last price
-  const last = candles.at(-1).c.toFixed(2);
-  ctx.font = "12px system-ui, sans-serif";
-  ctx.fillText(`${symbol}: ${last}`, 6, 14);
+  // last price label
+  const last = closes.at(-1);
+  ctx.fillStyle = '#e6e9ef'; ctx.font = '12px ui-sans-serif';
+  ctx.fillText(String(last), 10, 14);
 }
 
-window.loadSymbolInto = loadSymbolInto; // allow inline call from HTML
+function drawText(ctx,w,h,msg){
+  ctx.fillStyle = '#9aa4b2';
+  ctx.font = '12px ui-sans-serif';
+  ctx.fillText(msg, 10, 16);
+}
