@@ -1,41 +1,83 @@
-<!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>AlphaEdge</title>
-<link rel="icon" href="favicon.svg"/>
-<link rel="stylesheet" href="assets/css/styles.css"/>
-</head><body>
-<header class="ae-navbar">
-  <a class="brand" href="./">AlphaEdge</a>
-  <nav class="nav-actions">
-    <a href="./learn.html">Learn</a>
-    <a href="./products.html">Products</a>
-    <a href="./about.html">About</a>
-    <a href="./admin.html">Admin</a>
-  </nav>
-  <button class="nav-toggle" aria-label="menu">☰</button>
-</header>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AlphaEdge — Smart Market Watch</title>
+  <link rel="icon" href="./favicon.svg"/>
+  <style>
+    :root{
+      --bg:#0b0d12;--card:#111623;--muted:#9fb1c7;--txt:#eaf1fb;--accent:#4da3ff;--ok:#19c37d;
+    }
+    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.5 system-ui,Segoe UI,Roboto,Arial}
+    a{color:var(--accent);text-decoration:none}
+    header{position:sticky;top:0;background:linear-gradient(180deg,#0b0d12 70%,#0b0d1200);z-index:10}
+    .nav{max-width:1100px;margin:auto;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+    .brand{font-weight:700;letter-spacing:.3px}
+    .hero{max-width:1100px;margin:18px auto;padding:16px}
+    .hwrap{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+    .card{background:var(--card);border:1px solid #1b2233;border-radius:14px;padding:16px}
+    .title{font-size:22px;margin:0 0 8px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .chartbox{display:grid;grid-template-rows:auto 1fr;gap:8px}
+    canvas{width:100%;height:120px}
+    .row{display:flex;gap:10px}
+    .input{flex:1;min-width:160px;background:#0e1320;border:1px solid #1f2940;color:var(--txt);border-radius:10px;padding:10px 12px;outline:none}
+    .btn{background:var(--accent);color:#071120;border:0;border-radius:10px;padding:10px 14px;font-weight:600}
+    footer{max-width:1100px;margin:24px auto;padding:16px;color:#8ea2bb}
+    @media (max-width:920px){ .hwrap{grid-template-columns:1fr} .grid{grid-template-columns:1fr} }
+  </style>
 
-<section class="ae-hero">
-  <h1>Markets at a glance</h1>
-  <p class="muted">Quick mini-charts that adapt to mobile & desktop.</p>
-</section>
+  <!-- Set this to your Render backend when deployed -->
+  <script>window.API_BASE_OVERRIDE="https://YOUR_BACKEND.onrender.com";</script>
 
-<div class="ae-container"><div id="ticker-ribbon" class="ticker"></div></div>
+  <script type="module" src="assets/js/init.js"></script>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">AlphaEdge</div>
+      <nav class="row">
+        <a href="./products.html">Products</a>
+        <a href="./learn.html">Learn</a>
+        <a href="./admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
 
-<main class="ae-container">
-  <div id="ticker" class="ae-ticker" style="display:none"></div>
-  <div class="grid grid-cards">
-    <article class="card"><div class="card-title">RELIANCE</div><canvas class="chart-mini" data-symbol="RELIANCE" height="140"></canvas></article>
-    <article class="card"><div class="card-title">TCS</div><canvas class="chart-mini" data-symbol="TCS" height="140"></canvas></article>
-    <article class="card"><div class="card-title">INFY</div><canvas class="chart-mini" data-symbol="INFY" height="140"></canvas></article>
-    <article class="card"><div class="card-title">NIFTY50</div><canvas class="chart-mini" data-symbol="NIFTY50" height="140"></canvas></article>
-  </div>
-</main>
+  <main class="hero">
+    <div class="hwrap">
+      <section class="card">
+        <h2 class="title">Stay ahead with smart signals</h2>
+        <p class="muted">Mini charts update live. Subscribe to get alerts when interesting setups trigger.</p>
 
-<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge. All rights reserved.</p></footer>
+        <div class="grid" style="margin-top:12px">
+          <div class="chartbox card">
+            <div class="muted">RELIANCE (mini)</div>
+            <canvas id="mini-reliance"></canvas>
+          </div>
+          <div class="chartbox card">
+            <div class="muted">TCS (mini)</div>
+            <canvas id="mini-tcs"></canvas>
+          </div>
+        </div>
+      </section>
 
-<script>/* In prod, set: window.API_BASE_OVERRIDE="https://alphaedge-backend.onrender.com"; */</script>
-<script type="module" src="assets/js/api.js"></script>
-<script type="module" src="assets/js/charts.js"></script>
-<script type="module" src="assets/js/init.js"></script>
-</body></html>
+      <aside class="card">
+        <h3 class="title">Get alerts</h3>
+        <p class="muted">Enter your email to receive signal notifications.</p>
+        <div class="row" style="margin-top:8px">
+          <input id="sub_email" class="input" type="email" placeholder="you@example.com"/>
+          <button id="sub_btn" class="btn">Subscribe</button>
+        </div>
+        <p class="muted" style="margin-top:8px;font-size:12px">You can unsubscribe anytime.</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    © AlphaEdge • <a href="./robots.txt">robots.txt</a>
+  </footer>
+</body>
+</html>
