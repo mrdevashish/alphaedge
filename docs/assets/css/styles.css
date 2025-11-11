@@ -295,3 +295,64 @@ main{
 /* Avoid tiny text on mobile desktop-mode */
 html{ -webkit-text-size-adjust: 100%; }
 >>>>>>> origin/main
+
+/* --- responsive patch v1 --- */
+:root{
+  --maxw:1140px;
+  --pad:16px;
+  --gap:16px;
+}
+
+.container{
+  width:100%;
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 var(--pad);
+}
+
+.section{ margin:32px 0; }
+
+/* stop fixed heights that cause overlap */
+.hero, .card, .panel{ height:auto; min-height:unset; }
+.card{ display:flex; flex-direction:column; }
+.card .body{ flex:1 1 auto; }
+
+/* pricing grid */
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:var(--gap);
+}
+.pricing-card{ padding:20px; border-radius:12px; }
+
+/* utility for images/charts */
+.responsive-media{ width:100%; height:auto; display:block; }
+
+/* desktop nav spacing */
+.navbar{ position:sticky; top:0; z-index:20; }
+
+/* breakpoints */
+@media (max-width:1024px){
+  .pricing-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .hero-grid{ grid-template-columns:1fr; gap:var(--gap); }
+}
+
+@media (max-width:640px){
+  html{ font-size:16px; }
+  .pricing-grid{ grid-template-columns:1fr; }
+  .grid-2{ display:grid; grid-template-columns:1fr; gap:var(--gap); }
+  .hide-mobile{ display:none !important; }
+  .navbar .menu{ gap:8px; flex-wrap:wrap; }
+  .hero{ padding:16px; }
+}
+
+/* prevent overlap of floating widgets */
+.floating, .ticker-widget{
+  position:relative; /* remove absolute */
+  inset:auto;        /* reset offsets */
+  margin:var(--gap) 0;
+}
+
+/* better buttons */
+.btn{ display:inline-flex; align-items:center; justify-content:center; padding:.6rem 1rem; border-radius:10px; }
+.btn.full{ width:100%; }
