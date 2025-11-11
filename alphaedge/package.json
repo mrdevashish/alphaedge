@@ -1,0 +1,16 @@
+{
+  "name": "alphaedge",
+  "version": "1.0.0",
+  "description": "AlphaEdge stock viewer backend + frontend",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.mjs"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
