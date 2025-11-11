@@ -1,60 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Symbol | AlphaEdge</title>
-  <link rel="icon" href="favicon.svg" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body>
-  <header class="ae-navbar">
-    <a class="brand" href="./">AlphaEdge</a>
-    <nav class="nav-actions">
-      <a href="./learn.html">Learn</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html">About</a>
-      <a href="./admin.html">Admin</a>
-    </nav>
-    <button class="nav-toggle" aria-label="menu">☰</button>
-  </header>
-
-  <main class="ae-container symbol-view">
-    <h1 id="symTitle">Loading...</h1>
-    <canvas id="chart" height="360"></canvas>
-  </main>
-
-  <footer class="ae-footer">
-    <p>© <span id="year"></span> AlphaEdge. All rights reserved.</p>
-  </footer>
-
-  <script src="assets/js/api.js"></script>
-  <script type="module" src="assets/js/ticker.js"></script>
-  <script src="assets/js/charts.js"></script>
-  <script src="assets/js/init.js"></script>
-  <script>
-    const params = new URLSearchParams(location.search);
-    const sym = params.get('s')?.toUpperCase() || 'RELIANCE';
-    document.getElementById('symTitle').textContent = sym;
-    loadSymbolInto('chart', sym);
-  </script>
-</body>
-</html>
-
-<!-- Add theme toggle button inside <header> -->
-<script>
-  document.addEventListener("DOMContentLoaded", ()=>{
-    const btn = document.createElement("button");
-    btn.textContent = "🌓";
-    btn.className = "theme-toggle";
-    document.querySelector(".ae-navbar")?.appendChild(btn);
-    btn.addEventListener("click", ()=>{
-      document.body.classList.toggle("light");
-      localStorage.setItem("theme", document.body.classList.contains("light") ? "light":"dark");
-      window.dispatchEvent(new Event("themechange"));
-    });
-    if(localStorage.getItem("theme")==="light"){
-      document.body.classList.add("light");
-    }
-  });
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Symbol · AlphaEdge</title>
+<link rel="icon" href="favicon.svg"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<header class="ae-navbar">
+  <a class="brand" href="./">AlphaEdge</a>
+  <nav class="nav-actions"><a href="./">Home</a></nav>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+</header>
+<main class="ae-container symbol-view">
+  <h1 id="symTitle">Loading…</h1>
+  <canvas id="chart" class="chart-mini" data-symbol="RELIANCE" height="360"></canvas>
+</main>
+<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge.</p></footer>
+<script type="module">
+  import { loadSymbolInto } from './assets/js/charts.js';
+  const p=new URLSearchParams(location.search); const s=(p.get('s')||'RELIANCE').toUpperCase();
+  document.getElementById('symTitle').textContent = s;
+  const cv=document.getElementById('chart'); cv.dataset.symbol=s;
+  loadSymbolInto(cv, s);
+  document.getElementById('year').textContent=new Date().getFullYear();
 </script>
+</body></html>

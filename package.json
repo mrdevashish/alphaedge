@@ -2,8 +2,11 @@
   "name": "alphaedge",
   "version": "1.0.0",
   "type": "module",
+  "private": true,
   "scripts": {
-    "start": "node backend/server.mjs"
+    "start": "node backend/server.mjs",
+    "dev": "NODE_ENV=development node backend/server.mjs",
+    "health": "curl -fsS http://127.0.0.1:5000/health || echo '{\"status\":\"down\"}'"
   },
   "dependencies": {
     "cors": "^2.8.5",

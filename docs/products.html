@@ -1,38 +1,20 @@
 <!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Products – Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Products · AlphaEdge</title>
+<link rel="icon" href="favicon.svg"/><link rel="stylesheet" href="assets/css/styles.css"/>
 </head><body>
-  <div class="container">
-<header id="site-nav"></header>
-<main class="section">
+<header class="ae-navbar"><a class="brand" href="./">AlphaEdge</a>
+  <nav class="nav-actions"><a href="./">Home</a><a href="./learn.html">Learn</a><a href="./about.html">About</a></nav>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+</header>
+<main class="ae-container">
   <h1>Products</h1>
-  <p>Resources to build skill and discipline. Payments are disabled for now; this is a demo catalog.</p>
-
-  <section class="section pricing">
-    <article class="card">
-      <h3>Starter Playbook (PDF)</h3>
-      <p class="price">Free</p>
-      <p>Entry/exit rules, risk ladder, weekly checklist.</p>
-      <a class="btn primary" href="assets/docs/starter-playbook.pdf" download>Download</a>
-    </article>
-
-    <article class="card">
-      <h3>Candlestick Poster (PNG)</h3>
-      <p class="price">₹199</p>
-      <p>Clean reference for 30+ patterns (A3 printable).</p>
-      <button class="btn ghost" disabled>Coming soon</button>
-    </article>
-
-    <article class="card">
-      <h3>Merch: Discipline > Prediction (T-shirt)</h3>
-      <p class="price">₹499</p>
-      <p>Cotton tee, sizes S–XL, light theme print.</p>
-      <button class="btn ghost" disabled>Coming soon</button>
-    </article>
-  </section>
-</main>
-<script src="assets/js/nav.js"></script>
-<script src="assets/js/auth.js"></script>
+  <div class="grid grid-cards">
+    <article class="card"><div class="card-title">Charts</div><div class="muted" style="padding:12px">Responsive OHLC demo.</div></article>
+    <article class="card"><div class="card-title">Levels</div><div class="muted" style="padding:12px">Add pivots/indicators later.</div></article>
+    <article class="card"><div class="card-title">OI</div><div class="muted" style="padding:12px">Wire real option data later.</div></article>
   </div>
+</main>
+<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge.</p></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </body></html>

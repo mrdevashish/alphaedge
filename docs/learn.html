@@ -1,33 +1,16 @@
 <!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Learn – Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Learn · AlphaEdge</title>
+<link rel="icon" href="favicon.svg"/><link rel="stylesheet" href="assets/css/styles.css"/>
 </head><body>
-  <div class="container">
-<header id="site-nav"></header>
-<main class="section">
+<header class="ae-navbar"><a class="brand" href="./">AlphaEdge</a>
+  <nav class="nav-actions"><a href="./">Home</a><a href="./products.html">Products</a><a href="./about.html">About</a></nav>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+</header>
+<main class="ae-container">
   <h1>Learn</h1>
-  <p>Start with these free resources. Read, practice in a sandbox, journal every decision.</p>
-
-  <section class="section mini-charts">
-    <article class="card">
-      <h3>Position Sizing 101</h3>
-      <p>Kelly-lite, risk units, and drawdown math in plain English.</p>
-      <a class="btn primary" href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/capacity.htm" target="_blank" rel="noopener">Open</a>
-    </article>
-    <article class="card">
-      <h3>Trend Following Basics</h3>
-      <p>Let winners run, cut losers quick. Simple moving averages.</p>
-      <a class="btn primary" href="https://www.mta.org/" target="_blank" rel="noopener">Open</a>
-    </article>
-    <article class="card">
-      <h3>Market Psychology Notes</h3>
-      <p>Checklists to avoid FOMO/averaging down traps.</p>
-      <a class="btn primary" href="https://www.behavioralfinance.org/" target="_blank" rel="noopener">Open</a>
-    </article>
-  </section>
+  <ul class="muted"><li>Pivots and supports from OHLC (demo).</li><li>Open interest flows hint zones (mocked).</li><li>Risk management first. Educational purpose only.</li></ul>
 </main>
-<script src="assets/js/nav.js"></script>
-<script src="assets/js/auth.js"></script>
-  </div>
+<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge.</p></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
 </body></html>

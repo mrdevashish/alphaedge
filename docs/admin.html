@@ -1,23 +1,27 @@
 <!doctype html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Admin – Infinity Invest</title>
-<link rel="stylesheet" href="assets/css/styles.css"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin · AlphaEdge</title>
+<link rel="icon" href="favicon.svg"/><link rel="stylesheet" href="assets/css/styles.css"/>
 </head><body>
-<header id="site-nav"></header>
-<main class="section">
-  <h1>Admin (demo)</h1>
-  <p>This is a front-end placeholder. Once the backend endpoints are ready, wire these buttons to:</p>
-  <ul>
-    <li>GET /api/users</li>
-    <li>GET /api/subscriptions</li>
-    <li>POST /api/subscriptions/activate</li>
-  </ul>
-  <div class="mini-charts">
-    <button class="btn primary" onclick="alert('Wire to /api/users later')">List Users</button>
-    <button class="btn primary" onclick="alert('Wire to /api/subscriptions later')">List Subscriptions</button>
-    <button class="btn ghost" onclick="alert('Wire to /api/subscriptions/activate')">Activate Plan</button>
-  </div>
+<header class="ae-navbar"><a class="brand" href="./">AlphaEdge</a>
+  <nav class="nav-actions"><a href="./">Home</a></nav>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+</header>
+<main class="ae-container">
+  <h1>Admin</h1>
+  <p class="muted">Set your backend URL for production (Render):</p>
+  <input id="url" placeholder="https://alphaedge-backend.onrender.com"
+         style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0e1322;color:#e6e9ef">
+  <button id="save" class="theme-toggle" style="margin-top:10px">Save</button>
+  <div id="msg" class="muted" style="margin-top:8px"></div>
 </main>
-<script src="assets/js/nav.js"></script>
-<script src="assets/js/auth.js"></script>
+<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge.</p></footer>
+<script>
+document.getElementById('save').onclick=()=>{
+  const u=document.getElementById('url').value.trim(); if(!u){msg.textContent='Enter URL';return;}
+  localStorage.setItem('API_BASE_OVERRIDE',u); msg.textContent='Saved. Reload pages to apply.';
+};
+const saved=localStorage.getItem('API_BASE_OVERRIDE'); if(saved) document.getElementById('url').value=saved;
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
 </body></html>

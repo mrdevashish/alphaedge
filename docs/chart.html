@@ -1,89 +1,78 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chart | AlphaEdge</title>
-  <link rel="icon" href="favicon.svg" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    body, html { height:100%; margin:0; }
-    #chartwrap { height:100%; display:flex; flex-direction:column; }
-    #chartcanvas { flex:1; width:100%; background:var(--card-bg); }
-    #info { padding:6px 12px; font-size:14px; background:var(--card-bg); border-bottom:1px solid var(--border); }
-    #info span{ margin-right:12px; }
-  </style>
-</head>
-<body>
-  <header class="ae-navbar">
-    <a class="brand" href="./">AlphaEdge</a>
-    <nav class="nav-actions"><a href="./">Home</a></nav>
-  </header>
-  <div id="info"><span id="sym"></span><span id="ohlc"></span></div>
-  <div id="chartwrap"><canvas id="chartcanvas"></canvas></div>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Chart · AlphaEdge</title>
+<link rel="icon" href="favicon.svg"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<style>
+  body, html { height:100%; margin:0; }
+  #chartwrap { height:100%; display:flex; flex-direction:column; }
+  #chartcanvas { flex:1; width:100%; background:var(--card); }
+  #info { padding:6px 12px; font-size:14px; background:var(--card); border-bottom:1px solid var(--border); }
+  #info span{ margin-right:12px; }
+</style>
+</head><body>
+<header class="ae-navbar">
+  <a class="brand" href="./">AlphaEdge</a>
+  <nav class="nav-actions"><a href="./">Home</a></nav>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+</header>
+<div id="info"><span id="sym"></span><span id="ohlc"></span></div>
+<div id="chartwrap"><canvas id="chartcanvas"></canvas></div>
 
-  <script src="assets/js/api.js"></script>
-  <script>
-    const params = new URLSearchParams(location.search);
-    const sym = params.get('s')?.toUpperCase() || 'RELIANCE';
-    document.getElementById('sym').textContent = sym;
+<script>
+  window.API_BASE_OVERRIDE = window.API_BASE_OVERRIDE || "http://127.0.0.1:5000";
+  const params = new URLSearchParams(location.search);
+  const sym = (params.get('s')||'RELIANCE').toUpperCase();
+  document.getElementById('sym').textContent = sym;
 
-    const canvas = document.getElementById('chartcanvas');
-    const ctx = canvas.getContext('2d');
-    let candles = [];
-    let zoom = 1, offset = 0;
+  const canvas = document.getElementById('chartcanvas');
+  const ctx = canvas.getContext('2d');
+  let candles = [];
+  let zoom = 1;
 
-    async function loadData(){
-      const r = await fetch(`${(window.API_BASE_OVERRIDE||'')}/api/candles/${sym}`);
-      const j = await r.json(); candles = j.candles;
-      draw();
-    }
+  async function loadData(){
+    const r = await fetch(`${(window.API_BASE_OVERRIDE||'')}/api/candles/${sym}`);
+    const j = await r.json(); candles = j.candles || [];
+    draw();
+  }
 
-    function draw(){
-      const W = canvas.width = window.innerWidth;
-      const H = canvas.height = window.innerHeight-50;
-      ctx.clearRect(0,0,W,H);
-      if(!candles.length) return;
-      const n = Math.max(10, Math.floor(candles.length/zoom));
-      const start = Math.max(0, candles.length-n-offset);
-      const data = candles.slice(start, start+n);
-      const hi = Math.max(...data.map(c=>c.h)), lo = Math.min(...data.map(c=>c.l));
-      const xStep = W/data.length, y = v => H-((v-lo)/(hi-lo))*H;
-      data.forEach((c,i)=>{
-        const x = i*xStep + xStep/2;
-        const up = c.c>=c.o;
-        ctx.strokeStyle = up?getComputedStyle(document.body).getPropertyValue('--candle-up'):getComputedStyle(document.body).getPropertyValue('--candle-dn');
-        ctx.beginPath();
-        ctx.moveTo(x, y(c.h)); ctx.lineTo(x, y(c.l)); ctx.stroke();
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(x, y(c.o)); ctx.lineTo(x, y(c.c)); ctx.stroke();
-      });
-    }
+  function draw(){
+    const W = canvas.width = window.innerWidth;
+    const H = canvas.height = window.innerHeight-50;
+    ctx.clearRect(0,0,W,H);
+    if(!candles.length) return;
+    const n = Math.max(30, Math.floor(candles.length/zoom));
+    const data = candles.slice(-n);
+    const hi = Math.max(...data.map(c=>c.h)), lo = Math.min(...data.map(c=>c.l));
+    const xStep = W/data.length, y = v => H-((v-lo)/(hi-lo))*H;
 
-    // simple crosshair + value readout
-    canvas.addEventListener('mousemove', e=>{
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX-rect.left, y = e.clientY-rect.top;
-      const idx = Math.floor((x/canvas.width)*candles.length);
-      const c = candles[idx];
-      if(!c) return;
-      document.getElementById('ohlc').textContent =
-        `O:${c.o.toFixed(2)} H:${c.h.toFixed(2)} L:${c.l.toFixed(2)} C:${c.c.toFixed(2)}`;
+    const up = getComputedStyle(document.body).getPropertyValue('--candle-up')||'#17c964';
+    const dn = getComputedStyle(document.body).getPropertyValue('--candle-dn')||'#ff4d4f';
+
+    ctx.lineWidth = Math.max(1, Math.floor(xStep*0.15));
+    data.forEach((c,i)=>{
+      const x = i*xStep + xStep/2;
+      const isUp = c.c>=c.o;
+      ctx.strokeStyle = isUp?up:dn;
+      ctx.beginPath(); ctx.moveTo(x, y(c.h)); ctx.lineTo(x, y(c.l)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x, y(c.o)); ctx.lineTo(x, y(c.c)); ctx.stroke();
     });
+  }
 
-    // zoom with wheel
-    canvas.addEventListener('wheel', e=>{
-      e.preventDefault();
-      zoom *= (e.deltaY<0)?1.1:0.9;
-      zoom=Math.min(Math.max(zoom,1),20);
-      draw();
-    });
+  canvas.addEventListener('mousemove', e=>{
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX-rect.left;
+    const idx = Math.floor((x/canvas.width)*candles.length);
+    const c = candles[idx]; if(!c) return;
+    document.getElementById('ohlc').textContent = `O:${c.o} H:${c.h} L:${c.l} C:${c.c}`;
+  });
 
-    // resize redraw
-    window.addEventListener('resize', draw);
-    window.addEventListener('themechange', draw);
-    loadData();
-  </script>
-</body>
-</html>
+  canvas.addEventListener('wheel', e=>{
+    e.preventDefault(); zoom *= (e.deltaY<0)?1.1:0.9; zoom=Math.min(Math.max(zoom,1),20); draw();
+  });
+
+  window.addEventListener('resize', draw);
+  window.addEventListener('themechange', draw);
+  loadData();
+</script>
+</body></html>

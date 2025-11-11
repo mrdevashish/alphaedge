@@ -1,69 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AlphaEdge</title>
-  <link rel="icon" href="favicon.svg" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body>
-  <header class="ae-navbar">
-    <a class="brand" href="./">AlphaEdge</a>
-    <nav class="nav-actions">
-      <a href="./learn.html">Learn</a>
-      <a href="./products.html">Products</a>
-      <a href="./about.html">About</a>
-      <a href="./admin.html">Admin</a>
-    </nav>
-    <button class="nav-toggle" aria-label="menu">☰</button>
-  </header>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AlphaEdge</title>
+<link rel="icon" href="favicon.svg"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<header class="ae-navbar">
+  <a class="brand" href="./">AlphaEdge</a>
+  <nav class="nav-actions">
+    <a href="./learn.html">Learn</a>
+    <a href="./products.html">Products</a>
+    <a href="./about.html">About</a>
+    <a href="./admin.html">Admin</a>
+  </nav>
+  <button class="nav-toggle" aria-label="menu">☰</button>
+</header>
 
-  <section class="ae-hero">
-    <h1>Markets at a glance</h1>
-    <p class="muted">Quick mini-charts that adapt to mobile & desktop.</p>
-  </section>
+<section class="ae-hero">
+  <h1>Markets at a glance</h1>
+  <p class="muted">Quick mini-charts that adapt to mobile & desktop.</p>
+</section>
 
-  <!-- Ticker ribbon -->
-  <div class="ae-container">
-    <div id="ticker" class="ae-ticker" aria-live="polite"></div>
+<div class="ae-container"><div id="ticker-ribbon" class="ticker"></div></div>
+
+<main class="ae-container">
+  <div id="ticker" class="ae-ticker" style="display:none"></div>
+  <div class="grid grid-cards">
+    <article class="card"><div class="card-title">RELIANCE</div><canvas class="chart-mini" data-symbol="RELIANCE" height="140"></canvas></article>
+    <article class="card"><div class="card-title">TCS</div><canvas class="chart-mini" data-symbol="TCS" height="140"></canvas></article>
+    <article class="card"><div class="card-title">INFY</div><canvas class="chart-mini" data-symbol="INFY" height="140"></canvas></article>
+    <article class="card"><div class="card-title">NIFTY50</div><canvas class="chart-mini" data-symbol="NIFTY50" height="140"></canvas></article>
   </div>
+</main>
 
-  <main class="ae-container">
-    <div class="grid grid-cards">
-      <article class="card"><div class="card-title">RELIANCE</div><canvas class="chart-mini" data-symbol="RELIANCE" height="140"></canvas></article>
-      <article class="card"><div class="card-title">TCS</div><canvas class="chart-mini" data-symbol="TCS" height="140"></canvas></article>
-      <article class="card"><div class="card-title">INFY</div><canvas class="chart-mini" data-symbol="INFY" height="140"></canvas></article>
-      <article class="card"><div class="card-title">NIFTY50</div><canvas class="chart-mini" data-symbol="NIFTY50" height="140"></canvas></article>
-    </div>
-  </main>
+<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge. All rights reserved.</p></footer>
 
-  <footer class="ae-footer">
-    <p>© <span id="year"></span> AlphaEdge. All rights reserved.</p>
-  </footer>
-
-  <script src="assets/js/api.js"></script>
-  <script type="module" src="assets/js/ticker.js"></script>
-  <script src="assets/js/charts.js"></script>
-  <script src="assets/js/ribbon.js"></script>
-  <script src="assets/js/init.js"></script>
-</body>
-</html>
-
-<!-- Add theme toggle button inside <header> -->
-<script>
-  document.addEventListener("DOMContentLoaded", ()=>{
-    const btn = document.createElement("button");
-    btn.textContent = "🌓";
-    btn.className = "theme-toggle";
-    document.querySelector(".ae-navbar")?.appendChild(btn);
-    btn.addEventListener("click", ()=>{
-      document.body.classList.toggle("light");
-      localStorage.setItem("theme", document.body.classList.contains("light") ? "light":"dark");
-      window.dispatchEvent(new Event("themechange"));
-    });
-    if(localStorage.getItem("theme")==="light"){
-      document.body.classList.add("light");
-    }
-  });
-</script>
+<script>/* In prod, set: window.API_BASE_OVERRIDE="https://alphaedge-backend.onrender.com"; */</script>
+<script type="module" src="assets/js/api.js"></script>
+<script type="module" src="assets/js/charts.js"></script>
+<script type="module" src="assets/js/init.js"></script>
+</body></html>
