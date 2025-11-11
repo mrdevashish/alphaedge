@@ -66,3 +66,17 @@ a{color:var(--ink);text-decoration:none}
 .tick .pct{font-weight:600}
 .tick.up .pct{color:#7bd88f}
 .tick.down .pct{color:#ff6b6b}
+
+/* === SYMBOL DETAIL === */
+.symbol-view h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin: 1.2rem 0;
+}
+.symbol-view canvas {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.2);
+  background: #0e1322;
+  padding: 12px;
+}
