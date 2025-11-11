@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Thank You · AlphaEdge</title>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+</head><body>
+<header class="ae-navbar"><a class="brand" href="./">AlphaEdge</a></header>
+<main class="ae-container">
+  <h1>Payment Received ✅</h1>
+  <p class="muted">Thank you for your support!</p>
+  <div id="details" style="margin-top:10px"></div>
+  <a class="btn btn-primary" href="./">Return Home</a>
+</main>
+<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge.</p></footer>
+
+<script type="module">
+document.getElementById("year").textContent=new Date().getFullYear();
+const params=new URLSearchParams(location.search);
+const plan=params.get("plan")||"";
+const email=params.get("email")||"";
+const amt=params.get("amt")||"";
+document.getElementById("details").innerHTML=
+  `<p>Plan <b>${plan||"Unknown"}</b><br>Email <b>${email||"not given"}</b><br>Amount ₹${amt}</p>`;
+try{
+  await fetch((window.API_BASE_OVERRIDE||"http://127.0.0.1:5000")+"/api/subs",{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ email, plan, amount:amt })
+  });
+}catch(e){ console.warn("log failed",e); }
+</script>
+</body></html>

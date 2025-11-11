@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Live Chart · AlphaEdge</title>
+  <link rel="icon" href="favicon.svg"/>
+  <style>
+    html,body{height:100%;margin:0;background:#0b0e14;color:#e6e9ef;font:16px/1.5 ui-sans-serif,system-ui}
+    .wrap{height:100svh;display:flex;flex-direction:column}
+    header{padding:10px 14px;border-bottom:1px solid #202636;background:#0b0e14cc;backdrop-filter:saturate(140%) blur(6px)}
+    main{flex:1}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header><a href="./" style="color:#cfe1ff;text-decoration:none">← Back</a></header>
+  <main>
+    <div id="tv-chart" style="height:100%;"></div>
+  </main>
+</div>
+
+<!-- TradingView Advanced Chart -->
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script>
+  const p = new URLSearchParams(location.search);
+  let sym = (p.get('s') || 'NSE:RELIANCE').toUpperCase();
+  // basic mapper for common tickers
+  const map = { RELIANCE:'NSE:RELIANCE', TCS:'NSE:TCS', INFY:'NSE:INFY', NIFTY50:'INDEX:NIFTY50' };
+  if(!sym.includes(':')) sym = map[sym] || ('NSE:'+sym);
+
+  // Dark/light based on localStorage from your site
+  const theme = (localStorage.getItem('theme')||'dark') === 'light' ? 'light' : 'dark';
+
+  new TradingView.widget({
+    autosize: true,
+    symbol: sym,
+    interval: "15",
+    timezone: "Asia/Kolkata",
+    theme: theme,
+    style: "1",
+    locale: "en",
+    enable_publishing: false,
+    withdateranges: true,
+    hide_side_toolbar: false,
+    container_id: "tv-chart"
+  });
+</script>
+</body>
+</html>

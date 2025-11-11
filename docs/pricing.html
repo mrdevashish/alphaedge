@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pricing · AlphaEdge</title>
+  <link rel="icon" href="favicon.svg"/>
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <header class="ae-navbar">
+    <a class="brand" href="./">AlphaEdge</a>
+    <nav class="nav-actions">
+      <a href="./learn.html">Learn</a>
+      <a href="./products.html">Products</a>
+      <a href="./about.html">About</a>
+      <a href="./admin.html">Admin</a>
+    </nav>
+    <button class="nav-toggle" aria-label="menu">☰</button>
+  </header>
+
+  <main class="ae-container">
+    <h1>Pricing</h1>
+    <p class="muted">Start with a weekly plan, upgrade anytime. Educational content—no investment advice.</p>
+
+    <div class="grid grid-cards pricing-grid">
+      <article class="card price">
+        <div class="ribbon">Starter</div>
+        <h3>Weekly</h3>
+        <p class="price-tag">₹199<span>/week</span></p>
+        <ul class="bullets">
+          <li>3 ideas/week</li>
+          <li>Basic levels & notes</li>
+          <li>Email alerts</li>
+        </ul>
+        <button class="btn btn-primary paybtn" data-amount="199">Checkout</button>
+      </article>
+
+      <article class="card price popular">
+        <div class="ribbon">Most Popular</div>
+        <h3>Monthly</h3>
+        <p class="price-tag">₹599<span>/month</span></p>
+        <ul class="bullets">
+          <li>Daily shortlist</li>
+          <li>Levels + risk guide</li>
+          <li>Email & dashboard access</li>
+        </ul>
+        <button class="btn btn-primary paybtn" data-amount="599">Checkout</button>
+      </article>
+
+      <article class="card price">
+        <div class="ribbon">Best Value</div>
+        <h3>Yearly</h3>
+        <p class="price-tag">₹5,499<span>/year</span></p>
+        <ul class="bullets">
+          <li>All features</li>
+          <li>Priority support</li>
+          <li>Early access features</li>
+        </ul>
+        <button class="btn btn-primary paybtn" data-amount="5499">Checkout</button>
+      </article>
+    </div>
+
+    <section class="section disclaimer">
+      <h3>Disclaimer</h3>
+      <p class="muted small">
+        We are not SEBI registered. All content is educational and not investment advice. Please do your own research.
+      </p>
+    </section>
+  </main>
+
+  <footer class="ae-footer">
+    <p>© <span id="year"></span> AlphaEdge. All rights reserved.</p>
+  </footer>
+
+  <!-- Razorpay Checkout (only used when you enable real orders) -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script type="module">
+    const API = (window.API_BASE_OVERRIDE||"http://127.0.0.1:5000");
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    async function createOrder(amount){
+      const r = await fetch(`${API}/api/pay/create-order`, {
+        method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ amount })
+      });
+      return { status:r.status, json: await r.json() };
+    }
+
+    async function pay(amount){
+      const { status, json } = await createOrder(amount);
+      if(status !== 200){
+        alert(json?.error || "Payment backend not configured. Use Payment Links or set Razorpay keys.");
+        return;
+      }
+      const { order } = json;
+      // If you wire real order_id from Razorpay SDK, pass it here:
+      const opts = {
+        key: localStorage.getItem("RAZORPAY_KEY_ID") || "rzp_test_xxxxx",
+        amount: order.amount, currency: "INR",
+        name: "AlphaEdge", description: "Subscription",
+        // order_id: order.id,  // uncomment when using real Razorpay order id
+        handler: function (resp) {
+          alert("Payment flow completed (demo). Verify server-side webhook to activate plan.");
+        },
+        prefill: { email:"demo@example.com" },
+        theme: { color: "#1a6fff" }
+      };
+      const rz = new window.Razorpay(opts);
+      rz.open();
+    }
+
+    document.querySelectorAll(".paybtn").forEach(btn=>{
+      btn.addEventListener("click", ()=> pay(Number(btn.dataset.amount||0)));
+    });
+  </script>
+</body>
+</html>

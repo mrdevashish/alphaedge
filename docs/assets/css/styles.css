@@ -46,3 +46,43 @@ a{color:inherit;text-decoration:none}
 
 /* Theme toggle button */
 .theme-toggle { margin-left: 10px; border:1px solid var(--border); background:transparent; padding:6px 10px; border-radius:10px; color:var(--ink); cursor:pointer }
+
+/* Sections & typography */
+.section-title{ margin: 28px 0 10px; font-size: clamp(20px,3vw,28px); }
+.section{ margin: 18px 0; }
+.small{ font-size: 13px; }
+.center{ text-align:center }
+
+/* Hero CTA */
+.cta-row{ display:flex; gap:12px; margin-top:14px; flex-wrap:wrap }
+.trust-row{ display:flex; gap:14px; margin-top:10px; color:var(--muted); font-size:14px; flex-wrap:wrap }
+
+/* Buttons */
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:12px; border:1px solid var(--border); text-decoration:none }
+.btn-primary{ background:#1a6fff; border-color:#1a6fff; color:#fff; box-shadow:0 8px 20px rgba(26,111,255,.25) }
+.btn-primary:hover{ filter:brightness(1.05) }
+.btn-ghost{ background:transparent; color:var(--ink) }
+
+/* Social proof */
+.social-proof{ display:flex; gap:12px; align-items:center; background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:12px; margin-top:14px }
+.social-proof .badge{ background:#222d46; padding:8px 10px; border-radius:10px; font-weight:700 }
+
+/* Subscribe */
+.subscribe{ background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px }
+.subscribe-form{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px }
+.subscribe-form input{ flex:1; min-width:220px; padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+  background:#0e1322; color:var(--ink) }
+
+/* Pricing */
+.pricing-grid .price{ position:relative }
+.pricing-grid .ribbon{ position:absolute; top:10px; left:10px; background:#0e1322; border:1px solid var(--border); color:#cfe1ff; padding:4px 8px; border-radius:8px; font-size:12px }
+.price-tag{ font-size:28px; margin:8px 0 }
+.price-tag span{ color:var(--muted); font-size:14px; margin-left:4px }
+.bullets{ padding-left:18px; margin:10px 0 14px; color:var(--muted) }
+.popular{ outline:2px solid #1a6fff; box-shadow:0 10px 28px rgba(26,111,255,.18) }
+
+/* FAQ details */
+details{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin:10px 0 }
+details summary{ cursor:pointer; font-weight:600 }
+.disclaimer{ background:#0e1322; border:1px dashed var(--border); border-radius:12px; padding:14px }
