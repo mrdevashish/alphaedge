@@ -1,26 +1,66 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="assets/css/styles.css"><script>window.API_BASE="https://alphaedge-backend.onrender.com";</script>
-<div class="container" style="padding-top:24px">
-  <div class="card"><h1>Stock Suggestions</h1><p class="lead">Updated ideas with entry/SL/targets. Educational only.</p></div>
-  <div id="gate" class="card" style="margin-top:10px;display:none">
-    <h3>Members only</h3><p class="lead">You need an active plan to view this page.</p>
-    <a class="btn primary" href="plans.html">See Plans</a> <a class="btn" href="login.html">Login</a>
-  </div>
-  <div id="content" style="display:none">
-    <div class="card"><table class="table">
-      <tr><th>Symbol</th><th>Entry</th><th>SL</th><th>Targets</th><th>Notes</th></tr>
-      <tr><td>TATASTEEL</td><td>127</td><td>122</td><td>131 / 134</td><td>Breakout + Retest</td></tr>
-      <tr><td>INFY</td><td>1500</td><td>1470</td><td>1535 / 1560</td><td>Pullback to 20EMA</td></tr>
-    </table></div>
-  </div>
-</div>
-<script>
-(async()=>{
-  const t=localStorage.getItem('ae_token'); if(!t){gate.style.display='block'; return;}
-  const r=await fetch(API_BASE+'/api/me/subscription',{headers:{Authorization:'Bearer '+t}}).catch(()=>null);
-  const j=r&&await r.json(); const ok=j && j.status==='active' && new Date(j.expiresAt)>new Date();
-  (ok?content:gate).style.display='block';
-})();
-</script>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Suggestions • AlphaEdge</title>
+<link rel="icon" href="./favicon.svg"/>
+<style>
+:root{--bg:#0b0d12;--card:#111623;--muted:#9fb1c7;--txt:#eaf1fb;--accent:#4da3ff}
+body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.5 system-ui,Segoe UI,Roboto,Arial}
+main{max-width:900px;margin:22px auto;padding:16px}
+.card{background:var(--card);border:1px solid #1b2233;border-radius:14px;padding:16px;margin:12px 0}
+.row{display:flex;gap:8px}
+.input,.area{width:100%;background:#0e1320;border:1px solid #1f2940;color:var(--txt);border-radius:10px;padding:10px 12px}
+.area{min-height:110px}
+.btn{background:var(--accent);color:#071120;border:0;border-radius:10px;padding:10px 14px;font-weight:600}
+li{margin:8px 0}
+</style>
+<!-- <script>window.API_BASE_OVERRIDE="https://YOUR_BACKEND.onrender.com";</script> -->
+<script type="module">
+  import { api, apiJSON } from "./assets/js/api.js";
+  const $=s=>document.querySelector(s);
 
-<script src="assets/js/auth.js"></script>
+  async function loadList(){
+    try{
+      const j = await apiJSON("/api/suggestions");
+      $("#list").innerHTML = (j||[]).map(x=>`<li><b>${x.symbol||'-'}</b> — ${x.text||''} <span style="color:#9fb1c7">(by ${x.email||'anon'})</span></li>`).join("") || "<li>None yet</li>";
+    }catch(e){
+      $("#list").innerHTML = "<li>Could not load suggestions.</li>";
+      console.error(e);
+    }
+  }
+  async function submitSugg(){
+    const email  = ($("#s_email")?.value||"").trim();
+    const symbol = ($("#s_symbol")?.value||"").trim();
+    const text   = ($("#s_text")?.value||"").trim();
+    if(!email || !symbol || !text) return alert("Please fill all fields");
+    const r = await api("/api/suggest", {method:"POST",body:JSON.stringify({email,symbol,text})});
+    alert(r.ok?"Submitted":"Failed");
+    loadList();
+  }
+  function boot(){
+    $("#s_btn").onclick = submitSugg;
+    loadList();
+  }
+  document.readyState==="loading"?document.addEventListener("DOMContentLoaded",boot):boot();
+</script>
+</head><body>
+<main>
+  <h2>Member Suggestions</h2>
+
+  <section class="card">
+    <h3>Submit</h3>
+    <div class="row" style="margin:8px 0; flex-wrap:wrap">
+      <input id="s_email"  class="input"  type="email"  placeholder="you@example.com" style="flex:1 1 220px">
+      <input id="s_symbol" class="input"  placeholder="RELIANCE"        style="flex:0 0 140px">
+    </div>
+    <textarea id="s_text" class="area" placeholder="Your idea/observation…"></textarea>
+    <div style="margin-top:8px">
+      <button id="s_btn" class="btn">Send</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Latest</h3>
+    <ul id="list"></ul>
+  </section>
+</main>
+</body></html>

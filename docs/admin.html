@@ -1,27 +1,68 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Admin · AlphaEdge</title>
-<link rel="icon" href="favicon.svg"/><link rel="stylesheet" href="assets/css/styles.css"/>
-</head><body>
-<header class="ae-navbar"><a class="brand" href="./">AlphaEdge</a>
-  <nav class="nav-actions"><a href="./">Home</a></nav>
-  <button class="nav-toggle" aria-label="menu">☰</button>
-</header>
-<main class="ae-container">
-  <h1>Admin</h1>
-  <p class="muted">Set your backend URL for production (Render):</p>
-  <input id="url" placeholder="https://alphaedge-backend.onrender.com"
-         style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);background:#0e1322;color:#e6e9ef">
-  <button id="save" class="theme-toggle" style="margin-top:10px">Save</button>
-  <div id="msg" class="muted" style="margin-top:8px"></div>
-</main>
-<footer class="ae-footer"><p>© <span id="year"></span> AlphaEdge.</p></footer>
-<script>
-document.getElementById('save').onclick=()=>{
-  const u=document.getElementById('url').value.trim(); if(!u){msg.textContent='Enter URL';return;}
-  localStorage.setItem('API_BASE_OVERRIDE',u); msg.textContent='Saved. Reload pages to apply.';
-};
-const saved=localStorage.getItem('API_BASE_OVERRIDE'); if(saved) document.getElementById('url').value=saved;
-document.getElementById('year').textContent=new Date().getFullYear();
+<title>Admin • AlphaEdge</title>
+<link rel="icon" href="./favicon.svg"/>
+<style>
+:root{--bg:#0b0d12;--card:#111623;--muted:#9fb1c7;--txt:#eaf1fb;--accent:#4da3ff}
+body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.5 system-ui,Segoe UI,Roboto,Arial}
+main{max-width:1100px;margin:22px auto;padding:16px}
+.card{background:var(--card);border:1px solid #1b2233;border-radius:14px;padding:16px;margin:12px 0}
+.row{display:flex;gap:8px}
+.input{flex:1;background:#0e1320;border:1px solid #1f2940;color:var(--txt);border-radius:10px;padding:10px 12px}
+.btn{background:var(--accent);color:#071120;border:0;border-radius:10px;padding:10px 14px;font-weight:600}
+pre{white-space:pre-wrap}
+</style>
+<!-- <script>window.API_BASE_OVERRIDE="https://YOUR_BACKEND.onrender.com";</script> -->
+<script type="module">
+  import { api, apiJSON } from "./assets/js/api.js";
+
+  const $ = s=>document.querySelector(s);
+
+  async function loadSubs(){
+    const j = await apiJSON("/api/subs");
+    $("#subs").textContent = JSON.stringify(j,null,2);
+  }
+  async function loadEvents(){
+    const j = await apiJSON("/api/events");
+    $("#events").textContent = JSON.stringify(j,null,2);
+  }
+  async function toggleSub(){
+    const email = ($("#a_email")?.value||"").trim();
+    if(!email) return alert("email required");
+    const r = await api("/api/admin/subs/toggle",{method:"POST",body:JSON.stringify({email})});
+    alert(r.ok?"Toggled":"Failed");
+    loadSubs();
+  }
+
+  function boot(){
+    $("#load_subs").onclick = loadSubs;
+    $("#load_events").onclick = loadEvents;
+    $("#a_toggle").onclick = toggleSub;
+  }
+  document.readyState==="loading" ? document.addEventListener("DOMContentLoaded",boot) : boot();
 </script>
+</head><body>
+<main>
+  <h2>Admin</h2>
+
+  <section class="card">
+    <h3>Subscribers</h3>
+    <div class="row" style="margin:8px 0">
+      <input id="a_email" class="input" type="email" placeholder="user@example.com">
+      <button id="a_toggle" class="btn">Toggle Active</button>
+      <button id="load_subs" class="btn" style="background:#2d8cff">Refresh</button>
+    </div>
+    <pre id="subs" class="muted">Click Refresh…</pre>
+  </section>
+
+  <section class="card">
+    <h3>Events</h3>
+    <div class="row" style="margin:8px 0">
+      <button id="load_events" class="btn">Load Events</button>
+    </div>
+    <pre id="events" class="muted">Click Load Events…</pre>
+  </section>
+
+  <p class="muted">Note: this simple page assumes you’re already an admin; lock it down in the backend if needed.</p>
+</main>
 </body></html>
