@@ -153,3 +153,14 @@ body {
 @media (hover:hover){
   .ticker:hover .ticker__track{ animation-play-state: paused; }
 }
+
+/* Candle up/down colors (shared with ticker) */
+:root{
+  --candle-up:  #17c964;  /* green  */
+  --candle-dn:  #ff4d4f;  /* red    */
+}
+.theme-dark{
+  /* stays same; tweak if you want */
+  --candle-up:  #17c964;
+  --candle-dn:  #ff4d4f;
+}
