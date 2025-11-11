@@ -29,22 +29,23 @@ body{font-family:'Inter',sans-serif;}
 footer{text-align:center;padding:1rem;font-size:.9rem;opacity:.7;}
 </style>
 </head><body>
+  <div class="container pricing-grid">
 <header id="site-nav"></header>
 
-<section class="hero">
+<section class="section pricing-grid" class="hero">
   <div>
     <h1>Clarity-first investing for busy people</h1>
     <p>Simple rule-based systems to save you time, protect capital, and let compounding work quietly.</p>
-    <a class="btn primary" href="./products.html">Get Started</a>
+    <a class="btn primary pricing-grid" href="./products.html">Get Started</a>
   </div>
   <div>
     <canvas id="miniChart" width="360" height="180" style="background:#020617;border-radius:12px;"></canvas>
   </div>
 </section>
 
-<section class="section">
+<section class="section pricing-grid" class="section">
   <h2 style="text-align:center;">Plans & Pricing</h2>
-  <div class="pricing">
+  <div class="pricing pricing-grid">
     <div class="card">
       <h3>Starter</h3>
       <p class="price">₹0/mo</p>
@@ -77,6 +78,8 @@ const bars=[20,40,25,60,45,70,30];
 ctx.fillStyle='#38bdf8';
 bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
 </script>
+  </div>
+<script>(function(){try{var w=Math.min(screen.width,window.innerWidth);if(w<600 </body></body> location.pathname.endsWith("/index.html")){location.replace("./m/");}}catch(e){}})();</script>
 </body></html>
 =======
 <!doctype html>
@@ -107,7 +110,7 @@ bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
   <main class="container">
 
     <!-- Hero -->
-    <section class="hero card">
+    <section class="section" class="hero card">
       <div class="hero-copy">
         <h1>Clarity-first investing for busy people</h1>
         <p class="muted">
@@ -127,7 +130,7 @@ bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
     </section>
 
     <!-- Value props (3-up) -->
-    <section class="feature-grid">
+    <section class="section" class="feature-grid">
       <article class="card soft">
         <h3>Process over prediction</h3>
         <p class="muted">Disciplined rules beat random guesses. We help you stick to a process.</p>
@@ -143,7 +146,7 @@ bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
     </section>
 
     <!-- Pricing -->
-    <section class="section">
+    <section class="section" class="section">
       <div class="section-head">
         <h2>Plans that grow with you</h2>
         <p class="muted">Switch or cancel anytime. No hidden fees.</p>
@@ -199,7 +202,7 @@ bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
     </section>
 
     <!-- Social proof -->
-    <section class="section">
+    <section class="section" class="section">
       <div class="section-head">
         <h2>Loved by our community</h2>
       </div>
@@ -232,6 +235,8 @@ bars.forEach((h,i)=>ctx.fillRect(i*50+10,160-h,30,h));
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/auth.js"></script>
+  </div>
+<script>(function(){try{var w=Math.min(screen.width,window.innerWidth);if(w<600 </body></body> location.pathname.endsWith("/index.html")){location.replace("./m/");}}catch(e){}})();</script>
 </body>
 </html>
 
