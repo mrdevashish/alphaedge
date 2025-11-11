@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AlphaEdge — pro charts</title>
+<link rel="stylesheet" href="assets/app.css"/>
+</head>
+<body data-page="pro">
+<header>
+  <h1>AlphaEdge</h1>
+  <span class="pill">India — pro (TradingView embed)</span>
+  <span id="wdg" class="pill">widget: …</span>
+  <a class="pill" href="./index.html" style="margin-left:auto">← Back</a>
+</header>
+
+<div class="row">
+  <label>Exch</label>
+  <select id="exch"><option>NSE</option><option>BSE</option><option>GLOBAL</option></select>
+  <label>Symbol</label>
+  <input id="symbol" placeholder="RELIANCE"/>
+  <label>TF</label>
+  <select id="tf">
+    <option>1</option><option>5</option><option>15</option><option>30</option><option>60</option>
+    <option selected>D</option><option>W</option><option>M</option>
+  </select>
+  <button id="load">Load</button>
+</div>
+
+<div id="tvwrap">
+  <div id="tvchart"></div>
+</div>
+
+<footer>
+  <span class="notice">Real-time chart powered by TradingView widget. Drawing tools & indicators included.</span>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

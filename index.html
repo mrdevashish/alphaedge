@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AlphaEdge — India live</title>
+<link rel="stylesheet" href="assets/app.css"/>
+</head>
+<body data-page="index">
+<header>
+  <h1>AlphaEdge</h1>
+  <span class="pill">India — live (GitHub Pages)</span>
+  <a class="pill" href="./pro.html">Pro Charts (TradingView)</a>
+</header>
+
+<div class="row">
+  <label>Exch</label>
+  <select id="exch"><option>NSE</option><option>BSE</option><option>GLOBAL</option></select>
+  <label>Symbol</label>
+  <input id="symbol" placeholder="RELIANCE"/>
+  <button onclick="openPro()">Open in Pro</button>
+  <span class="notice">Tip: GLOBAL supports symbols like AAPL, MSFT</span>
+</div>
+
+<div class="card">
+  <h3>Watchlist</h3>
+  <div class="row">
+    <button onclick="addWL()">+ Add to Watchlist</button>
+  </div>
+  <div id="watchlist" class="list"></div>
+</div>
+
+<div class="card">
+  <h3>Alerts</h3>
+  <div class="row">
+    <button onclick="addAL()">+ Create Alert</button>
+  </div>
+  <div id="alerts" class="list"></div>
+  <hr/>
+  <div class="notice">Alerts are stored locally (no server). Future: server-side checks & notifications.</div>
+</div>
+
+<footer>
+  <span>© AlphaEdge. Data shown in Pro via TradingView widget.</span>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
