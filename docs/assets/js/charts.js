@@ -47,3 +47,14 @@ function drawText(ctx,w,h,msg){
   ctx.font = '12px ui-sans-serif';
   ctx.fillText(msg, 10, 16);
 }
+import { applyThemeToChart } from './theme.js';
+
+window.addEventListener("themechange", ()=>{
+  const theme = document.body.classList.contains("light") ? "light":"dark";
+  document.querySelectorAll("canvas").forEach(cv=>{
+    const ctx = cv.getContext("2d");
+    const colors = applyThemeToChart(ctx, theme);
+    // placeholder: refresh background instantly
+    cv.style.background = colors.backgroundColor;
+  });
+});

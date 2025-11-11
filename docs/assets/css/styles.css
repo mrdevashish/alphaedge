@@ -80,3 +80,38 @@ a{color:var(--ink);text-decoration:none}
   background: #0e1322;
   padding: 12px;
 }
+
+/* === THEME TOGGLE === */
+.theme-toggle {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* Dark theme (default) */
+body {
+  --bg-color: #0e1322;
+  --text-color: #e6e6e6;
+  --card-bg: #1a2238;
+}
+
+/* Light theme */
+body.light {
+  --bg-color: #f8f9fa;
+  --text-color: #111;
+  --card-bg: #ffffff;
+}
+
+/* Apply variables */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+.card, .ae-container, .ae-navbar, .ae-footer {
+  background: var(--card-bg);
+}

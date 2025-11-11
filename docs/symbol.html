@@ -39,3 +39,21 @@
   </script>
 </body>
 </html>
+
+<!-- Add theme toggle button inside <header> -->
+<script>
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const btn = document.createElement("button");
+    btn.textContent = "🌓";
+    btn.className = "theme-toggle";
+    document.querySelector(".ae-navbar")?.appendChild(btn);
+    btn.addEventListener("click", ()=>{
+      document.body.classList.toggle("light");
+      localStorage.setItem("theme", document.body.classList.contains("light") ? "light":"dark");
+      window.dispatchEvent(new Event("themechange"));
+    });
+    if(localStorage.getItem("theme")==="light"){
+      document.body.classList.add("light");
+    }
+  });
+</script>
