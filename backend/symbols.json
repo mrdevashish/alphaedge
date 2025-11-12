@@ -1,0 +1,15 @@
+{
+  "exchanges": ["NSE","NASDAQ","NYSE"],
+  "map": {
+    "RELIANCE": {"name":"Reliance Industries","yahoo":"RELIANCE.NS","exch":"NSE"},
+    "TCS":      {"name":"Tata Consultancy Services","yahoo":"TCS.NS","exch":"NSE"},
+    "INFY":     {"name":"Infosys","yahoo":"INFY.NS","exch":"NSE"},
+    "HDFCBANK": {"name":"HDFC Bank","yahoo":"HDFCBANK.NS","exch":"NSE"},
+    "ICICIBANK":{"name":"ICICI Bank","yahoo":"ICICIBANK.NS","exch":"NSE"},
+    "SBIN":     {"name":"State Bank of India","yahoo":"SBIN.NS","exch":"NSE"},
+    "AAPL":     {"name":"Apple Inc","yahoo":"AAPL","exch":"NASDAQ"},
+    "GOOGL":    {"name":"Alphabet Inc","yahoo":"GOOGL","exch":"NASDAQ"},
+    "MSFT":     {"name":"Microsoft","yahoo":"MSFT","exch":"NASDAQ"},
+    "TSLA":     {"name":"Tesla","yahoo":"TSLA","exch":"NASDAQ"}
+  }
+}

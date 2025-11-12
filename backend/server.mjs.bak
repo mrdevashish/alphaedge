@@ -1,0 +1,125 @@
+import express from 'express';
+import fetch from 'node-fetch';
+
+const app = express();
+app.use(express.json());
+
+// map UI tf to Yahoo interval + range
+function mapTf(tf='1d'){
+  const t = (tf||'1d').toLowerCase();
+  if (t==='15m') return {interval:'15m', range:'7d'};
+  if (t==='30m') return {interval:'30m', range:'14d'};
+  if (t==='1h')  return {interval:'60m', range:'60d'};
+  return {interval:'1d', range:'6mo'};
+}
+
+async function yahooChart(symbol, tf='1d'){
+  const {interval, range} = mapTf(tf);
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
+  const r = await fetch(url, { headers:{'User-Agent':'Mozilla/5.0'} });
+  if (!r.ok) throw new Error(`Yahoo ${r.status}`);
+  const j = await r.json();
+  const res = j?.chart?.result?.[0];
+  if (!res?.timestamp) return { candles: [] };
+  const ts = res.timestamp;
+  const o = res.indicators?.quote?.[0]?.open  || [];
+  const h = res.indicators?.quote?.[0]?.high  || [];
+  const l = res.indicators?.quote?.[0]?.low   || [];
+  const c = res.indicators?.quote?.[0]?.close || [];
+  const candles = ts.map((t,i)=>({
+    time: ts[i], open:o[i], high:h[i], low:l[i], close:c[i]
+  })).filter(x => Number.isFinite(x.open) && Number.isFinite(x.close));
+  return { candles };
+}
+
+function calcSMA(values, n){
+  if (values.length < n) return [];
+  const out = [];
+  let sum = 0;
+  for (let i=0;i<values.length;i++){
+    sum += values[i];
+    if (i>=n) sum -= values[i-n];
+    if (i>=n-1) out.push(sum/n);
+  }
+  return out;
+}
+
+/* -------- routes -------- */
+
+// lightweight autosuggest using Yahoo search (works for NSE & US)
+app.get('/api/suggest', async (req,res) => {
+  try {
+    const q = (req.query.q||'').trim();
+    if (!q) return res.json({ ok:true, quotes: [] });
+    const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=10`;
+    const r = await fetch(url, { headers:{'User-Agent':'Mozilla/5.0'} });
+    const j = await r.json();
+    res.json({ ok:true, quotes: j?.quotes||[] });
+  } catch (err) {
+    res.status(500).json({ ok:false, error: String(err) });
+  }
+});
+
+// candles for chart widget
+app.get('/api/candles', async (req,res) => {
+  try {
+    const symbol = (req.query.symbol||'').trim();
+    const tf = (req.query.tf||'1d').trim();
+    if (!symbol) return res.status(400).json({ ok:false, error:'symbol required' });
+    const { candles } = await yahooChart(symbol, tf);
+    res.json({ ok:true, candles });
+  } catch (err) {
+    res.status(500).json({ ok:false, error:String(err) });
+  }
+});
+
+// analyze single symbol
+app.post('/api/analyze', async (req,res) => {
+  try {
+    const symbol = (req.body.symbol||'').trim();
+    const tf = (req.body.tf||'1d').trim();
+    if (!symbol) return res.status(400).json({ ok:false, error:'symbol required' });
+    const { candles } = await yahooChart(symbol, tf);
+    const closes = candles.map(x => x.close);
+    const last = closes.at(-1);
+    const prev = closes.at(-2);
+    const momentum = (last && prev) ? Number((((last - prev) / prev) * 100).toFixed(2)) : '-';
+    const sma20 = calcSMA(closes, 20);
+    const vsSMA20 = (last && sma20.length) ? Number((((last - sma20.at(-1)) / sma20.at(-1)) * 100).toFixed(2)) : '-';
+    res.json({ ok:true, symbol, tf, momentum, vsSMA20 });
+  } catch (err) {
+    res.status(500).json({ ok:false, error:String(err) });
+  }
+});
+
+// screener for multiple symbols
+app.post('/api/screener', async (req,res) => {
+  try {
+    let { symbols, tf='1d' } = req.body || {};
+    // accept string "A,B" or array ["A","B"]
+    if (Array.isArray(symbols)) {
+      symbols = symbols.join(',');
+    }
+    const list = String(symbols||'').split(',').map(s => s.trim()).filter(Boolean).slice(0,25);
+    const results = [];
+    for (const s of list){
+      try {
+        const { candles } = await yahooChart(s, tf);
+        const closes = candles.map(x=>x.close);
+        const last = closes.at(-1), prev = closes.at(-2);
+        const momentum = (last && prev) ? Number((((last - prev)/prev)*100).toFixed(2)) : '-';
+        const sma20 = calcSMA(closes, 20);
+        const vsSMA20 = (last && sma20.length) ? Number((((last - sma20.at(-1))/sma20.at(-1))*100).toFixed(2)) : '-';
+        results.push({ symbol: s, momentum, vsSMA20 });
+      } catch (e) {
+        results.push({ symbol: s, error: String(e) });
+      }
+    }
+    res.json({ ok:true, results });
+  } catch (err) {
+    res.status(500).json({ ok:false, error:String(err) });
+  }
+});
+
+const PORT = 5000;
+app.listen(PORT, () => console.log(`✅ AlphaEdge backend running on http://127.0.0.1:${PORT}`));
