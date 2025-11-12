@@ -1,13 +1,12 @@
-const API_BASE = "https://alphaedge-backend.onrender.com";
 // === API base ===
 // in production use Render; in local dev use 127.0.0.1:8080
 const API_BASE = (location.hostname === "127.0.0.1" || location.hostname === "localhost")
-  ? "https://alphaedge-backend.onrender.com"
+  ? "http://127.0.0.1:8080"
   : "https://alphaedge-backend.onrender.com";
 
 // Helper
 async function api(path, body){
-  const r = await fetch(`$https://alphaedge-backend.onrender.com${path}`, {
+  const r = await fetch(`${API_BASE}${path}`, {
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body: JSON.stringify(body || {})
@@ -18,7 +17,7 @@ async function api(path, body){
 // Paint org info in navbar (optional)
 (async ()=>{
   try{
-    const r = await fetch(`$https://alphaedge-backend.onrender.com/config/public`);
+    const r = await fetch(`${API_BASE}/config/public`);
     const j = await r.json();
     if (j?.ok){
       const el = document.querySelector("#orgName");
