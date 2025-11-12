@@ -73,5 +73,30 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
+
+// --- static site serving added by script ---
+import path from "path";
+app.use(express.static(path.join(process.cwd(), "public")));
+app.get("/", (req,res)=> res.sendFile(path.join(process.cwd(), "public/index.html")));
+
+// --- static site serving added by script ---
+import path from "path";
+app.use(express.static(path.join(process.cwd(), "public")));
+app.get("/", (req,res)=> res.sendFile(path.join(process.cwd(), "public/index.html")));
+
+// --- static site serving added by script ---
+import path from "path";
+app.use(express.static(path.join(process.cwd(), "public")));
+app.get("/", (req,res)=> res.sendFile(path.join(process.cwd(), "public/index.html")));
+
+// --- static site serving added by script ---
+import path from "path";
+app.use(express.static(path.join(process.cwd(), "public")));
+app.get("/", (req,res)=> res.sendFile(path.join(process.cwd(), "public/index.html")));
+
+// --- static site serving added by script ---
+import path from "path";
+app.use(express.static(path.join(process.cwd(), "public")));
+app.get("/", (req,res)=> res.sendFile(path.join(process.cwd(), "public/index.html")));
   console.log(`AlphaEdge backend listening on ${PORT}`);
 });
