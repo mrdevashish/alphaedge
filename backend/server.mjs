@@ -115,3 +115,6 @@ app.post("/webhooks/razorpay", express.raw({type:"application/json"}), (req,res)
 app.listen(PORT, "0.0.0.0", ()=> {
   console.log(`✅ Backend listening on 0.0.0.0:${PORT}`);
 });
+
+// Health check
+app.get('/health',(req,res)=>res.json({ok:true,uptime:process.uptime()}));
