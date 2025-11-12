@@ -1,6 +1,6 @@
 // === API base ===
 // in production use Render; in local dev use 127.0.0.1:8080
-const API_BASE = "https://alphaedge-backend.onrender.com";
+const API_BASE = (location.hostname === "127.0.0.1" || location.hostname === "localhost")
   ? "http://127.0.0.1:8080"
   : "https://alphaedge-backend.onrender.com";
 
