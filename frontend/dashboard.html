@@ -1,3 +1,4 @@
+<script>window.API_BASE="YOUR_RENDER_URL";</script>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,7 +30,8 @@
 </head>
 <body>
   <h1>AlphaEdge — Unified Dashboard<span id="liveBadge" style="margin-left:12px;font-size:.9rem;opacity:.8">OFFLINE</span></h1>
-  <nav>
+  <nav class="nav">
+  <span id="orgName" style="margin-left:8px;opacity:.8">AlphaEdge</span>
     <a href="index.html">Home</a><a href="about.html">About</a><a href="pricing.html">Pricing</a>
     <a href="login.html">Login</a><a href="register.html">Register</a>
     <span class="status" id="bootStatus">Loading…</span>
@@ -93,7 +95,7 @@
     document.getElementById('aiSymbol').addEventListener('change', e=> loadCandles(e.target.value.trim()));
   </script>
 
-  <script src="auto.js?v=1762948798"></script>
+  <script src="auto.js?v=1762949990"></script>
   <script src="tv.js"></script>
 </body>
 </html>

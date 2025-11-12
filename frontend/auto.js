@@ -1,49 +1,64 @@
-(() => {
-  let API_BASE = (window.API_BASE) || 'http://127.0.0.1:5000';
-  const j = (p,o={}) => fetch(`$http://127.0.0.1:5000${p}`, o);
-  const jJSON = (p,o={}) => j(p,o).then(r => { if(!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
+// === API base ===
+// in production use Render; in local dev use 127.0.0.1:8080
+const API_BASE = (location.hostname === "127.0.0.1" || location.hostname === "localhost")
+  ? "http://127.0.0.1:8080"
+  : "https://alphaedge-backend.onrender.com";
 
-  const $ = s => document.querySelector(s);
+// Helper
+async function api(path, body){
+  const r = await fetch(`${API_BASE}${path}`, {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify(body || {})
+  });
+  return r.json();
+}
 
-  // Analyzer
-  const analyzeBtn = $('#analyzeBtn'), aiSymbol = $('#aiSymbol'), aiTf = $('#aiTf'), aiOut = $('#aiOut');
-  if (analyzeBtn && aiSymbol && aiTf && aiOut) {
-    analyzeBtn.onclick = async () => {
-      aiOut.textContent = 'Loading...';
-      try {
-        const body = JSON.stringify({ symbol: aiSymbol.value.trim(), tf: aiTf.value });
-        const data = await jJSON('/api/ai/analyze', { method:'POST', headers:{'Content-Type':'application/json'}, body });
-        aiOut.textContent = JSON.stringify(data, null, 2);
-      } catch (e) { aiOut.textContent = `Analyzer Error: ${e.message}`; }
-    };
-  }
-
-  // Screener
-  const runScr = $('#runScr'), scrList = $('#scrList'), scrTf = $('#scrTf'), scrBody = $('#scrBody');
-  if (runScr && scrList && scrTf && scrBody) {
-    runScr.onclick = async () => {
-      scrBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
-      try {
-        const body = JSON.stringify({ symbols: scrList.value.trim(), tf: scrTf.value });
-        const data = await jJSON('/api/screener', { method:'POST', headers:{'Content-Type':'application/json'}, body });
-        if (!data.ok) throw new Error(data.error || 'Unknown');
-        scrBody.innerHTML = (data.results||[]).map(r=>`
-          <tr><td>${r.symbol||'-'}</td><td>${r.momentum??'-'}</td><td>${r.vsSMA20??'-'}</td></tr>
-        `).join('') || '<tr><td colspan="3">No data</td></tr>';
-      } catch (e) { scrBody.innerHTML = `<tr><td colspan="3">Screener Error: ${e.message}</td></tr>`; }
-    };
-  }
-
-  // TradingView
-  const c = document.getElementById('tv_chart_container');
-  if (c && typeof TradingView === 'undefined') {
-    const s = document.createElement('script');
-    s.src = 'https://s3.tradingview.com/tv.js'; s.async = true;
-    s.onload = () => { try {
-      // eslint-disable-next-line no-undef
-      new TradingView.widget({ container_id:'tv_chart_container', autosize:true, symbol:'NASDAQ:AAPL', interval:'D', theme:'dark', locale:'en' });
-      const m = document.getElementById('jsLoadedMarker'); if (m) m.textContent = 'JS loaded';
-    } catch(e){ console.error(e); } };
-    document.head.appendChild(s);
-  }
+// Paint org info in navbar (optional)
+(async ()=>{
+  try{
+    const r = await fetch(`${API_BASE}/config/public`);
+    const j = await r.json();
+    if (j?.ok){
+      const el = document.querySelector("#orgName");
+      if (el) el.textContent = j.org?.name || "AlphaEdge";
+    }
+  }catch(e){}
 })();
+
+// Analyzer button (example)
+window.runAnalyze = async ()=>{
+  const sym = document.querySelector("#aiSymbol")?.value?.trim();
+  const tf  = document.querySelector("#aiTf")?.value || "1d";
+  const out = document.querySelector("#aiOut");
+  out.textContent = "Loading...";
+  try{
+    const j = await api("/api/ai/analyze", { symbol: sym, tf });
+    out.textContent = JSON.stringify(j, null, 2);
+  }catch(e){
+    out.textContent = "Error: "+String(e);
+  }
+};
+
+// Screener
+window.runScreener = async ()=>{
+  const box = document.querySelector("#scrList");
+  const tf  = document.querySelector("#scrTf")?.value || "1d";
+  const out = document.querySelector("#scrBody");
+  out.innerHTML = "";
+  try{
+    const symbols = box.value.split(",").map(s=>s.trim()).filter(Boolean);
+    const j = await api("/api/screener", { symbols, tf });
+    if (j?.ok){
+      j.results.forEach(r=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${r.symbol}</td><td>${r.momentum}</td><td>${r.vsSMA20}</td>`;
+        out.appendChild(tr);
+      });
+    }else{
+      out.innerHTML = `<tr><td colspan="3">Error: ${j?.error||"unknown"}</td></tr>`;
+    }
+  }catch(e){
+    out.innerHTML = `<tr><td colspan="3">Error: ${String(e)}</td></tr>`;
+  }
+};

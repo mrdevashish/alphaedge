@@ -1,85 +1,117 @@
-import express from 'express';
-import fetch from 'node-fetch';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import crypto from "crypto";
+import fetch from "node-fetch"; // Node 18+ has global fetch; keep for safety
 
+// ----- ENV -----
+const {
+  PORT = 8080,
+  FRONTEND_URL = "https://mrdevashish.github.io", // from your screenshot
+  JWT_SECRET = "supersecret_change_me",
+  RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || "",
+  RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || "",
+  ORG_NAME = "AlphaEdge",
+  ORG_ADDRESS = "Mumbai, India",
+  ORG_PIN = "MH",
+  GSTIN = "XXABCDE1234F1Z5",
+} = process.env;
+
+// ----- APP -----
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.set("trust proxy", 1);
+app.use(express.json({ limit: "1mb" }));
 
-app.use(cors());
-app.use(express.json());
+// ----- CORS -----
+// Allow your frontend + local dev (helpful for testing from phone)
+const allow = [FRONTEND_URL, "http://127.0.0.1:8081", "http://127.0.0.1:8080", "http://localhost:8081", "http://localhost:8080"];
+app.use(cors({
+  origin(origin, cb){
+    if (!origin || allow.includes(origin)) return cb(null, true);
+    return cb(null, true); // relax during dev; tighten later
+  },
+  methods: ["GET","POST","OPTIONS"],
+  allowedHeaders: ["Content-Type", "X-Signature"],
+  maxAge: 86400,
+}));
 
-// helper: get Yahoo chart closes
-async function getClosesYF(symbol, range='1mo', interval='1d') {
-  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
-  const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-  if (!r.ok) throw new Error(`YF ${r.status}`);
-  const j = await r.json();
-  const close = j.chart?.result?.[0]?.indicators?.quote?.[0]?.close || [];
-  return close.filter(x => typeof x === 'number');
-}
+// ----- HEALTH -----
+app.get("/health", (req,res)=>res.json({ ok:true }));
 
-// POST /api/ai/analyze { symbol, tf }
-app.post('/api/ai/analyze', async (req, res) => {
-  try {
-    const symbol = (req.body?.symbol || '').trim();
-    const tf = (req.body?.tf || '1d');
-    if (!symbol) return res.status(400).json({ ok:false, error:'symbol required' });
+// ----- PUBLIC CONFIG (safe to show on frontend) -----
+app.get("/config/public", (req,res)=>{
+  res.json({
+    ok:true,
+    org: { name: ORG_NAME, address: ORG_ADDRESS, pin: ORG_PIN, gstin: GSTIN },
+    frontendUrl: FRONTEND_URL,
+    razorpayKeyId: RAZORPAY_KEY_ID ? "present" : "missing"
+  });
+});
 
-    const range = tf === '1h' ? '5d' : '1mo';
-    const interval = tf === '1h' ? '1h' : '1d';
-    const closes = await getClosesYF(symbol, range, interval);
-
-    const last = closes.at(-1), prev = closes.at(-2);
-    const momentum = (last && prev) ? (((last - prev) / prev) * 100) : null;
-
-    return res.json({
-      ok: true,
-      symbol,
-      tf,
-      momentum: momentum === null ? '-' : momentum.toFixed(2)
-    });
-  } catch (err) {
-    console.error('Analyze Error', err);
-    res.status(500).json({ ok:false, error:String(err) });
+// ----- SIMPLE AI ANALYZE (placeholder) -----
+app.post("/api/ai/analyze", async (req,res)=>{
+  try{
+    const { symbol = "", tf = "1d" } = req.body || {};
+    if (!symbol) return res.status(400).json({ ok:false, error:"symbol missing" });
+    // TODO: replace with real logic
+    return res.json({ ok:true, symbol, tf, momentum: (Math.random()*3).toFixed(2) });
+  }catch(e){
+    console.error("analyze error:", e);
+    res.status(500).json({ ok:false, error:String(e) });
   }
 });
 
-// POST /api/screener { symbols:"AAPL,MSFT", tf:"1d" }
-app.post('/api/screener', async (req, res) => {
-  try {
-    const symbols = String(req.body?.symbols || '').split(/[,\s]+/).filter(Boolean);
-    const tf = (req.body?.tf || '1d');
-    const range = tf === '1h' ? '5d' : '1mo';
-    const interval = tf === '1h' ? '1h' : '1d';
-
-    const results = [];
-    for (const s of symbols) {
-      try {
-        const closes = await getClosesYF(s, range, interval);
-        const last = closes.at(-1), prev = closes.at(-2);
-        const m = (last && prev) ? (((last - prev) / prev) * 100) : null;
-
-        // SMA20 comparison if enough data
-        const n = 20;
-        let vsSMA20 = '-';
-        if (closes.length >= n) {
-          const recent = closes.slice(-n);
-          const sma = recent.reduce((a,b)=>a+b,0)/n;
-          vsSMA20 = (last && sma) ? (((last - sma)/sma)*100).toFixed(2) : '-';
-        }
-
-        results.push({ symbol: s, momentum: m===null?'-':m.toFixed(2), vsSMA20 });
-      } catch (e) {
-        results.push({ symbol: s, error: String(e.message || e) });
-      }
-    }
+// ----- SIMPLE SCREENER (placeholder) -----
+app.post("/api/screener", async (req,res)=>{
+  try{
+    const { symbols = [], tf = "1d" } = req.body || {};
+    const list = Array.isArray(symbols) ? symbols : String(symbols).split(",").map(s=>s.trim()).filter(Boolean);
+    const results = list.map(s => ({ symbol:s, momentum:(Math.random()*3).toFixed(2), vsSMA20:"-" }));
     res.json({ ok:true, results });
-  } catch (err) {
-    console.error('Screener Error', err);
-    res.status(500).json({ ok:false, error:String(err) });
+  }catch(e){
+    console.error("screener error:", e);
+    res.status(500).json({ ok:false, error:String(e) });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ AlphaEdge backend running on http://127.0.0.1:${PORT}`);
+// ----- RAZORPAY (order create) -----
+app.post("/api/razorpay/order", async (req,res)=>{
+  try{
+    const { amount, currency="INR", receipt="rcpt_"+Date.now() } = req.body || {};
+    if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) return res.status(500).json({ ok:false, error:"Razorpay keys missing" });
+    const r = await fetch("https://api.razorpay.com/v1/orders", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Basic "+Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString("base64")
+      },
+      body: JSON.stringify({ amount, currency, receipt })
+    });
+    const j = await r.json();
+    if (!r.ok) return res.status(400).json({ ok:false, error:j });
+    res.json({ ok:true, order:j });
+  }catch(e){
+    console.error("razorpay order error:", e);
+    res.status(500).json({ ok:false, error:String(e) });
+  }
+});
+
+// ----- RAZORPAY WEBHOOK VERIFY (optional) -----
+app.post("/webhooks/razorpay", express.raw({type:"application/json"}), (req,res)=>{
+  try{
+    const signature = req.headers["x-razorpay-signature"];
+    const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET || "";
+    if (!webhookSecret) return res.status(200).send("no secret set");
+    const expected = crypto.createHmac("sha256", webhookSecret).update(req.body).digest("hex");
+    if (signature !== expected) return res.status(400).send("bad signature");
+    // TODO: process event
+    res.status(200).send("ok");
+  }catch(e){
+    console.error("webhook error:", e);
+    res.status(200).send("ok");
+  }
+});
+
+// ----- LISTEN -----
+app.listen(PORT, "0.0.0.0", ()=> {
+  console.log(`✅ Backend listening on 0.0.0.0:${PORT}`);
 });
