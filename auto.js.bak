@@ -1,0 +1,70 @@
+const API_BASE = 'http://127.0.0.1:5000';
+document.getElementById('bootStatus')?.textContent = 'JS loaded';
+
+async function postJSON(path, body){
+  const r = await fetch(`$http://127.0.0.1:5000${path}`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  const txt = await r.text();
+  if (!r.ok) throw new Error(txt || r.statusText);
+  return JSON.parse(txt);
+}
+async function getJSON(path){
+  const r = await fetch(`$http://127.0.0.1:5000${path}`);
+  const txt = await r.text();
+  if (!r.ok) throw new Error(txt || r.statusText);
+  return JSON.parse(txt);
+}
+
+/* ---------- Analyzer ---------- */
+document.getElementById('analyzeBtn')?.addEventListener('click', async () => {
+  const s  = document.getElementById('aiSymbol').value.trim();
+  const tf = document.getElementById('aiTf').value;
+  const out = document.getElementById('aiOut');
+  if (!s){ out.textContent = 'Type a symbol (e.g. TCS.NS or NSE:TCS)'; return; }
+  out.textContent = 'Fetching…';
+  try {
+    const j = await postJSON('/api/analyze', { symbol: s, tf });
+    out.textContent = JSON.stringify(j, null, 2);
+  } catch (e) {
+    out.textContent = `Analyzer Error: ${e.message||e}`;
+  }
+});
+
+/* ---------- Screener ---------- */
+document.getElementById('runScr')?.addEventListener('click', async () => {
+  const list = document.getElementById('scrList').value.trim();
+  const tf   = document.getElementById('scrTf').value;
+  const body = document.getElementById('scrBody');
+  body.innerHTML = '<tr><td colspan="3">Running…</td></tr>';
+  const syms = list.split(',').map(s => s.trim()).filter(Boolean);
+  if (!syms.length){ body.innerHTML = '<tr><td colspan="3">Add symbols first</td></tr>'; return; }
+  try {
+    // send a string so legacy backend using .split(',') works
+    const j = await postJSON('/api/screener', { symbols: syms.join(','), tf });
+    body.innerHTML = (j.results||[])
+      .map(r => `<tr><td>${r.symbol}</td><td>${r.momentum ?? '-'}</td><td>${r.vsSMA20 ?? '-'}</td></tr>`)
+      .join('') || '<tr><td colspan="3">No rows</td></tr>';
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="3">Screener Error: ${e.message||e}</td></tr>`;
+  }
+});
+
+/* ---------- Autosuggest ---------- */
+const symInput = document.getElementById('aiSymbol');
+const symList  = document.getElementById('symList');
+if (symInput && symList) {
+  let t;
+  symInput.oninput = () => {
+    clearTimeout(t);
+    const q = symInput.value.trim();
+    if (q.length < 1) { symList.innerHTML = ''; return; }
+    t = setTimeout(async () => {
+      try {
+        const j = await getJSON(`/api/suggest?q=${encodeURIComponent(q)}`);
+        symList.innerHTML = (j.quotes||[]).slice(0,10).map(x => `<option value="${x.symbol}">${x.name||x.symbol}</option>`).join('');
+      } catch {}
+    }, 150);
+  };
+}

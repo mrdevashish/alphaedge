@@ -1,0 +1,101 @@
+<script>window.API_BASE="YOUR_RENDER_URL";</script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>AlphaEdge — Unified Dashboard</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
+  <style>
+    :root{--bg:#0b0f14;--card:#131a22;--text:#e6f0ff;--sub:#9bb6d4;--btn:#00d4ff;--dim:#1b2531}
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial}
+    body{margin:0;background:var(--bg);color:var(--text)}
+    nav{display:flex;gap:24px;padding:20px 16px;max-width:1100px;margin:0 auto}
+    nav a{color:var(--sub);text-decoration:none}
+    h1{margin:0 16px 12px;max-width:1100px}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 16px 24px}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    .card{background:var(--card);border:1px solid #223345;border-radius:14px;padding:14px}
+    label{display:block;font-size:13px;color:var(--sub);margin:8px 0 6px}
+    input,select,button{height:44px;border-radius:10px;border:1px solid #223345;background:#0f151d;color:var(--text);padding:0 12px}
+    button{background:var(--btn);color:#002b33;border:none;font-weight:700;cursor:pointer}
+    .row{display:flex;gap:10px;align-items:center}
+    pre{background:var(--dim);min-height:220px;border-radius:12px;padding:12px;overflow:auto;color:#dff5ff}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid #223345;color:#dff5ff}
+    .status{font-size:12px;color:#7fd3ff;margin-left:6px}
+  </style>
+  <link rel="stylesheet" href="style.css?v=1762947824">
+</head>
+<body>
+  <h1>AlphaEdge — Unified Dashboard<span id="liveBadge" style="margin-left:12px;font-size:.9rem;opacity:.8">OFFLINE</span></h1>
+  <nav class="nav">
+  <span id="orgName" style="margin-left:8px;opacity:.8">AlphaEdge</span>
+    <a href="index.html">Home</a><a href="about.html">About</a><a href="pricing.html">Pricing</a>
+    <a href="login.html">Login</a><a href="register.html">Register</a>
+    <span class="status" id="bootStatus">Loading…</span>
+  </nav>
+
+  <div class="wrap">
+    <!-- TradingView lightweight widget -->
+    <div class="card">
+      <div id="tv" style="height:420px"></div>
+    </div>
+
+    <div class="grid">
+      <!-- AI Analyzer -->
+      <div class="card">
+        <h3>AI Analyzer</h3>
+        <div class="row">
+          <input id="aiSymbol" list="symList" placeholder="Type symbol (e.g. NSE:TCS, NSE:RELIANCE, NASDAQ:AAPL)" style="flex:1">
+          <select id="aiTf">
+            <option value="1d">1d</option><option value="1h">1h</option><option value="30m">30m</option><option value="15m">15m</option>
+          </select>
+          <button id="analyzeBtn">Analyze</button>
+        </div>
+        <datalist id="symList"></datalist>
+        <pre id="aiOut">Ready.</pre>
+      </div>
+
+      <!-- Screener -->
+      <div class="card">
+        <h3>Screener / Compare</h3>
+        <div class="row">
+          <input id="scrList" placeholder="Comma separated (e.g. NSE:RELIANCE,NSE:TCS,NASDAQ:AAPL)" style="flex:1">
+          <select id="scrTf">
+            <option value="1d">1d</option><option value="1h">1h</option><option value="30m">30m</option><option value="15m">15m</option>
+          </select>
+          <button id="runScr">Run Screener</button>
+        </div>
+        <table>
+          <thead><tr><th>Symbol</th><th>Momentum %</th><th>vs SMA20 %</th></tr></thead>
+          <tbody id="scrBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script>
+    // Simple chart that you can change by typing in the symbol input
+    const container = document.getElementById('tv');
+    const chart = LightweightCharts.createChart(container,{ layout:{ background:{ type:'solid', color:'#0b0f14' }, textColor:'#dfe9f6' }, rightPriceScale:{ borderColor:'#223345' }, timeScale:{ borderColor:'#223345' }});
+    const series = chart.addCandlestickSeries();
+    async function loadCandles(sym='NASDAQ:AAPL'){
+      try{
+        // Use backend proxy for candles to avoid CORS (we’ll reuse /api/analyze’s Yahoo path)
+        const tf = '1d';
+        const r = await fetch('http://127.0.0.1:5000/api/candles?symbol='+encodeURIComponent(sym)+'&tf='+tf);
+        const j = await r.json();
+        series.setData(j.candles||[]);
+      }catch(e){}
+    }
+    loadCandles();
+    document.getElementById('aiSymbol').addEventListener('change', e=> loadCandles(e.target.value.trim()));
+  </script>
+
+  <script src="auto.js?v=1762955201"></script>
+  <script src="tv.js"></script>
+</body>
+</html>
